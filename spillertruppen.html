@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="da">
+<head>
+	<title>Spillertruppen: Liga</title>
+	<meta name="description" content="Mød alle spillere fra ligaholdets spillertrup i Aalborg Futsal Klub.">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" type="image/png" href="Billeder/Logo/afk-logo-favicon.png">
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js" defer></script>
+<!-- Matomo Tag Manager -->
+	<script>
+		var _mtm = window._mtm = window._mtm || [];
+		_mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		g.async=true; g.src='https://cdn.matomo.cloud/aalborgfutsalklub.matomo.cloud/container_8mvsbJzS.js'; s.parentNode.insertBefore(g,s);
+	</script>
+	<!-- End Matomo Tag Manager -->
+</head>
+
+<body class="nothingham">
+<!-- POP-UP's -->
+	<div class="popup-overlay"></div>
+		<div class="popup-signup">
+			<div class="popup-close-signup">&times;</div>
+			<div class="form">
+				<div class="text">
+					<p><strong>Klubregler for spillere</strong>: en spiller må godt spille udendørs fodbold i en klub, indefodbold for en anden klub og futsal for en tredje klub. Træner man i Aalborg Futsal Klub, er det ikke tilladt at spille futsalkampe for andre klubber end Aalborg Futsal Klub.</p>
+				</div>
+				<div class="conventus-signup">
+					<iframe frameborder="0" src="https://www.conventus.dk/dataudv/www/holdoversigt_ny_iframe.php?foreningsid=6122&afdelingsid=57276&handelsbetingelser=1&reservationer=vis&skjul_nyt_medlem=0&skjul_allerede_medlem=0&raekkefoelge=alfabetisk&sprog=da&vis_adresse=0&knap_placering=horisontal&highlight=pris&start=periode;ledige_pladser&info=tid_sted;alder;betaling;tilmelding;tilmeld_aabner_om;ledere;om_holdet"></iframe>
+				</div>
+				<div class="headerr">
+				</div>
+			</div>
+		</div>
+	<div class="popup-overlay"></div>
+		<div class="popup-login">
+			<div class="popup-close-login">&times;</div>
+			<div class="form">
+				<div class="avatar">
+					<img src="./Billeder/icons/user-icon.svg" alt="">
+				</div>
+				<div class="headerr">
+					Medlems-log-ind
+				</div>
+				<div class="conventus"><script type="text/javascript" src="https://www.conventus.dk/dataudv/www/medlemslogin.php?foreningsid=6122&layout=1&boks=1&popup=1"></script></div>
+			</div>
+		</div>
+
+
+<!-- HEADER -->	
+	<header class="afk-header">
+	<!--  LOGO -->
+		<div class="header-item logo">
+			<div class="logoEffect"></div>
+			<a href="index.html"><img id="logo" src="./Billeder/Logo/afk-logo-white.png" alt="Gå til forsiden - AFK logo"></a>
+			<div class="logoEffect2"></div>
+		</div>
+	<!-- Top-bar 1-3 -->
+		<div class="top-bar1 header-item">
+			<div class="topbar-text"><p>Følg Aalborg Futsal Klub</p></div>
+			<div class="soMe">
+				<a href="https://www.facebook.com/aalborgfutsalklub/" target="_blank"><img src="./Billeder/SoMe-Icons/facebook-white.png" alt="Besøg AFK's facebookside"></a>
+				<a href="https://twitter.com/AalborgFK?t=A-sDZAYShqpnt3PnzANtdA&s=09" target="_blank"><img src="./Billeder/SoMe-Icons/twitter-white.png" alt="Besøg AFK's twitterside"></a>
+				<a href="https://www.instagram.com/aalborgfutsalklub/" target="_blank"><img src="./Billeder/SoMe-Icons/instagram-white.png" alt="Besøg AFK's instagramside"></a>
+				<a href="https://www.youtube.com/channel/UCf9oGbU4UaI67BI-m3wEvEw" target="_blank"><img src="./Billeder/SoMe-Icons/youtube-white.png" alt="Besøg AFK's youtubekanal"></a>
+			</div>
+		</div>
+		<!-- <div class="top-bar2 header-item">
+			<div class="search">
+				<img src="./Billeder/icons/search-icon.png">
+				<div class="search-bar-wrapper">
+					<form action="search.html" method="GET">
+						<input type="search" class="search-bar" name="">
+						<button type="submit" class="search-button">&#10095;</button>
+					</form>
+				</div>
+			</div>
+		</div> -->
+		<div class="top-bar3 header-item">
+			<button class="logIn">Log ind</button>
+
+			
+			<button class="signUp">Tilmeld dig</button>
+
+			<!-- <div class="chooseLanguage">
+				<a href="#"><img src="./Billeder/Flag/dkk.png">dk</a>
+				<div class="languageNested">
+					<a href="#" class="eng languageNestedElement"><img src="./Billeder/Flag/en.png">EN</a>
+					<a href="#" class="esp languageNestedElement"><img src="./Billeder/Flag/esp.png">ESP</a>
+				</div>
+			</div> -->
+		</div>
+	<!-- Nav-menu -->
+		<nav class="afk-nav header-item">
+			<div class="nav-element">
+				<a href="ligaholdet.html">Ligaholdet</a>
+				<div class="nav-nested">
+					<a href="seneste-liga.html">Seneste</a>
+					<a href="spillertruppen.html">Spillertruppen</a>
+					<a href="traenerstab.html">Trænerstab</a>
+					<a href="kampprogram.html">Kampprogram</a>
+					<a href="resultater.html">Resultater</a>
+					<a href="stilling.html">Stilling</a>
+					<a href="billeder.html">Billeder</a>
+				</div>
+			</div>
+			<div class="nav-element">
+				<a href="billet-og-tv.html">Billet & TV</a>
+				<div class="nav-nested">
+					<a href="billetter.html">Billetter</a>
+					<!-- <a href="saesonkort.html">Sæsonkort</a> -->
+					<a href="tv-streaming.html">TV & Streaming</a>
+					<a href="kamparkiv.html">Kamp-arkiv</a>
+				</div>
+			</div>
+			<div class="nav-element">
+				<a href="partnere.html">Partnere</a>
+				<div class="nav-nested">
+					<a href="afk-partnere.html">AFK Partnere</a>
+					<a href="partner-muligheder.html">Partner-muligheder</a>
+				</div>
+			</div>
+			<div class="nav-element">
+				<a href="klubben.html">Klubben</a>
+				<div class="nav-nested">
+					<a href="nyheder.html">Nyheder</a>
+					<a href="afk-kampprogram.html">Kampprogram</a>
+					<a href="formaal.html">Formål</a>
+					<a href="historie.html">Historie</a>
+					<!-- <a href="identitet.html">Identitet & Værdier</a> -->
+					<a href="afk-traenere.html">AFK Trænere</a>
+					<a href="afk-academy.html">AFK Academy</a>
+					<a href="bestyrelse.html">Bestyrelse</a>
+					<a href="kontakt.html">Kontakt</a>
+				</div>
+			</div>
+			<div class="nav-element">
+				<a href="afk-hold.html">AFK Hold</a>
+				<div class="nav-nested">
+					<a href="afk-hold/ligaholdet.html">Ligaholdet</a>
+					<a href="afk-hold/afk-b.html">AFK B (herresenior)</a>
+					<a href="afk-hold/afk-kvinder.html">AFK Kvinder (damesenior)</a>
+					<a href="afk-hold/afk-ungdom.html">AFK Ungdom</a>
+					<a href="afk-hold/afk-oldboys.html">AFK Old Boys</a>
+				</div>
+			</div>
+			<div class="nav-element">
+				<a href="om-futsal.html">Om Futsal</a>
+				<div class="nav-nested">
+					<a href="futsal-introduktion.html">Introduktion</a>
+					<a href="futsal-historie.html">Historie & udvikling</a>
+					<!-- <a href="futsal-danmark.html">Futsal i Danmark</a> -->
+					<a href="futsal-regler.html">Regler</a>
+					<a href="oevelses-center.html">Øvelses center</a>
+				</div>
+			</div>
+			<div class="nav-element">
+			<a href="afk-shop.html">Shop</a>
+		</div>
+	</nav>
+
+	<!-- Burger-NAV -->
+	<nav class="afk-nav-burger">
+		<div class="burger-icon">
+			<div class="burger-icon-bar"></div>
+			<div class="burger-icon-bar"></div>
+			<div class="burger-icon-bar"></div>
+		</div>
+	</nav>
+
+	<!-- LastGAME -->
+		
+		<div class="lastgame">
+			<a href="#">&#10094;</a>
+			<img src="./Billeder/Logo/afk-logo-white.png" alt="Aalborg Futsal Klub - logo">
+			<a href="#"><div class="lastgame-text">
+				<h3>7 : 1</h3>
+				<p>20. nov</p>
+			</div></a>
+			<img src="./Billeder/Ligahold/skive-logo.png" alt="Skive Futsal Club - logo">
+			<a href="#">&#10095;</a>
+		</div>
+	</header>
+
+	<div class="afk-nav-burger-content">
+		<div class="nav-burger-wrapper">
+			<div class="nav-burger-element">
+				<a href="ligaholdet.html">Ligaholdet</a>
+				<img src="/Billeder/icons/arrow_down_white.svg" alt="Åben undermenu" class="burger-nested-opener">
+				<div class="nav-burger-nested" style="display: none;">
+					<a href="seneste-liga.html">Seneste</a>
+					<a href="spillertruppen.html">Spillertruppen</a>
+					<a href="traenerstab.html">Trænerstab</a>
+					<a href="kampprogram.html">Kampprogram</a>
+					<a href="resultater.html">Resultater</a>
+					<a href="stilling.html">Stilling</a>
+					<a href="billeder.html">Billeder</a>
+				</div>
+			</div>
+			<div class="nav-burger-element">
+				<a href="billet-og-tv.html">Billet & TV</a>
+				<img src="/Billeder/icons/arrow_down_white.svg" alt="Åben undermenu" class="burger-nested-opener">
+				<div class="nav-burger-nested" style="display: none;">
+					<a href="billetter.html">Billetter</a>
+					<!-- <a href="saesonkort.html">Sæsonkort</a> -->
+					<a href="tv-streaming.html">TV & Streaming</a>
+					<a href="kamparkiv.html">Kamp-arkiv</a>
+				</div>
+			</div>
+			<div class="nav-burger-element">
+				<a href="partnere.html">Partnere</a>
+				<img src="/Billeder/icons/arrow_down_white.svg" alt="Åben undermenu" class="burger-nested-opener">
+				<div class="nav-burger-nested" style="display: none;">
+					<a href="afk-partnere.html">AFK Partnere</a>
+					<a href="partner-muligheder.html">Partner-muligheder</a>
+				</div>
+			</div>
+			<div class="nav-burger-element">
+				<a href="klubben.html">Klubben</a>
+				<img src="/Billeder/icons/arrow_down_white.svg" alt="Åben undermenu" class="burger-nested-opener">
+				<div class="nav-burger-nested" style="display: none;">
+					<a href="nyheder.html">Nyheder</a>
+					<a href="afk-kampprogram.html">Kampprogram</a>
+					<a href="formaal.html">Formål</a>
+					<a href="historie.html">Historie</a>
+					<!-- <a href="identitet.html">Identitet & Værdier</a> -->
+					<a href="afk-traenere.html">AFK Trænere</a>
+					<a href="afk-academy.html">AFK Academy</a>
+					<a href="bestyrelse.html">Bestyrelse</a>
+					<a href="kontakt.html">Kontakt</a>
+				</div>
+			</div>
+			<div class="nav-burger-element">
+				<a href="afk-hold.html">AFK Hold</a>
+				<img src="/Billeder/icons/arrow_down_white.svg" alt="Åben undermenu" class="burger-nested-opener">
+				<div class="nav-burger-nested" style="display: none;">
+					<a href="afk-hold/ligaholdet.html">Ligaholdet</a>
+					<a href="afk-hold/afk-b.html">AFK B (herresenior)</a>
+					<a href="afk-hold/afk-kvinder.html">AFK Kvinder (damesenior)</a>
+					<a href="afk-hold/afk-ungdom.html">AFK Ungdom</a>
+					<a href="afk-hold/afk-oldboys.html">AFK Old Boys</a>
+				</div>
+			</div>
+			<div class="nav-burger-element">
+				<a href="om-futsal.html">Om Futsal</a>
+				<img src="/Billeder/icons/arrow_down_white.svg" alt="Åben undermenu" class="burger-nested-opener">
+				<div class="nav-burger-nested" style="display: none;">
+					<a href="futsal-introduktion.html">Introduktion</a>
+					<a href="futsal-historie.html">Historie & udvikling</a>
+					<!-- <a href="futsal-danmark.html">Futsal i Danmark</a> -->
+					<a href="futsal-regler.html">Regler</a>
+					<a href="oevelses-center.html">Øvelses center</a>
+				</div>
+			</div>
+			<div class="nav-burger-element">
+				<a href="afk-shop.html">Shop</a>
+			</div>
+		</div>
+		<div class="nav-burger-footer">
+			<p>Følg Aalborg Futsal Klub</p>
+			<div class="soMe-wrapper">
+				<a href="https://www.facebook.com/aalborgfutsalklub/" target="_blank"><img src="./Billeder/SoMe-Icons/facebook-white.png" alt="Besøg AFK's facebookside"></a>
+				<a href="https://twitter.com/AalborgFK?t=A-sDZAYShqpnt3PnzANtdA&s=09" target="_blank"><img src="./Billeder/SoMe-Icons/twitter-white.png" alt="Besøg AFK's twitterside"></a>
+				<a href="https://www.instagram.com/aalborgfutsalklub/" target="_blank"><img src="./Billeder/SoMe-Icons/instagram-white.png" alt="Besøg AFK's instagramside"></a>
+				<a href="https://www.youtube.com/channel/UCf9oGbU4UaI67BI-m3wEvEw" target="_blank"><img src="./Billeder/SoMe-Icons/youtube-white.png" alt="Besøg AFK's youtubekanal"></a>
+			</div>
+		</div>
+	</div>
+
+	<div class="main-content">
+		<h2>Spillertruppen</h2>
+		<h3>Målmænd</h3>
+		<div class="liga-coach">
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>1</h1>
+						<h4>Emil<br>Blankensteiner</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>15</h1>
+						<h4>Marcus<br>Christensen</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>25</h1>
+						<h4>Christoffer<br>Iversen</h4>
+					</div>
+				</a>
+			</div>
+		</div>
+		<h3>Spillere</h3>
+		<div class="liga-coach">
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>3</h1>
+						<h4>Kaare<br>Kvist</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>4</h1>
+						<h4>Alessio<br>Tocco</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>5</h1>
+						<h4>Nacho<br>Moreno</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>6</h1>
+						<h4>Christian<br>Søndergaard</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>7</h1>
+						<h4>Rasmus<br>Leth</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>8</h1>
+						<h4>Mathias<br>Blankensteiner</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>9</h1>
+						<h4>Jakob<br>Jørgensen</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>10</h1>
+						<h4>Simon<br>Mathiesen</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>11</h1>
+						<h4>Lasse<br>Leth</h4>
+					</div>
+				</a>
+			</div>
+			<!-- <div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>12</h1>
+						<h4>Nicki<br>Fischer</h4>
+					</div>
+				</a>
+			</div> -->
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>13</h1>
+						<h4>Sune<br>Kristensen</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>14</h1>
+						<h4>Frederik<br>Andersen</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>16</h1>
+						<h4>Mads<br>Leth</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>17</h1>
+						<h4>Guillem<br>Martinez</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>18</h1>
+						<h4>Simon<br>Lang</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>19</h1>
+						<h4>Christian<br>Kjeldsen</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>20</h1>
+						<h4>Simon<br>Pedersen</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>21</h1>
+						<h4>Jeppe<br>Leth</h4>
+					</div>
+				</a>
+			</div>
+			<div class="coach-element">
+				<a href="#">
+					<img src="./Billeder/icons/player-icon.svg" alt="">
+					<div class="text-element">
+						<h1>22</h1>
+						<h4>Andreas<br>Horskjær</h4>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		
+		<div class="nav">
+			<div class="footer-column">
+				<h3>Kontakt</h3>
+				<div>
+					<p><strong>Aalborg Futsal Klub</strong>
+						<br>Algade 38, 4. sal
+						<br>9000 Aalborg
+					</p>
+					<br>
+					<p>E-mail: info@aalborgfutsalklub.dk
+						<br>CVR: 34789568</p>
+				</div>
+			</div>
+
+			<div class="footer-column">
+				<h3>Aalborg Futsal Klub</h3>
+				<ul>
+					<li><a href="kontakt.html">Kontakt</a></li>
+					<li class="signUpFooter"><a>Tilmeld dig</a></li>
+					<li><a href="nyheder.html">Seneste nyt</a></li>
+				</ul>
+			</div>
+
+			<div class="footer-column footer-special">
+				<a href="https://www.facebook.com/aalborgfutsalklub/" target="_blank"><img src="./Billeder/SoMe-Icons/facebook-white.png" alt="Besøg AFK's facebookside"></a>
+				<a href="https://twitter.com/AalborgFK?t=A-sDZAYShqpnt3PnzANtdA&s=09" target="_blank"><img src="./Billeder/SoMe-Icons/twitter-white.png" alt="Besøg AFK's twitterside"></a>
+				<a href="https://www.instagram.com/aalborgfutsalklub/" target="_blank"><img src="./Billeder/SoMe-Icons/instagram-white.png" alt="Besøg AFK's instagramside"></a>
+				<a href="https://www.youtube.com/channel/UCf9oGbU4UaI67BI-m3wEvEw" target="_blank"><img src="./Billeder/SoMe-Icons/youtube-white.png" alt="Besøg AFK's youtubekanal"></a>
+			</div>
+		</div>
+		<div class="bottom">
+			<p>Copyright © 2021 Aalborg Futsal Klub</p>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

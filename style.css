@@ -1,0 +1,3948 @@
+:root{
+	--text-color: white;
+}
+/*
+_________________________________________________________________________
+GENERAL STUFF
+_________________________________________________________________________*/
+@font-face {
+	font-family: "Titillium";
+	src: url("./fonts/titillium-webkit/titilliumweb-regular.eot");
+	src: url("./fonts/titillium-webkit/titilliumweb-regular.woff") format("woff"),
+	url("./fonts/titillium-webkit/titilliumweb-regular.svg") format("svg");
+}
+
+@font-face {
+	font-family: "Titillium";
+	src: url("./fonts/titillium-webkit/titilliumweb-bold.eot");
+	src: url("./fonts/titillium-webkit/titilliumweb-bold.woff") format("woff"),
+	url("./fonts/titillium-webkit/titilliumweb-bold.svg") format("svg");
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Mulish";
+	src: url("./fonts/mulish-webkit/mulish-regular.eot");
+	src: url("./fonts/mulish-webkit/mulish-regular.woff") format("woff"),
+	url("./fonts/mulish-webkit/mulish-regular.svg") format("svg");
+}
+@font-face {
+	font-family: "Mulish-bold";
+	src: url("./fonts/mulish-webkit/mulish-bold.eot");
+	src: url("./fonts/mulish-webkit/mulish-bold.woff") format("woff"),
+	url("./fonts/mulish-webkit/mulish-bold.svg") format("svg");
+}
+
+*{
+	font-family: Helvetica;
+	margin:0;
+	padding:0;
+}
+body {
+	background-color: #ececf0;
+	width: 100%;
+	overflow: auto;
+	box-sizing: border-box;
+	position: relative;
+}
+p{
+	line-height: 150%;
+	font-size: 16px;
+}
+.link{
+	color: #E84855;
+	text-decoration: none;
+	transition: text-decoration 1000ms ease-out;
+}
+.link:hover{
+	text-decoration: line-through;
+}
+h1{
+	text-transform: uppercase;
+	color: white;
+}
+h2{
+	text-transform: uppercase;
+	color: #001F44;
+	padding-bottom: 5px;
+}
+h3{
+	color: #001F44;
+	text-transform: uppercase;	
+}
+
+.btn-white{
+	display: inline-block;
+	text-decoration: none;
+	font-size: 14px;
+	text-transform: uppercase;
+	padding: 10px 20px;
+	margin: 5px 0;
+	background-color: white;
+	color: #001F44;
+	border: 1px solid white;
+	transition: 300ms ease-out;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.btn-white:hover{
+	background-color: #001F44;
+	color: white;
+	border: 1px solid #001F44;
+}
+.btn-blue{
+	display: inline-block;
+	text-decoration: none;
+	font-size: 14px;
+	text-transform: uppercase;
+	padding: 10px 20px;
+	margin: 5px 0;
+	background-color: #001F44;
+	color: white;
+	border: 1px solid #001F44;
+	transition: 300ms ease-out;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.btn-blue:hover{
+	background-color: white;
+	color: #001F44;
+}
+.btn-blue-trans{
+	display: inline-block;
+	text-decoration: none;
+	font-size: 14px;
+	text-transform: uppercase;
+	padding: 10px 20px;
+	margin: 5px 0;
+	background-color: #001F44;
+	color: white;
+	border: 1px solid #001F44;
+	transition: 300ms ease-out;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.btn-blue-trans:hover{
+	background-color: transparent;
+	color: #001F44;
+}
+.btn-trans{
+	display: inline-block;
+	text-decoration: none;
+	font-size: 14px;
+	text-transform: uppercase;
+	padding: 10px 20px;
+	margin: 5px 0;
+	background-color: transparent;
+	color: white;
+	border: 1px solid white;
+	transition: 300ms ease-out;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.btn-trans:hover{
+	background-color: white;
+	color: #001F44;
+}
+.btn-white-trans{
+	display: inline-block;
+	text-decoration: none;
+	font-size: 14px;
+	text-transform: uppercase;
+	padding: 10px 20px;
+	margin: 5px 0;
+	background-color: white;
+	color: #001F44;
+	border: 1px solid white;
+	transition: 300ms ease-out;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+.btn-white-trans:hover{
+	background-color: transparent;
+	color: white;
+}
+
+/*
+_________________________________________________________________________
+POP-UP & OVERLAYS
+_________________________________________________________________________*/
+
+/*
+____________________________ GENERAL: POP-UP: LOG-IN funktion ___________________________ */
+
+.popup-overlay {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100vh;
+	z-index: 102;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: none;
+}
+
+.popup-login,
+.billet-advarsel {
+	position: absolute;
+	top: -450px;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.5);
+	width: 300px;
+	height: 440px;
+	background-color: #f5f5f5;
+	z-index: 103;
+	opacity: 0;
+	box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+	transition: transform 300ms ease-out, opacity 300ms ease-in-out;
+}
+.popup-signup{
+	position: absolute;
+	top: -450px;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.5);
+	width: 800px;
+	max-height: 90%;
+	background-color: #f5f5f5;
+	z-index: 103;
+	box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+	transition: transform 300ms ease-out, opacity 300ms ease-in-out;
+	font-family: Helvetica;
+	overflow-y: scroll;
+}
+.conventus{
+	margin: 35px;
+	padding: 10px auto;
+}
+.conventus-signup{
+	width: 100%;
+	margin: 20px auto;
+}
+.conventus-signup iframe{
+	width: 100%;
+	min-height: 500px;
+	font-size: 12px;
+	transform: scale(1);
+}
+.showLoginForm .popup-overlay,
+.showSignUpForm .popup-overlay,
+.showBilletAdvarsel .popup-overlay
+{
+	display: block;
+}
+
+.showLoginForm .popup-login,
+.showSignUpForm .popup-signup,
+.showBilletAdvarsel .billet-advarsel {
+	position: fixed;
+	top: 50%;
+	opacity: 1;
+	transform: translate(-50%, -50%) scale(1);
+}
+
+.popup-close-login,
+.popup-close-signup,
+.popup-close {
+	position: absolute;
+	display: flex;
+	background-color: #001F44;
+	margin: 5px;
+	padding: 0 4px;
+	color: white;
+	font-size: 16px;
+	text-align: center;
+	border-radius: 50px;
+	cursor: pointer;
+	transition: 300ms ease-out;
+}
+.popup-close-login:hover,
+.popup-close-signup:hover,
+.popup-close:hover{
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.form{
+	margin: 20px 20px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.form .avatar{
+	text-align: center;
+}
+
+.popup-login .form .avatar img,
+.popup-signup .form .avatar img{
+	width: 130px;
+	border-radius: 50%;
+}
+
+.form .headerr {
+	text-align: center;
+	font-size: 20px;
+	font-weight: 600;
+	color: #001F44;
+	margin: 20px 0px;
+}
+
+/* .form .element {
+	padding:  8px 20px;
+}
+
+.popup .form .element label {
+	display: block;
+	font-size: 14px;
+	color: #001F44;
+	margin-bottom: 5px;
+}
+
+.popup .form .element input {
+	width: 100%;
+	padding: 8px 10px;
+	box-sizing: border-box;
+	outline: none;
+	border: 1px solid #aaa;
+	background-color: #eee;
+	border-radius: 5px;
+}
+
+.popup-login .form .element button, .popup-signup .form .element button {
+	margin-top: 5px;
+	width: 100%;
+	padding: 10px 0px;
+	text-transform: uppercase;
+	outline: none;
+	border: none;
+	font-size: 15px;
+	font-weight: 600;
+	border-radius: 5px;
+	cursor: pointer;
+	background-color: #001F44;
+	color: #f5f5f5;
+} */
+
+/*
+_________________________________________________________________________
+Header Grid & items
+_________________________________________________________________________*/
+
+.afk-header {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	grid-auto-rows: auto;
+	grid-template-areas:
+		"logo topbar1 topbar1 topbar1 topbar3 topbar3"
+		"logo navbar navbar navbar navbar lastgame";
+	background-color: #001F44;
+	filter: opacity(95%);
+	width: 100%;
+	position: sticky;
+	top:0;
+	z-index: 3;
+}
+
+
+/*_______________________LOOGOOO________________________*/
+
+.logo{
+	grid-area: logo;
+	display: flex;
+	justify-content: space-between;
+	align-content: center;
+	flex-wrap: wrap;
+	margin: auto 0;
+}
+
+.logo img{
+	display: flex;
+	justify-self: center;
+	align-self: center;
+	height: 80px;
+	transition: 300ms;
+	padding: 0;
+	margin:0;
+}
+
+.logoEffect{
+	content: "";
+	align-self: flex-start;
+	justify-self: flex-start;
+	left:10px;
+	top:0;
+	margin: 5px -20px 5px -70px;
+	padding: 10px 15px;
+	transition: 300ms ease-in-out;
+	background-color: white;
+}
+
+.logoEffect2{
+	content: "";
+	align-self: flex-end;
+	justify-self: flex-end;
+	right:30px;
+	top: -10px;
+	margin: 5px -70px 5px -20px;
+	padding: 10px 15px;
+	transition: 300ms ease-in-out;
+	background-color: #AFD2E9;
+}
+
+
+
+
+/*_______________________TOP BAR 1________________________*/
+
+.top-bar1 {
+	grid-area: topbar1;
+	display:flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-wrap: wrap;
+	border-bottom: 1px solid #777777;
+	border-left: 1px solid #777777;
+	background-color: #001732;
+}
+
+.soMe img {
+	max-height: 20px;
+	padding: 0 5px;
+}
+
+.topbar-text p {
+	margin: 5px 10px 5px 0;
+	padding: 0 0 0 10px;
+	font-size: 10px;
+	text-transform: uppercase;
+	color: white;
+}
+
+.soMe img:hover{
+	filter: opacity(70%);
+	transition: 300ms ease-in-out;
+}
+
+
+/*_______________________TOP BAR 2________________________*/
+
+.top-bar2 {
+	grid-area: topbar2;
+	position: relative;
+	display:flex;
+	justify-content: flex-start;
+	align-items: center;
+	border-bottom: 1px solid #777777;
+	background-color: #001732;
+}
+.search img{
+	height: 15px;
+	cursor: pointer;
+}
+
+.search img:hover{
+	filter: opacity(70%);
+	transition: 200ms ease-in-out;
+}
+.search-bar-wrapper{
+	display: none;
+	position: absolute;
+	align-self: center;
+}
+.search-bar{
+	width: 10em;
+	margin-left: 4px;
+	background: transparent;
+	color: white;
+	box-sizing: content-box;
+	border: none;
+	border-bottom: 1px solid white;
+	outline: none;
+	transition: 300ms ease-out;
+}
+.show-search-bar .search-bar-wrapper{
+	display: inline-block;
+}
+.search-button{
+	padding: 0;
+	margin: 0;
+	background: none;
+	border: none;
+	position: absolute;
+	right: 0;
+}
+.search-button:hover{
+	filter: opacity(70%);
+	background: none;
+	color: #ffffff;
+}
+
+/*_______________________TOP BAR 3________________________*/
+
+.top-bar3 {
+	grid-area: topbar3;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex-wrap: wrap;
+	border-left: none;
+	border-bottom: 1px solid #777777;
+	background-color: #001732;
+	padding: 2px 0;
+}
+
+.top-bar3 .logIn {
+	margin: 5px 10px 5px 0;
+	padding: 5px 20px 5px 20px;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: 100;
+	background: #AFD2E9;
+	color: #001732;
+	border: 1px solid #AFD2E9;
+	cursor: pointer;
+}
+
+.top-bar3 .logIn:hover{
+	background-color: #001732;
+	color:#AFD2E9;
+	transition: 300ms ease-in-out;
+}
+
+.top-bar3 .signUp {
+	margin: 5px 10px 5px 0;
+	padding: 5px 20px 5px 20px;
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: 100;
+	background: #001732;
+	color: #AFD2E9;
+	border: 1px solid #AFD2E9;
+	cursor: pointer;
+}
+
+.top-bar3 .signUp:hover{
+	background-color: #AFD2E9;
+	color:#001732;
+	transition: 300ms ease-in-out;
+}
+
+.topbar-text {
+	margin: 0 10px 0 0;
+	font-size: 9px;
+	font-weight: 200;
+	text-transform: uppercase;
+	color: white;
+}
+
+
+/*_______________________LAST GAME________________________*/
+
+.lastgame {
+	grid-area: lastgame;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	padding:0;
+	border-left: 1px solid #777777;
+}
+.lastgame-text:hover{
+	filter: opacity(70%);
+	transition: 150ms ease-in;
+}
+
+.lastgame img {
+	max-height: 40px;
+	margin: 0px 5px;
+	padding:0;
+}
+
+.lastgame-text {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0;
+}
+
+.lastgame-text h3 {
+	color: white;
+	font-size: 16px;
+	margin: 0px 10px;
+	padding: 10px 0 0 0;
+	border-bottom: 1px solid white;
+}
+
+.lastgame-text p {
+	color: white;
+	font-size: 10px;
+	padding: 0;
+}
+
+.lastgame a {
+	color: white;
+	font-weight: 600;
+	text-decoration: none;
+}
+.lastgame a:hover{
+	filter: opacity(70%);
+	transition: 150ms ease-in;
+}
+
+
+/*_______________________NAVIGATION - MENU BAR________________________*/
+
+.afk-nav {
+	grid-area: navbar;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	background-color: #001F44;
+	border-left: 1px solid #777777;
+}
+
+
+
+		/*_______________________DROPdown Main-Menu________________________*/
+
+		.nav-element{
+			margin: 10px 10px 10px 0;
+			padding:0px;
+			
+		}
+		.active {
+			border-bottom: 3px solid white;
+		}
+		
+		
+		.nav-element a {
+			display: flex;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+			text-decoration: none;
+			font-size: 18px;
+			text-transform: uppercase;
+			font-family: Titillium;
+			font-weight: bold;
+			transition: 300ms;
+			color: white;
+			border-bottom: 3px solid #001F44;
+			
+		}
+		.nav-element .active a{
+			border-bottom: white;
+			color: #E84855;
+		}
+		.nav-element .active a:hover{
+			border-bottom: white;
+			transform:none;
+		}
+		
+		.nav-element a:hover, .nav-nested:hover .nav-element a{
+			border-bottom: 3px solid white;
+			color: #E84855;
+			transition: 300ms ease-out;
+		}
+		
+		.nav-nested {
+			display: none;
+			flex-direction: column;
+			position: absolute;
+			padding: 4px 0 0 0;
+			margin:0;
+			width: 15vw;
+		}
+
+		.nav-nested a {
+			display: flex;
+			text-align: left;
+			padding: 12px 16px;
+			font-size: 14px;
+			text-decoration: none;
+			background-color: #001F44;
+			color: white;
+			border: none;
+		}
+
+		.nav-nested a:hover {
+			color: #E84855;
+			filter:opacity(100%);
+			transform: none;
+			border:none;
+		}
+
+		.nav-element:hover .nav-nested {
+			display: flex;
+		}
+
+/*_______________________BURGER NAV - MENU BAR________________________*/
+
+.afk-nav-burger {
+	grid-area: navburger;
+	position: relative;
+	display: none;
+	flex-direction: column;
+	margin-right: 20px;
+	justify-content: center;
+	align-items: flex-end;
+	background-color: #001F44;
+}
+.burger-icon{
+	width: 30px;
+}
+.burger-icon-bar{
+	height: 3px;
+	width: 100%;
+	background-color: #AFD2E9;
+	margin: 5px 0;
+	display: block;
+	transition: transform 300ms ease-out		;
+}
+.burger-icon .special{
+	transform: rotate(180deg);
+}
+.burger-icon:hover{
+	cursor: pointer;
+}
+.afk-nav-burger-content{
+	display: block;
+	flex-direction: column;
+	padding: 20px 20px 10px 20px;
+	background-color: #001F44;
+	filter: opacity(95%);
+	position: fixed;
+	width: 100%;
+	z-index: 11;
+	font-weight: bold;
+	font-size: 14px;
+	border-top: 1px solid white;
+	box-sizing: border-box;
+	transform: translateY(-125%);
+	transition: transform 300ms ease-out;
+	height: 100vh;
+	overflow: scroll;
+	
+}
+.nav-burger-element{
+	border-bottom: 1px solid white;
+	display: block;
+	padding: 10px 0;
+}
+.nav-burger-element:last-child{
+	padding-bottom: 10px;
+}
+.nav-burger-element a{
+	text-decoration: none;
+	color: white;
+	text-transform: uppercase;
+	font-family: Titillium;
+	transition: 300ms ease-out;
+}
+.nav-burger-element a:hover{
+	color: #E84855;
+}
+.nav-burger-element img{
+	float: right;
+	transition: 300ms ease-out;
+}
+.nav-burger-element img:hover{
+	filter: opacity(70%);
+}
+.nav-burger-nested{
+	/* display: none; ----------- gjort direkte på html-element grundet JS */
+	flex-direction: column;
+	padding-left: 10px;
+	font-size: 12px;
+}
+.nav-burger-nested a{
+	border-bottom: 1px solid white;
+	padding: 2px 0;
+}
+.nav-burger-nested a:last-child{
+	border-bottom: none;
+}
+.nav-burger-footer{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.nav-burger-footer p{
+	margin: 10px auto;
+	text-transform: uppercase;
+	color: white;
+	font-size: 10px;
+}
+.nav-burger-footer img{
+	width: 40px;
+	padding: 0 5px;
+	transition: 300ms ease-out;
+}
+.nav-burger-footer img:hover{
+	filter: opacity(70%);
+}
+
+
+
+		/*_______________________DROPdown Main-Menu________________________*/
+
+		/*_______________________langugage DROPDOWN MENU________________________*/
+
+		.chooseLanguage{
+			border: 1px solid red;
+			margin: 5px 10px 5px 0;
+			width: 55px;
+		}
+		.chooseLanguage a{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 12px;
+			text-transform: uppercase;
+			text-decoration: none;
+			font-weight: 100;
+			text-align: center;
+			background-color: #721817;
+			color:white;
+			padding: 5px 0px;
+			
+		}
+		.languageNested {
+			display: none;
+			position: absolute;
+			padding: inherit;
+			margin: 0 0 0 -1px;
+			width: inherit;
+			border: 1px solid red;
+			border-top:none;
+		}
+		.chooseLanguage:hover{
+			background-color: white;
+			color:red;
+		}
+		.chooseLanguage:hover .languageNested{
+			display:block;
+		}
+		.chooseLanguage img{
+			max-height: 14px;
+			align-content: center;
+			margin-right: 5px;
+			
+		}
+		.languageNested a{
+			display: block;
+			padding: 5px;
+			font-size: 12px;
+			text-decoration: none;
+			text-align: center;
+			background-color: #721817;
+			color: inherit white;
+		}
+		.languageNested .eng:hover {
+			background-color: blue;
+			color: white;
+		}
+		.languageNested .esp:hover {
+			background-color: yellow;
+			color: red;
+		}
+
+/* ------------------------ OBS-BOX -------------------------- */
+.obs-box{
+	background-color: #AFD2E9;
+	width: 100%;
+	text-align: center;
+	padding: 5px;
+	text-transform: uppercase;
+	box-sizing: border-box;
+}
+.obs-box p{
+	font-size: 12px;
+	color: black;
+	filter: opacity(70%);
+}
+.obs-box a{
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+
+/*
+_________________________________________________________________________
+Main Grid & grid-items
+_________________________________________________________________________*/
+.main-content{
+	max-width: 1600px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+.main-content-hold{
+	width: 100%;
+	z-index: 1;
+	display: flex;
+	position: relative;
+	min-height: 100vh;
+	box-sizing: border-box;
+}
+.main-content-hold-wrapper{
+	margin-left: 200px;
+	width: 100%;
+	box-sizing: border-box;
+}
+.main-hold{
+	margin: 20px;
+}
+.main-content-hold-wrapper header{
+	background-image: url(Billeder/futsal/stadium/toni-cuenca-4JW_BY9YmV8.jpg);
+	background-size: 100%;
+	background-position-y: 40%;
+	background-position-x: 200%;
+	display: flex;
+	align-items: flex-end;
+}
+.main-content-hold-wrapper header h2{
+	color: white;
+	padding: 20px;
+	margin: 0px auto;
+	text-align: center;
+	font-size: 32px;
+
+}
+
+/* ------------------------------ HOLD-NAV --------------------------- */
+.hold-nav{
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	left: 0;
+	top: 91px;
+	bottom: 0;
+	background-color: #001F44;
+	filter: opacity(95%);
+	width: 200px;
+	z-index: 200;
+	box-sizing: border-box;
+}
+.hold-nav a:hover{
+	background-color: white;
+	color: #001F44;
+	border-top: 1px solid white;
+}
+.hold-nav .active{
+	background-color: white;
+	color: #001F44;
+	border-top: 1px solid white;
+}
+.hold-nav a{
+	border-top: 1px solid #777777;
+	text-decoration: none;
+	text-transform: uppercase;
+	padding: 15px 20px;
+	color: white;
+	font-size: 16px;
+	font-family: Titillium;
+	font-weight: bold;
+	transition: 100ms ease-out;
+}
+.hold-nav a:last-child {
+	border-bottom: 1px solid #777777;
+}
+
+/*
+
+/*
+_________________________________________________________________________
+FOOTER GRID & grid-items
+_________________________________________________________________________*/
+
+
+.footer {
+	background-color: #001F44;
+	color: white;
+	display: grid;
+	grid-template: auto / repeat(3, 1fr);
+	grid-template-areas: 
+		"nav nav nav"
+		"bottom bottom bottom";
+	flex-direction: row;
+	width: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+.hold-footer{
+	border-left: 1px solid #777777;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.footer .nav {
+	grid-area: nav;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+}
+.footer-column {
+	display: flex;
+	flex-direction: column;
+	width: 275px;
+	margin: 0 auto;
+	box-sizing: border-box;
+	flex-wrap: wrap;
+}
+.footer .bottom {
+	grid-area: bottom;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	margin: 20px 0;
+}
+
+
+.footer .bottom p {
+	flex-direction: row;
+	justify-content: space-between;
+	font-size: 12px;
+	color: white;
+}
+
+.footer-column img {
+	max-height: 50px;
+	transition: 300ms ease-out;
+	cursor: pointer;
+}
+.footer-column img:hover{
+	filter: opacity(50%);
+}
+
+.footer-special {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	margin: auto;
+}
+
+.footer h3 {
+	font-family: Titillium;
+	text-transform: uppercase;
+	font-size: 20px;
+	color: white;
+}
+.footer p {
+	text-transform: uppercase;
+	padding: 8px 0;
+	color: #AFCAE9;
+	font-size: 13px;
+}
+
+.footer ul {
+	display: flex;
+	flex-direction: column;
+}
+
+.footer li {
+	display: flex;
+	padding: 8px 0;
+}
+
+.footer a{
+	text-decoration: none;
+	color: #AFCAE9;
+	text-transform: uppercase;
+	font-size: 13px;
+	transition: 300ms ease-out;
+}
+.footer a:hover{
+	color: #E84855;
+}
+.signUpFooter{
+	cursor: pointer;
+}
+
+
+
+/* ____________________________________ FORSIDE _____________________________________*/
+
+
+.frontpage-box{
+	box-sizing: border-box;
+	width: 100%;
+	height: calc(100vh - 90px);
+	position: relative;
+	color: white;
+	overflow: hidden;
+}
+.slide-container{
+	position: relative;
+	height: inherit;
+	width: inherit;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	
+}
+.slides{
+	position: relative;
+	display: flex;
+	flex-shrink: 0;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	align-items: flex-end;
+	justify-content: space-between;
+	color: white;
+	padding: 50px;
+	
+}
+.slide-one{
+	background-image: url(Billeder/futsal/stadium/toni-cuenca-4JW_BY9YmV8.jpg);
+	background-position: 0 50%;
+}
+.slide-two{
+	background-image: url(Billeder/afk-hold/afk-ligahold/kamp/2021-2022/afk-vs-koebenhavn_friendly/pre-game-tactics.JPG);
+	background-position: right top;
+}
+.slide-three{
+	background-image: url(Billeder/futsal/fachry-zella-devandra-3sV_HuCgy70.jpg);
+}
+/* .image-two{
+	position: absolute;
+	display: flex;
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	background-image: url(Billeder/futsal/stadium/toni-cuenca-4JW_BY9YmV8.jpg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	align-items: flex-end;
+	justify-content: space-between;
+	color: white;
+	padding: 50px;
+	transform: translateX(-100%);
+} */
+.left-arrow,
+.right-arrow{
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 0 15px;
+	filter: opacity(50%);
+	position: absolute;
+	top: 50%;
+	font-size: 50px;
+	z-index: 2;
+	transition: 300ms ease-out;
+	cursor: pointer;
+}
+.left-arrow{
+	left: 0px;
+}
+.right-arrow{
+	right: 0px;
+}
+.left-arrow a,
+.right-arrow a{
+	text-decoration: none;
+	color: white;
+}
+.left-arrow:hover,
+.right-arrow:hover{
+	filter: opacity(100%);
+}
+/* .image-tracker-wrapper{
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	display: flex;
+
+}
+.image-tracker-wrapper .dots{
+	box-sizing: border-box;
+	width: 15px;
+	height: 15px;
+	background: transparent;
+	border: 2px solid white;
+	border-radius: 50%;
+	z-index: 2;
+	margin: 5px;
+	opacity: 80%;
+}
+.image-tracker-wrapper .active{
+	background: white;
+} */
+.frontpage-box h1{
+	border-bottom: 3px solid white;
+	font-size: 48px;
+}
+.frontpage-box a{
+	text-decoration: none;
+	color: white;
+}
+.frontpage-box .btn{
+	color: white;
+	background-color: transparent;
+	padding: 0;
+	border: none;
+	filter: opacity(70%);
+	border-bottom: 2px solid transparent;
+}
+.frontpage-box .btn:hover{
+	border-bottom: 2px solid white;
+}
+.frontpage-box .text-element{
+	transition: transform 200ms ease-out;
+}
+.frontpage-box .text-element:hover{
+	transform: scale(1.02)
+}
+
+
+/*
+	_________________________________________________________________________
+	News + Three column DISPLAY
+	_________________________________________________________________________*/
+	.news{
+		margin-bottom: 20px;
+	}
+	.section-display3-transparent{
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-auto-rows: auto;
+		gap: 20px;
+		/* width: 100%; */
+	}
+	.dpt1, .dpt2, .dpt3{
+		position: relative;
+		overflow: hidden;
+		transition: transform 200ms ease-out;
+	}
+	.dpt1 img, .dpt2 img, .dpt3 img{
+		max-width: 100%;
+		height: auto;
+	}
+	.dpt1:hover, .dpt2:hover, .dpt3:hover{
+		transform: scale(1.02);
+	}
+	.section-display3-transparent h2{
+		text-transform: uppercase;
+		font-family: Titillium;
+		font-weight: bold;
+		color: white;
+		border-bottom: 2px solid white;
+		line-height: 100%;
+	}
+	.section-display3-transparent h5{
+		text-transform: uppercase;
+		font-family: Titillium;
+		color: white;
+	}
+	.section-display3-transparent .text-element{
+		position: absolute;
+		margin: 15px;
+		bottom: 0px;
+		z-index: 2;
+	}
+	.news .read-more{
+		display: flex;
+		justify-content: flex-end;
+		width: 100%;
+	}	
+	.news .read-more a{
+		text-decoration: none;
+		color: #001F44;
+		font-weight: bold;
+		font-size: 14px;
+		border-bottom: 3px solid transparent;
+		transition: 300ms ease-out;
+		text-transform: uppercase;
+	}
+	.news .read-more a:hover{
+		border-bottom: 3px solid #001F44;
+	}
+		/*
+		_________________________________________________________________________
+		mixed-box
+		_________________________________________________________________________*/
+		.mixed-box{
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-auto-rows: auto;
+			margin-bottom: 20px;
+			grid-gap: 20px;
+			row-gap: 40px;
+		}
+
+		/*
+		_________________________________________________________________________
+		Webshop
+		_________________________________________________________________________*/
+		
+		.webshop {
+			grid-column: span 4;
+			grid-row: span 1;
+			background: linear-gradient(90deg, #001F44, #001F44, blue);
+			padding:0px;
+			display: flex;
+			align-items: flex-end;
+			margin: 0;
+			height: 600px;
+			position: relative;
+		}
+		.webshop .content{
+			margin-bottom: 15px;
+			padding: 20px;
+		}
+		.webshop h1{
+			color: white;
+		}
+		.webshop h3{
+			color: white;
+			padding-bottom: 10px;
+		}
+		.top-logo{
+			position: absolute;
+			right: 20px;
+			top: 20px;
+		}
+		.top-logo img{
+			width: 100px;
+			filter: opacity(50%);
+		}
+
+		/*
+		_________________________________________________________________________
+		Sponsor-box1
+		_________________________________________________________________________*/
+		
+		.sponsor-box1,
+		.sponsor-box2 {
+			grid-column: span 1;
+			grid-row: span 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-content: center;
+			background-color: #f5821e;
+			color: white;
+			min-height: 100%;
+		}
+		.sponsor-box2 {
+			background-color: #212d60;
+			color: white;
+		}
+		.partner-link{
+			text-decoration: none;
+		}
+		.sponsor-box1 h1,
+		.sponsor-box2 h1{
+			margin-top: 20px;
+			text-align: center;
+			width: 100%;
+		}
+		.sponsor-box1 img,
+		.sponsor-box2 img{
+			margin: 20px auto;
+			width: 30%;
+			object-fit: contain;
+		}
+
+		/*
+		_________________________________________________________________________
+		Partner-join
+		_________________________________________________________________________*/
+		
+		.partner-join {
+			grid-column: span 2;
+			grid-row: span 1;
+			background-image: url(/Billeder/afk-hold/afk-ligahold/kamp/2021-2022/afk-vs-skive_friendly/01909a689eeca06816c1b27fc5069bf69e33bbad17.jpg);
+			background-size: cover;
+			display: flex;
+			justify-content: flex-start;
+			align-items: flex-end;
+			position: relative;
+			min-height: 250px;
+		}
+		.partner-join .text{
+			padding: 10px 20px 20px 20px;
+			background-color: rgba(255, 255, 255, 0.541);
+		}
+		.partner-join .text h2{
+			color: #001F44;
+		}
+		
+		/*
+		_________________________________________________________________________
+		Sign-up-bar
+		_________________________________________________________________________*/
+		
+		.sign-up-bar {
+			grid-column: span 4;
+			grid-row: span 1;
+			background: #AFD2E9;
+			padding:0px;
+			display: flex;
+			align-items: center;
+		}
+		.sign-up-bar div{
+			margin: auto 0;
+			padding: 20px;
+		}
+		.sign-up-bar img{
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+			width: 50%;
+			object-fit: cover;
+		}
+		.sign-up-bar h1{
+			color: #001F44;
+		}
+		.sign-up-bar h4{
+			text-transform: uppercase;
+			color: #001F44;
+			padding-bottom: 10px;
+		}
+
+
+
+/* ____________________________________ Side-XX: Ligaholdet _____________________________________*/
+
+.hex-container{
+	margin: 0 auto;
+	perspective: 15px;
+	max-width: 600px;
+}
+.hex-wrapper{
+	width: 600px;
+	height: 600px;
+	position: relative;
+	margin: 0 auto 20px auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	border-radius: 50%;
+	z-index: 2;
+	box-shadow: 10px 10px 20px black;
+}
+.hex-wrapper h3{
+	color: white;
+}
+.hex-wrapper a{
+	text-decoration: none;
+	border-bottom: 3px solid transparent;
+	transition: 300ms ease-out;
+}
+.hex-wrapper a:hover{
+	border-bottom: 3px solid white;
+}
+.hexagon-center{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% - 100px);
+	top: calc(50% - calc(calc(200px / 1.73) / 2))
+}
+.hexagon-center-left{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% - 310px);
+	top: calc(50% - calc(calc(200px / 1.73) / 2))
+}
+.hexagon-center-right{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% + 110px);
+	top: calc(50% - calc(calc(200px / 1.73) / 2))
+}
+.hexagon-center::before,
+.hexagon-center::after,
+.hexagon-center-left::before,
+.hexagon-center-left::after,
+.hexagon-center-right::before,
+.hexagon-center-right::after,
+.hexagon-top-midleft::before,
+.hexagon-top-midleft::after,
+.hexagon-top-mid::before,
+.hexagon-top-mid::after,
+.hexagon-top-midright::before,
+.hexagon-top-midright::after,
+.hexagon-midtop-left::before,
+.hexagon-midtop-left::after,
+.hexagon-midtop-midleft::before,
+.hexagon-midtop-midleft::after,
+.hexagon-midtop-midright::before,
+.hexagon-midtop-midright::after,
+.hexagon-midtop-right::before,
+.hexagon-midtop-right::after,
+.hexagon-midbot-left::before,
+.hexagon-midbot-left::after,
+.hexagon-midbot-midleft::before,
+.hexagon-midbot-midleft::after,
+.hexagon-midbot-midright::before,
+.hexagon-midbot-midright::after,
+.hexagon-midbot-right::before,
+.hexagon-midbot-right::after,
+.hexagon-bot-midleft::before,
+.hexagon-bot-midleft::after,
+.hexagon-bot-mid::before,
+.hexagon-bot-mid::after,
+.hexagon-bot-midright::before,
+.hexagon-bot-midright::after{
+	content: "";
+	position: absolute;
+	border-right: 100px solid transparent;
+	border-left: 100px solid transparent;
+}
+.hexagon-center::before,
+.hexagon-center-left::before,
+.hexagon-center-right::before,
+.hexagon-top-midleft::before,
+.hexagon-top-mid::before,
+.hexagon-top-midright::before,
+.hexagon-midtop-left::before,
+.hexagon-midtop-midleft::before,
+.hexagon-midtop-midright::before,
+.hexagon-midtop-right::before,
+.hexagon-midbot-left::before,
+.hexagon-midbot-midleft::before,
+.hexagon-midbot-midright::before,
+.hexagon-midbot-right::before,
+.hexagon-bot-midleft::before,
+.hexagon-bot-mid::before,
+.hexagon-bot-midright::before{
+	border-bottom: calc(calc(200px / 1.73) / 2) solid #001F44;
+	bottom: 100%;
+}
+.hexagon-center::after,
+.hexagon-center-left::after,
+.hexagon-center-right::after,
+.hexagon-top-midleft::after,
+.hexagon-top-mid::after,
+.hexagon-top-midright::after,
+.hexagon-midtop-left::after,
+.hexagon-midtop-midleft::after,
+.hexagon-midtop-midright::after,
+.hexagon-midtop-right::after,
+.hexagon-midbot-left::after,
+.hexagon-midbot-midleft::after,
+.hexagon-midbot-midright::after,
+.hexagon-midbot-right::after,
+.hexagon-bot-midleft::after,
+.hexagon-bot-mid::after,
+.hexagon-bot-midright::after{
+	border-top: calc(calc(200px / 1.73) / 2) solid #001F44;
+	top: 100%;
+}
+
+/* ---------------------------------- HEX: top-midleft ---------------------------------- */
+.hexagon-top-midleft{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% - 310px);
+	top: -120px;
+}
+/* ---------------------------------- HEX: top-mid ---------------------------------- */
+.hexagon-top-mid{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% - 100px);
+	top: -120px;
+}
+/* ---------------------------------- HEX: top-midright ---------------------------------- */
+.hexagon-top-midright{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% + 110px);
+	top: -120px;
+}
+/* ---------------------------------- HEX: midtop-left ---------------------------------- */
+.hexagon-midtop-left{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% - 415px);
+	top: 60px;
+}
+/* ---------------------------------- HEX: midtop-midleft ---------------------------------- */
+.hexagon-midtop-midleft{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% - 205px);
+	top: 60px;
+}
+/* ---------------------------------- HEX: midtop-midright ---------------------------------- */
+.hexagon-midtop-midright{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% + 5px);
+	top: 60px;
+}
+/* ---------------------------------- HEX: midtop-right ---------------------------------- */
+.hexagon-midtop-right{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% + 215px);
+	top: 60px;
+}
+/* ---------------------------------- HEX: midbot-left ---------------------------------- */
+.hexagon-midbot-left{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% - 415px);
+	bottom: 60px;
+}
+/* ---------------------------------- HEX: midbot-midleft ---------------------------------- */
+.hexagon-midbot-midleft{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% - 205px);
+	bottom: 60px;
+}
+
+/* ---------------------------------- HEX: midbot-midright ---------------------------------- */
+.hexagon-midbot-midright{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% + 5px);
+	bottom: 60px;
+}
+/* ---------------------------------- HEX: midbot-right ---------------------------------- */
+.hexagon-midbot-right{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% + 215px);
+	bottom: 60px;
+}
+/* ---------------------------------- HEX: bot-midleft ---------------------------------- */
+.hexagon-bot-midleft{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% - 310px);
+	bottom: -120px;
+}
+/* ---------------------------------- HEX: bot-mid ---------------------------------- */
+.hexagon-bot-mid{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% - 100px);
+	bottom: -120px;
+}
+/* ---------------------------------- HEX: bot-midright ---------------------------------- */
+.hexagon-bot-midright{
+	width: 200px;
+	height: calc(200px / 1.73);
+	background-color: #001F44;
+	position: absolute;
+	left: calc(50% + 110px);
+	bottom: -120px;
+}
+/* --------- HOVER-translate !!TEST ----------
+.hex-wrapper:hover .hexagon-center,
+.hex-wrapper:hover .hexagon-center-left,
+.hex-wrapper:hover .hexagon-center-right,
+.hex-wrapper:hover .hexagon-top-midleft,
+.hex-wrapper:hover .hexagon-top-mid,
+.hex-wrapper:hover .hexagon-top-midright,
+.hex-wrapper:hover .hexagon-midtop-left,
+.hex-wrapper:hover .hexagon-midtop-midleft,
+.hex-wrapper:hover .hexagon-midtop-midright,
+.hex-wrapper:hover .hexagon-midtop-right,
+.hex-wrapper:hover .hexagon-midbot-left,
+.hex-wrapper:hover .hexagon-midbot-midleft,
+.hex-wrapper:hover .hexagon-midbot-midright,
+.hex-wrapper:hover .hexagon-midbot-right,
+.hex-wrapper:hover .hexagon-bot-midleft,
+.hex-wrapper:hover .hexagon-bot-mid,
+.hex-wrapper:hover .hexagon-bot-midright{
+	transform: translate(-20px, 40px);
+} */
+.hexagon-center,
+.hexagon-center-left,
+.hexagon-center-right,
+.hexagon-top-midleft,
+.hexagon-top-mid,
+.hexagon-top-midright,
+.hexagon-midtop-left,
+.hexagon-midtop-midleft,
+.hexagon-midtop-midright,
+.hexagon-midtop-right,
+.hexagon-midbot-left,
+.hexagon-midbot-midleft,
+.hexagon-midbot-midright,
+.hexagon-midbot-right,
+.hexagon-bot-midleft,
+.hexagon-bot-mid,
+.hexagon-bot-midright{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: transform 300ms ease-out;
+}
+
+
+
+		/* ____________________________________ Side-4: Spillertruppen _____________________________________*/
+
+.liga-coach .text-element{
+	display: inline-flex;
+	align-items: center;
+	padding-left:20px
+}
+.liga-coach h1{
+	font-size: 50px;
+	color: #001F44;
+}
+.liga-coach .text-element h4{
+	padding-bottom:10px;
+}
+
+
+/* ____________________________________ Side-5: Trænerstab _____________________________________*/
+
+	/* Trænerstab */
+	.liga-coach{
+		display: flex;
+		justify-content: flex-start;
+		gap: 20px;
+		flex-wrap: wrap;
+		margin-bottom: 20px;
+	}
+	.coach-element{
+		display: block;
+		max-width: 250px;
+		background-color: white;
+		transition: 300ms ease-out;
+	}
+	.coach-element:hover{
+		transform: scale(1.02);
+	}
+	.liga-coach a{
+		text-decoration: none;
+		color: #001F44;
+	}
+	.liga-coach h4{
+		padding: 10px 10px 0 10px;
+	}
+	.liga-coach p{
+		padding: 0 10px 5px 10px;
+	}
+	.liga-coach img{
+		display: block;
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+	}
+	.coach-element img{
+		width: 100%;
+		padding-top: 20px;
+	}
+
+	/* ____________________________________ Side-6: Kampprogram _____________________________________*/
+
+	.kampprogram-wrapper{
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+	.kampprogram-element{
+		background-color: white;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 5px 20px;
+		margin-bottom: 2px;
+		transition: 300ms ease-out;
+		flex-wrap: wrap;
+	}
+	.match-box{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.match-box .league{
+		text-transform: uppercase;
+		font-size: 12px;
+		color: #001F44;
+		text-align: center;
+	}
+	.match-box .match{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+	.match .hometeam,
+	.match .awayteam{
+		min-width: 250px;
+		letter-spacing: 0.2px;
+		text-transform: uppercase;
+		display: flex;
+		align-items: center;
+	}
+	.match .hometeam{
+		justify-content: flex-end;
+	}
+	.match .hometeam p,
+	.match .awayteam p{
+		font-size: 14px;
+	}
+	.match div p{
+		font-size: 14px;
+	}
+	.kampprogram-element:hover{
+		transform: translateY(-5px);
+		box-shadow: 3px 0px 20px #0000007c;
+	}
+	.kampprogram-element .tidspunkt{
+		font-size: 14px;
+	}
+
+	.match span{
+		text-transform: uppercase;
+		font-size: 12px;
+		align-items: center;
+	}
+	.hometeam img,
+	.awayteam img{
+		width: 50px;
+		height: 50px;
+		padding: 10px 10px 10px 10px;
+	}
+	
+/* ____________________________________ Side-7: Resultater _____________________________________*/
+
+.match .resultat p{
+	font-weight: bold;
+	color: #001F44;
+	font-size: 20px;
+}
+
+/* ____________________________________ Side-8: Stilling _____________________________________*/
+
+.stilling-wrapper{
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: auto;
+	gap: 2px;
+}
+.stilling-nav-vest,
+.stilling-nav-oest{
+	grid-column: span 1;
+	grid-row: span 1;
+	cursor: pointer;
+}
+.nav-vest-text,
+.nav-oest-text{
+	background-color: white;
+	padding: 20px;
+	transition: 300ms ease-out;
+	text-align: center;
+}
+.nav-vest-text:hover,
+.nav-oest-text:hover{
+	background-color: #001F44;
+	color: #ffffff;
+}
+.stilling-vest,
+.stilling-oest {
+	grid-column: span 2;
+	background-color: #001F44;
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transition: 300ms ease-out;
+}
+.show-stilling-vest .stilling-vest,
+.show-stilling-oest .stilling-oest{
+	display: flex;
+	transition: 300ms ease-out;
+}
+.highlight-stilling-nav-vest .nav-vest-text,
+.highlight-stilling-nav-oest .nav-oest-text{
+	background-color: #001F44;
+	color: #ffffff;
+}
+.stilling{
+	display: flex;
+	color: white;
+	font-family: Titillium;
+	padding: 20px;
+	max-width: 90%;
+}
+.stilling td{
+	font-size: 14px;
+	padding: 5px 40px;
+	text-align: left;
+}
+.stilling th{
+	text-align: center;
+	font-family: Titillium;
+	background-color: #001732;
+}
+.stilling .klub{
+	padding-left: 0px;
+	text-align: left !important;
+}
+.stilling, tr{
+	border-collapse: collapse;
+}
+.stilling td:last-of-type {
+	padding: 5px 20px;
+}
+.stilling-vest tr,
+.stilling-oest tr{
+	border-collapse: collapse;
+	border-bottom: 1px solid white;
+}
+.stilling .goal-diff{
+	flex-shrink: 0;
+	white-space: nowrap;
+}
+.club-image{
+	display: flex;
+	justify-content: center;
+	width: 25px;
+	padding: 0 5px;
+}
+.club-image img{
+	height: 20px;
+	
+}
+.club-wrapper{
+	display: flex;
+	align-items: center;
+}
+.stilling .promotion{
+	background-color: #AFD2E9;
+	width: 30px;
+	padding: 0px 0px;
+	text-align: center;
+}
+.stilling .relegation{
+	background-color: #E84855;
+	width: 30px;
+	padding: 0px 0px;
+	text-align: center;
+}
+.stilling-info{
+	margin-bottom: 20px;
+	margin: 0px 20px 20px 20px;
+}
+.stilling-info p{
+	color: white;
+	font-size: 12px;
+}
+.color-indicator-pro{
+	flex-shrink: 0;
+	width: 15px;
+	height: 15px;
+	background-color: #AFD2E9;
+}
+.color-indicator-rel{
+	flex-shrink: 0;
+	width: 15px;
+	height: 15px;
+	background-color: #E84855;
+}
+.promotion-info,
+.relegation-info {
+	display: flex;
+	gap: 5px
+}
+
+/* ____________________________________ Side-9: Billeder _____________________________________*/
+
+.image-presenter{
+	display: flex;
+	width: 100%;
+	box-sizing: border-box;
+	border: 5px solid white;
+	background-color: white;
+}
+.primary-image{
+	display: flex;
+	background-color: #001F44;
+	width: 75%;
+	float: left;
+	box-sizing: border-box;
+}
+.primary-image img{
+	width: 100%;
+	object-fit: contain;
+}
+.small-images{
+	width: 25%;
+	float: right;
+	border-left: 5px solid white;
+	box-sizing: border-box;
+	overflow-y: scroll;
+}
+.small-images img{
+	max-width: 100%;
+	object-fit: contain;
+	transition: 300ms ease-out;
+	cursor: pointer;
+}
+.small-images img:hover{
+	transform: scale(.99);
+}
+
+/* ____________________________________ Side-10: Billet & TV _____________________________________*/
+.billet-og-tv-animation{
+	margin-bottom: 40px;
+}
+
+.billet-og-tv-animation h1,
+.billet-og-tv-animation h2{
+	color: #001F44;
+	text-align: center;
+}
+.billet-og-tv-animation h1{
+	font-size: 49px;
+}
+
+.billet-og-tv-animation h1{
+	animation: h1-ani 800ms ease-out 500ms 1 both;
+}
+
+@keyframes h1-ani {
+	0% {
+		transform: translateX(-100%);
+	}
+	20% {
+		transform: translateX(-10%);
+	}
+	100% {
+		transform: translateX(0%);
+	}
+}
+
+.billet-og-tv-animation h2{
+	animation: h2-ani 800ms ease-out 1.2s 1 backwards;
+}
+
+@keyframes h2-ani {
+	0% {
+		transform: translateY(-20%);
+		opacity: 0%;
+	}
+	100% {
+		transform: translateY(0%);
+	}
+}
+.billet-og-tv-animation h2 span{
+	text-decoration: line-through;
+}
+
+.billet-tv-section{
+	width: 100%;
+	height: 400px;
+	margin-bottom: 60px;
+	display: flex;
+}
+
+.billet-tv-section .details{
+	margin: auto 0;
+	width: 50%;
+	box-sizing: border-box;
+}
+.billet-tv-section .image-container{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	box-sizing: border-box;
+	position: relative;
+	height: auto;
+}
+.billet-tv-section img{
+	width: 30%;
+	object-fit: cover;
+}
+
+.koeb-saesonkort img{
+	position: absolute;
+}
+.koeb-saesonkort .nr1{
+	left: 22%;
+}
+.koeb-saesonkort .nr2{
+	right: 22%;
+}
+
+.koeb-billet,
+.koeb-saesonkort,
+.se-kampe,
+.kamp-arkiv{
+	animation: billet-ani 0.5s ease-out 1 1.5s backwards;
+}
+
+@keyframes billet-ani {
+	0% {
+		transform: translateY(120%) scaleX(0.9);
+		opacity: 0%;
+	}
+	50%{
+		opacity: 100%;
+	}
+	100% {
+		transform: translateY(0%) scaleX(1);
+	}
+}
+
+/* ____________________________________ Side-11: Billetter _____________________________________*/
+
+.billet-shop{
+	display: flex;
+	flex-wrap: wrap;
+}
+.billet-shop h2{
+	padding: 20px;
+}
+.billetter{
+	display: flex;
+	flex-direction: column;
+	align-items: space-between;
+}
+.billetter .buying-details{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	color: #001F44;
+	font-size: 18px;
+	margin-right: 20px;
+}
+.billet{
+	background-color: #001F44;
+	width: 320px;
+	height: 400px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	padding: 10px;
+	box-sizing: border-box;
+	color: white;
+	box-shadow: 3px 3px 10px black;
+	transition: transform 300ms ease-out;
+}
+.billet:hover{
+	transform: skewX(-3deg) scale(0.95);
+}
+.billet h4{
+	
+	margin-left: 0;
+}
+.logoer{
+	height: 50%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 10px;
+	border-bottom: 1px solid white;
+}
+.logoer h2{
+	color: white;
+}
+.logoer img{
+	width: 100px;
+	height: 100px;
+}
+.billet .info{
+	margin-left: 10px;
+	font-size: 14px;
+}
+
+.billet .info strong{
+	text-decoration: underline;
+}
+
+/* ____________________________________ Side-12: Sæsonkort _____________________________________*/
+
+.saesonkort-wrapper{
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+.saesonkort-wrapper div{
+	padding: 20px;
+	box-sizing: border-box;
+}
+.fordele{
+	width: 330px;
+	max-height: 300px;
+	background-color: white;
+}
+.attention-box{
+	width: 330px;
+	max-height: 300px;
+	background-color: white;
+}
+.saesonkort-buying-options{
+	padding: 0 !important;
+}
+.saesonkort-buying-options .buying-details-saeson{
+	padding: 0;
+	margin-right: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: #001F44;
+	font-size: 18px;
+}
+.saesonkort{
+	width: 680px;
+	height: 300px;
+	background: #001F44;
+	margin: 0 0 10px 0;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 3px 3px 10px black;
+	transition: transform 300ms ease-out;
+}
+.saesonkort:hover{
+	transform: skewX(-5deg) scale(0.95);
+}
+.saesonkort h3{
+	color: white;
+	text-align: center;
+	border-bottom: 1px solid white;
+}
+.saesonkort img{
+	width: 150px;
+	align-self: center;
+}
+.saesonkort p{
+	font-size: 12px;
+}
+.saesonkort .stripes{
+	position: absolute;
+	width: 470px;
+	height: 30px;
+	background-color: #ececf0;
+	transform: rotate(60deg);
+	opacity: 50%;
+}
+.hiding-stripes{
+	overflow: hidden;
+}
+.saesonkort .right{
+	bottom: 130px;
+	left: -60px;
+}
+.saesonkort .left{
+	width: 400px;
+	bottom: 130px;
+	left: -92px;
+}
+.saesonkort-wrapper ul{
+	padding-top: 20px;
+	padding-left: 20px;
+}
+.saesonkort-wrapper li{
+	padding-bottom: 5px;
+}
+
+/* ____________________________________ Side-12: TV & Streaming _____________________________________*/
+
+.tv-header{
+	background-color: white;
+	text-align: center;
+	padding: 10px 0;
+	margin-top: 20px;
+}
+.livestream{
+	background-color: #001F44;
+	width: 800px;
+	height: 450px;
+	margin: 20px auto;
+	position: relative;
+	z-index: 1;
+}
+.stream-player {
+	width: 100%;
+	height: 100%;
+}
+.control-bar{
+	position: absolute;
+	background-color: rgba(255, 255, 255, 0.75);
+	width: calc(100% - 20px);
+	height: 30px;
+	bottom: 10px;
+	left: 10px;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 20px;
+	box-sizing: border-box;
+	transition: opacity 300ms ease-out;
+	opacity: 5%;
+}
+.livestream:hover .control-bar{
+	opacity: 100%;
+}
+.control-bar span{
+	transition: 300ms ease-out;
+}
+.control-bar span:hover,
+.control-bar img:hover{
+	opacity: 70%;
+	cursor: pointer;
+}
+.control-bar img{
+	height: 14px;
+	transition: 300ms ease-out;
+}
+.timer{
+	width: 90%;
+	height: 5px;
+	background-color: rgba(0, 0, 0, 0.761);
+	position: relative;
+}
+.timer-overlay{
+	position: absolute;
+	width: 40%;
+	height: 5px;
+	background-color: blue;
+}
+
+.video-nav{
+	width: 100%;
+	height: 200px;
+	box-sizing: border-box;
+	white-space: nowrap;
+	overflow-y: hidden;
+	overflow-x: auto;
+	margin: 20px auto;
+}
+.video{
+	display: inline-block;
+	width: 300px;
+	height: 100%;
+	background-color: #001F44;
+	margin-right: 10px;
+	position: relative;
+}
+.video .play-btn{
+	position: absolute;
+	color: white;
+	font-size: 30px;
+	top: calc(50% - 20px);
+	left: calc(50% - 10px);
+	cursor: pointer;
+}
+
+/* ____________________________________ Side-13: Kamp-arkiv _____________________________________*/
+
+.saeson-wrapper{
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.saeson-nav{
+	background-color: white;
+	text-align: center;
+}
+.saeson-nav h3{
+	display: inline-block;
+	padding: 20px;
+}
+.saeson-wrapper span{
+	padding: 20px;
+	float: right;
+	cursor: pointer;
+	transition: 300ms ease-out;
+	color: #001F44;
+}
+.saeson-wrapper span:hover{
+	opacity: 70%;
+}
+.video-container-one,
+.video-container-two{
+	background-color: #001F44;
+	width: 100%;
+	min-height: 100px;
+	padding: 20px;
+	box-sizing: border-box;
+	white-space: nowrap;
+	overflow-x: auto;
+	display: none;
+}
+.video-container-one h4{
+	text-align: center;
+	color: white;
+}
+.video-container-show-one .video-container-one,
+.video-container-show-two .video-container-two{
+	display: block;
+}
+.vid{
+	margin-right: 20px;
+}
+.vid:last-child{
+	margin-right: 0px;
+}
+
+/* ____________________________________ Side-14: Partnere _____________________________________*/
+
+.element-wrapper{
+	display: flex;
+	align-items: center;
+	width: 100%;
+	background-color: white;
+	margin-bottom: 20px;
+	box-sizing: border-box;
+}
+.text-left{
+	padding: 20px;
+	width: 50%;
+	align-items: center;
+	color: #001F44;
+}
+.text-left h1{
+	color: #001F44;
+	border-bottom: 2px solid #001F44;
+	margin-bottom: 5px;
+}
+.element-wrapper img{
+	width: 50%;
+	object-fit: cover;
+}
+
+
+/* ____________________________________ Side-15: AFK-partnere _____________________________________*/
+
+
+/* ____________________________________ Side-16: Partner-muligheder _____________________________________*/
+
+
+/* ____________________________________ Side-17: Klubben _____________________________________*/
+.klub-menu{
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	grid-auto-rows: 250px;
+	gap: 20px;
+}
+.klub-menu a{
+	text-decoration: none;
+}
+.klub-menu h2{
+	padding: 20px;
+	color: white;
+}
+.klub-menu div{
+	background-color: #001F44;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: transform 300ms ease-out;
+}
+.klub-menu div:hover{
+	transform: scale(1.02);
+}
+.news-section{
+	grid-area: span 1 / span 6;
+}
+.formaal-section{
+	grid-area: span 1 / span 3;
+}
+.historie-section{
+	grid-area: span 1 / span 3;
+}
+.afk-academy-section{
+	grid-area: span 1 / span 6;
+}
+.klub-kampprogram-section{
+	grid-area: span 1 / span 2;
+}
+.klub-traenere-section{
+	grid-area: span 1 / span 2;
+}
+.bestyrelse-section{
+	grid-area: span 1 / span 2;
+}
+.kontakt-section{
+	grid-area: span 1 / span 6;
+}
+
+/* ____________________________________ Side-18: Klub-nyheder _____________________________________*/
+
+/* ____________________________________ Side-19: Klub-kampprogram _____________________________________*/
+
+/* ____________________________________ Side-20: Klub-formål _____________________________________*/
+.formaal-wrapper{
+	display: flex;
+	flex-direction: column;
+}
+.formaal-wrapper h1{
+	text-align: center;
+	font-size: 60px;
+	letter-spacing: 10px;
+	color: #ececf0;
+	background-color: #001F44;
+}
+.section-one{
+	box-sizing: border-box;
+	background-color: #001F44;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	padding: 80px;
+	color: #AFD2E9;
+	min-height: 300px;
+	width: 100%;
+	margin: -20px 0 0 0;
+}
+.section-two{
+	background-color: #AFD2E9;
+	color: #001F44;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	padding: 80px;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0 0 40px 0;
+}
+.broed-text{
+	width: 500px;
+	margin-bottom: 10px;
+}
+.eye-catcher{
+	font-size: 5vw;
+	text-transform: uppercase;
+}
+
+
+/* ____________________________________ Side-21: Klub-historie _____________________________________*/
+.historie-wrapper{
+	display: flex;
+	flex-direction: column;
+	margin-top: -20px;
+	margin-bottom: 40px;
+}
+
+.section-one a,
+.section-middle a,
+.section-end a{
+	text-decoration: none;
+	font-weight: bold;
+	color: #001F44;
+}
+.time-line{
+	background-color: #001F44;
+	height: 50%;
+	width: 5px;
+	position: absolute;
+	bottom: 0px;
+	left: 20%;
+}
+.kugle-punkt{
+	position: absolute;
+	background-color: #001F44;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	left: -17.5px;
+	top: -5px;
+}
+.historie-wrapper .section-one{
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	background-color: #AFD2E9;
+	margin: 0;
+	padding: 200px 15% 200px 15%;
+	color: #001F44;
+	position: relative;
+}
+.historie-wrapper .section-middle{
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	background-color: #AFD2E9;
+	padding: 400px 15%;
+	color: #001F44;
+	position: relative;
+}
+.tl-middle{
+	height: 100%;
+}
+.kp-middle{
+	top: 53%;
+}
+.historie-wrapper .section-end{
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	background-color: #AFD2E9;
+	padding: 400px 15% 200px 15%;
+	color: #001F44;
+	position: relative;
+}
+.tl-end{
+	height: 67%;
+	top: 0px;
+}
+.kp-end{
+	top: 100%;
+}
+
+/* ____________________________________ Side-22: Identitet & værdier _____________________________________*/
+
+/* ____________________________________ Side-23: Klub-trænere _____________________________________*/
+
+/* ____________________________________ Side-24: AFK-academy _____________________________________*/
+
+.main-top{
+	width: 100%;
+	height: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+.background-image img{
+	object-fit: contain;
+	width: 100%;
+	height: auto;
+}
+.main-top h1{
+	position: absolute;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 70px;
+}
+.info-box{
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+.info-box h2{
+	text-align: center;
+	padding: 50px;
+}
+.info-box span{
+	color: #AFD2E9;
+	font-size: 70px;
+}
+.info-box .teams {
+	font-size: 30px;
+	color: #E84855;
+}
+.competition{
+	background-color: #AFD2E9;
+	font-size: 40px;
+	justify-content: space-around;
+}
+.image-roller{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.image-roller img{
+	border: 5px solid white;
+	box-shadow: 2px 1px 5px black;
+	box-sizing: content-box;
+	border-radius: 5px;
+	width: 300px;
+	margin: 0 -40px;
+	transition: margin 300ms ease-out, transform 300ms ease-out;
+}
+.image-roller img:hover{
+	margin: 0 20px;
+	transform: scale(1.1);
+}
+.academy-text-container{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	text-align: center;
+	min-height: 400px;
+}
+.academy-text-container span{
+	color: #AFD2E9;
+	font-size: 46px;
+}
+.citat::before{
+	content: '"';
+	color: #001F44;
+}
+.citat::after{
+	content: '"';
+	font-size: 40px;
+	color: #001F44;
+}
+.action-box{
+	display: flex;
+	align-items: space-between;
+	justify-content: space-between;
+	gap: 10px 10px;
+	flex-wrap: wrap;
+	padding: 20px 0;
+}
+.academy-sign-up{
+	width: 49%;
+	min-height: 300px;
+	background-color: #001F44;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.about-futsal{
+	width: 49%;
+	min-height: 300px;
+	background-image: url(Billeder/afk-hold/afk-ligahold/kamp/2019-2020/soenderborg-vs-afk/afk-vs-soenderborg-in-march.jpg);
+	background-size: cover;
+	filter: opacity(80%);
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.academy-sign-up .content-wrapper{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+}
+.academy-sign-up p,
+.about-futsal p{
+	font-size: 31px;
+	padding-bottom: 20px;
+	padding: 20px 20px 5px 20px;
+}
+.academy-sign-up .btn-box,
+.about-futsal .btn-box{
+	padding: 5px 20px 20px 20px;
+}
+.academy-sign-up button,
+.about-futsal button{
+	margin-bottom: 10px;
+	border: 1px solid white;
+}
+
+
+
+
+/* ____________________________________ Side-25: Bestyrelse _____________________________________*/
+
+.board-wrapper{
+	display: flex;
+	flex-wrap: wrap;
+	margin: -10px;
+}
+.board-member{
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	padding: 10px;
+}
+.image-wrapper{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	width: 100%;
+	box-sizing: border-box;
+	background-color: white;
+	border: 20px solid #001F44;
+	border-bottom: none;
+}
+.image-wrapper img{
+	height: 300px;
+	padding: 10px 10px 0 10px;
+}
+.board-member .image-wrapper h3{
+	text-align: center;
+	background-color: white;	
+	padding: 10px 0;
+}
+.info-wrapper{
+	box-sizing: border-box;
+	width: 100%;
+	padding: 10px 20px;
+	background-color: #001F44;
+	color: white;
+}
+.info-wrapper h3{
+	color: white;
+	text-align: center;
+	text-transform: none;
+	padding: 10px;
+	font-size: 24px;
+}
+.info-wrapper a{
+	text-decoration: none;
+	color: white;
+	transition: 300ms ease-out;
+}
+.info-wrapper p{
+	display: inline-block;
+	border-bottom: 2px solid transparent;
+	transition: 300ms ease-out;
+	margin-bottom: 5px;
+}
+.info-wrapper p:hover{
+	border-bottom: 2px solid white;
+}
+
+/* ____________________________________ Side-26: Kontakt _____________________________________*/
+
+.contact-container{
+	display: flex;
+	flex-direction: column;
+	width: 800px;
+	margin: 0 auto;
+}
+.contact-wrapper{
+	display: flex;
+	width: 100%;
+}
+.phone-box{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 50%;
+	height: 300px;
+	background-color: #AFD2E9;
+	margin-right: 40px;
+	box-sizing: border-box;
+	text-decoration: none;
+}
+.mail-box{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 50%;
+	height: 300px;
+	background-color: #001F44;
+	box-sizing: border-box;
+	text-decoration: none;
+}
+.mail-box h3,
+.phone-box h3{
+	color: white;
+	text-transform: lowercase;
+}
+.mail-box a,
+.phone-box a{
+	width: 100%;
+	right: 0px;
+}
+.mail-box img,
+.phone-box img{
+	width: 20%;
+	transition: transform 300ms ease-out;
+	padding-bottom: 10px;
+}
+.mail-box img:hover,
+.phone-box img:hover{
+	transform: scale(1.1);
+}
+.contact-form{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin-bottom: 40px;
+}
+.contact-form input,
+.contact-form textarea{
+	background-color: transparent;
+	color: #001F44;
+	border: none;
+	border-bottom: 1px solid #001F44;
+	width: 800px;
+	margin-top: 40px;
+	padding: 0px;
+	font-size: 14px;
+	outline: none;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder{
+	color: #001F44;
+}
+.contact-form button{
+	align-self: flex-end;
+}
+
+/* ____________________________________ Side-27: AFK-Hold: menu-side _____________________________________*/
+
+.teams-wrapper{
+	width: 100%;
+}
+.team-box{
+	width: 100%;
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 1px;
+}
+.ligaholdet{
+	background: linear-gradient(90deg, #001732, #001732, #001F44, #001F44);
+}
+.afk-b{
+	background: linear-gradient(-90deg, #001732, #001732, #001F44, #001F44);
+}
+.afk-kvinder{
+	background: linear-gradient(90deg, #001732, #001732, #001F44, #001F44);
+}
+.afk-ungdom{
+	background: linear-gradient(-90deg, #001732, #001732, #001F44, #001F44);
+}
+.afk-oldboys{
+	background: linear-gradient(90deg, #001732, #001732, #001F44, #001F44);
+}
+.team-box .content-wrapper h2{
+	color: white;
+	transition: transform 300ms ease-out;
+}
+.teams-wrapper a{
+	text-decoration: none;
+}
+.team-box:hover h2{
+	transform: scale(1.2);
+}
+
+/*  */
+.main-hold .team-title {
+	color: #001F44;
+	text-align: center;
+	border-bottom: 3px solid #001F44;
+	margin-bottom: 10px;
+	margin-top: 20px;
+}
+
+/* ____________________________________ Side-2X: AFK-SHOP _____________________________________*/
+
+.shop-wrapper{
+	max-width: 600px;
+	margin: 40px auto;
+	text-align: center;
+}
+.shop-wrapper span{
+	font-size: 150%;
+	color: #AFD2E9;
+}
+.shop-wrapper h3{
+	font-size: 24px;
+}
+.shop-wrapper img{
+	width: 80%;
+	padding: 20px;
+	transition: transform 300ms ease-out;
+}
+.shop-wrapper img:hover{
+	transform: scale(1.05);
+}
+.shop-wrapper p span{
+	color: #001F44;
+	font-weight: bold;
+}
+.shop-wrapper button{
+	margin: 20px;
+}
+.shop-display{
+	width: 100%;
+	background-color: #001F44;
+	margin-bottom: 40px;
+	height: 800px;
+	text-align: center;
+}
+.shop-display h1{
+	padding: 40px;
+}
+
+
+/* ____________________________________ Side-2X: Futsal-regler _____________________________________*/
+
+.main-content iframe{
+	border: 0;
+}
+
+
+/*
+_________________________________________________________________________
+NYHEDER-template
+_________________________________________________________________________*/
+
+.news-wrapper{
+	width: 900px;
+	background-color: white;
+	align-self: center;
+}
+.news-wrapper img{
+	max-width: 100%;
+	object-fit: contain;
+}
+.news-wrapper h1{
+	margin: 10px;
+	color: #001F44;
+}
+.top-image{
+	width: 100%;
+	height: 300px;
+	background-color: blue;
+}
+.meta{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 5px 10px;
+	box-sizing: border-box;
+	width: 100%;
+	background-color: #AFD2E9;
+	font-size: 14px;
+}
+.meta .tag{
+	color: white;
+	font-size: 14px;
+	background-color: #001F44;
+	padding: 0 5px;
+	text-transform: uppercase;
+
+}
+.news-wrapper .content{
+	padding: 10px;
+}
+.news-wrapper .footer {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	padding: 10px;
+	box-sizing: border-box;
+}
+.news-wrapper .footer img{
+	width: 20px;
+}
+
+/*
+_________________________________________________________________________
+DIFFERENT DEVISE MEDIA QUERIES
+_________________________________________________________________________*/
+/* ____________________________________________ ONLY!!!! ONE HEADER FIX at 1050px _____________________________________________ */
+@media screen and (max-width: 1050px) {
+	/* NAV-MENU */
+	.afk-header {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		grid-auto-rows: auto;
+		grid-template-areas:
+		"logo topbar1 topbar1 topbar1 topbar3 topbar3"
+		"logo navbar navbar navbar navbar navbar";
+		background-color: #001F44;
+		filter: opacity(95%);
+		width: 100%;
+		position: sticky;
+		top:0;
+		z-index: 3;
+	}
+	.lastgame{
+		display: none;
+	}
+}
+
+/* _________________________________________________________________________________________________ */
+/* ____________________________________________ LAPTOP _____________________________________________ */
+/* _________________________________________________________________________________________________ */
+
+@media screen AND (max-width: 1200px) {
+	/* _____________ FORSIDE ______________ */
+
+	/* -------- News ------------ */
+	.section-display3-transparent h2{
+		font-size: 20px;
+	}
+	.section-display3-transparent h5{
+		font-size: 12px;
+	}
+	
+	/* ___________________ AFK-ACADEMY ___________________ */
+	.image-roller img{
+		width: 200px;
+	}	
+}
+
+
+/* _________________________________________________________________________________________________ */
+/* ____________________________________________ TABLET _____________________________________________ */
+/* _________________________________________________________________________________________________ */
+
+@media screen and (max-width: 900px) {
+	/* __________________ GENERAL STUFF ______________________ */
+	/* ----------- POP-UP ---------- */
+	.popup-signup{
+		width: 550px;
+	}
+	.conventus-signup{
+		width: 500px;
+		margin: 20px auto;
+	}
+
+	body{
+		overflow-x: hidden;
+	}
+
+	/* -------------- buttons --------------- */
+	.btn-blue,
+	.btn-white,
+	.btn-trans,
+	.btn-white-trans{
+		padding: 10px 5px;
+	}
+
+	/* NAV-MENU */
+	.afk-header{
+		grid-auto-rows: 60px;
+		grid-template-areas:
+			"logo topbar3 topbar3 topbar3 topbar3 navburger";
+		z-index: 12;
+		filter: opacity(100%);
+	}
+	/* ---------- LOGO ----------- */
+	
+	.logo img{
+		background-color: #001F44;
+		border-radius: 50%;
+		padding: 5px;
+		z-index: 110;
+	}
+	.logoEffect,
+	.logoEffect2{
+		display: none;
+	}
+	/* -------- Top-bar1 & 3 ----------- */
+	.top-bar1{
+		display: none;
+	}
+	.top-bar3{
+		justify-content: center;
+	}
+	.top-bar3 .logIn,
+	.top-bar3 .signUp{
+		margin: 5px 10px 5px 0;
+		padding: 5px 10px 5px 10px;
+	}
+	.afk-nav{
+		display: none;
+	}
+	.top-bar3{
+		background-color: #001F44;
+		border-bottom: none;
+	}
+	.afk-nav-burger{
+		display: flex;
+	}
+	.show-burger-nav .afk-nav-burger-content{
+		display: block;
+	}
+
+	/* ------------- FOOTER --------------- */
+	.footer-special {
+		margin: 30px auto;
+	}
+
+	/* ___________ FORSIDE ____________ */
+
+	/* --------------- Frontpage-box ------------- */
+	.frontpage-box h1{
+		font-size: 30px;
+	}
+
+	/* -------------- MAIN CONTENT -------------- */
+	/* main-content{
+		max-width: 400px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 20px;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		
+		
+	} */
+
+	/* ------------ NEWS section -------------- */
+	.section-display3-transparent{
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	/* ------------- MIXED box ---------------- */
+	.webshop {
+		grid-column: span 4;
+		grid-row: span 1;
+		background: linear-gradient(90deg, #001F44, #001F44, blue);
+		padding:0px;
+		display: flex;
+		align-items: flex-end;
+		margin: 0;
+		height: 300px;
+		position: relative;
+	}
+
+	.sponsor-box1,
+	.sponsor-box2 {
+		grid-column: span 2;
+	}
+	.partner-join {
+		grid-column: span 4;
+		min-height: 200px;
+	}
+	.partner-join .text{
+		padding: 10px 20px;
+	}
+	.partner-join .text h2{
+		color: #001F44;
+		font-size: 20px
+	}
+
+	.sign-up-bar {
+		grid-column: span 4;
+		grid-row: span 2;
+		background: #AFD2E9;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.sign-up-bar div{
+		margin: auto 0;
+		padding: 20px;
+	}
+	.sign-up-bar img{
+		width: 100%;
+	}
+
+
+	/* ___________________ Stilling ____________________ */
+
+	.stilling td.klub{
+		padding-left: 0px !important;
+	}
+	.stilling .extra{
+		display: none;
+	}
+	
+
+	/* ___________________ Billeder ____________________ */
+	.image-presenter{
+		flex-direction: column;
+		height: 437.5px;
+	}
+	.primary-image{
+		width: 100%;
+		height: 75%;
+	}
+	.primary-image img{
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+	}
+	.small-images{
+		display: flex;
+		width: 100%;
+		height: 25%;
+		border-left: none;
+		border-top: 5px solid white;
+		box-sizing: border-box;
+		overflow-x: scroll;
+		overflow-y: none;
+	}
+	.small-images img{
+		height: 100%;
+		object-fit: contain;
+		transition: 300ms ease-out;
+		cursor: pointer;
+		margin-right: 2px;
+	}
+	.small-images img:last-child{
+		margin-right: 0;
+	}
+
+
+	/* ___________________ Sæsonkort ______________________ */
+	.saesonkort-buying-options{
+		padding: 0 !important;
+	}
+	.saesonkort-buying-options .buying-details-saeson{
+		padding: 0;
+		margin-right: 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: #001F44;
+		font-size: 18px;
+	}
+	.saesonkort{
+		width: 100%;
+		height: 300px;
+		background: #001F44;
+		margin: 0 0 10px 0;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		position: relative;
+		overflow: hidden;
+		box-shadow: 3px 3px 10px black;
+		transition: transform 300ms ease-out;
+	}
+
+
+	/* ___________________ TV & STREAM ____________________ */
+
+	.livestream{
+		width: 500px;
+		height: 281px;
+	}
+
+
+	/* ___________________ KAMP-arkiv _____________________ */
+
+	.saeson-nav h3{
+		padding: 20px 5px;
+	}
+	.vid{
+		height: 130px;
+		width: 231px;
+	}
+	.saeson-wrapper span{
+		padding: 20px 10px;
+	}
+
+
+	/* _______________ Partnere __________________ */
+
+	.element-wrapper{
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+	.text-left{
+		width: 90%;
+	}
+	.element-wrapper img{
+		width: 100%;
+	}	
+
+
+	/* ___________________ KLubben ________________________ */
+	.news-section,
+	.formaal-section,
+	.historie-section,
+	.afk-academy-section,
+	.klub-kampprogram-section,
+	.klub-traenere-section,
+	.bestyrelse-section,
+	.kontakt-section{
+		grid-area: span 1 / span 6;
+	}
+
+	/* ___________________ Formål ________________________ */
+	.section-one{
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.section-two{
+		flex-direction: column-reverse;
+	}
+	.broed-text{
+		width: 100%;
+		margin-bottom: 10px;
+	}
+
+
+	/* __________________ Historie _______________________ */
+	
+	.time-line{
+		left: 10%;
+	}
+	.historie-wrapper .eye-catcher{
+		font-size: 40px;
+	}
+	
+	.tl-middle{
+		height: 100%;
+	}
+	.kp-middle{
+		top: 53%;
+	}
+	.tl-end{
+		height: 67%;
+		top: 0px;
+	}
+	.kp-end{
+		top: 100%;
+	}
+
+
+	/* ___________________ AFK-ACADEMY ___________________ */
+	.image-roller{
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-auto-rows: auto;
+		gap: 10px
+	}
+	.image-roller img{
+		width: 200px;
+		margin: 0;
+		transition: all 300ms ease-out;
+	}
+	.image-roller img:hover{
+		transform: scale(1.1);
+	}
+	/* Stor tekst */
+	.info-box span{
+		font-size: 50px;
+	}
+	.academy-text-container span{
+		font-size: 30px;
+	}
+	/* Lidt mindre tekst */
+	.academy-text-container h2,
+	.info-box h2{
+		font-size: 20px;
+	}
+	.competition h2{
+		font-size: 36px;
+	}
+
+
+	/* _____________________ Kontakt _______________________ */
+	.contact-container{
+		width: 100%;
+	}
+	
+	
+	.contact-form input,
+	.contact-form textarea{
+		width: 90vw;
+	}
+
+
+
+	/* __________________________________ HOLD-sider ______________________________________ */
+
+		/* ------------------------------ HOLD-NAV & general --------------------------- */
+	.main-content-hold{
+		flex-direction: column;
+	}
+
+	.hold-nav{
+		position: sticky;
+		flex-direction: row;
+		justify-content: center;
+		top: -60px;
+		filter: opacity(100%);
+		width: 100%;
+		border-top: 1px solid #777777;
+		padding: 0 20px;
+		overflow-x: auto;
+	}
+	.hold-nav a{
+		border-top: none;
+		padding: 0px 10px;
+		font-size: 12px;
+	}
+	.hold-nav a:last-child {
+		border-bottom: none;
+	}
+
+	.main-content-hold-wrapper{
+		margin-left: 0;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+
+	/* ______________________ NEWS - template ____________________ */
+
+	.news-wrapper{
+		width: 100%;
+		background-color: white;
+		align-self: center;
+	}
+	.news-wrapper img{
+		max-width: 100%;
+		object-fit: contain;
+	}
+	.news-wrapper h1{
+		margin: 10px;
+		color: #001F44;
+	}
+
+}
+
+/* _________________________________________________________________________________________________ */
+/* ____________________________________________ MOBILE _____________________________________________ */
+/* _________________________________________________________________________________________________ */
+
+@media screen and (max-width: 600px) {
+	/* ____________ POP-UP ______________ */
+	.popup-signup{
+		width: 350px;
+	}
+	.conventus-signup{
+		width: 300px;
+		margin: 20px auto;
+		box-sizing: border-box;
+	}
+
+
+	/* ____________ FOOTER _____________ */
+	.footer-column{
+		margin: 0 20%;
+	}
+
+	/* ___________ FORSIDE ____________ */
+	.frontpage-box{
+		height: calc(60vh - 90px);
+	}
+	.frontpage-box .btn{
+		display: none;
+	}
+
+	.left-arrow,
+	.right-arrow{
+		padding: 0 10px;
+		font-size: 30px;
+	}
+
+
+	/* ------------ NEWS section -------------- */
+	.section-display3-transparent{
+		grid-template-columns: repeat(1, 1fr);
+	}
+
+	/* _____________ Spillertrup og trænere _____________ */
+	.coach-element{
+		max-width: 150px;
+	}
+	.liga-coach .text-element{
+		padding-left: 10px;
+	}
+	.liga-coach img{
+		height: 200px;
+	}
+	.liga-coach h1{
+		font-size: 34px;
+	}
+	.liga-coach h4{
+		font-size: 14px;
+	}
+
+
+	/* __________________ Ligaholdet ____________________ */
+
+	.hex-container{
+		margin: 0 auto;
+		perspective: 15px;
+		max-width: 300px;
+	}
+	.hex-wrapper{
+		width: 300px;
+		height: 300px;
+		box-shadow: 5px 5px 10px black;
+		overflow-x: hidden;
+	}
+	.hex-wrapper h3{
+		font-size: 10px;
+	}
+	.hex-wrapper a{
+		border-bottom: 1px solid transparent;
+	}
+	.hex-wrapper a:hover{
+		border-bottom: 1px solid white;
+	}
+	.hexagon-center{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% - 50px);
+		top: calc(50% - calc(calc(100px / 1.73) / 2)) /* kan være 2-tallet skal halveres */
+	}
+	.hexagon-center-left{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% - 155px);
+		top: calc(50% - calc(calc(100px / 1.73) / 2))
+	}
+	.hexagon-center-right{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% + 55px);
+		top: calc(50% - calc(calc(100px / 1.73) / 2))
+	}
+	.hexagon-center::before,
+	.hexagon-center::after,
+	.hexagon-center-left::before,
+	.hexagon-center-left::after,
+	.hexagon-center-right::before,
+	.hexagon-center-right::after,
+	.hexagon-top-midleft::before,
+	.hexagon-top-midleft::after,
+	.hexagon-top-mid::before,
+	.hexagon-top-mid::after,
+	.hexagon-top-midright::before,
+	.hexagon-top-midright::after,
+	.hexagon-midtop-left::before,
+	.hexagon-midtop-left::after,
+	.hexagon-midtop-midleft::before,
+	.hexagon-midtop-midleft::after,
+	.hexagon-midtop-midright::before,
+	.hexagon-midtop-midright::after,
+	.hexagon-midtop-right::before,
+	.hexagon-midtop-right::after,
+	.hexagon-midbot-left::before,
+	.hexagon-midbot-left::after,
+	.hexagon-midbot-midleft::before,
+	.hexagon-midbot-midleft::after,
+	.hexagon-midbot-midright::before,
+	.hexagon-midbot-midright::after,
+	.hexagon-midbot-right::before,
+	.hexagon-midbot-right::after,
+	.hexagon-bot-midleft::before,
+	.hexagon-bot-midleft::after,
+	.hexagon-bot-mid::before,
+	.hexagon-bot-mid::after,
+	.hexagon-bot-midright::before,
+	.hexagon-bot-midright::after{
+		content: "";
+		position: absolute;
+		border-right: 50px solid transparent;
+		border-left: 50px solid transparent;
+	}
+	.hexagon-center::before,
+	.hexagon-center-left::before,
+	.hexagon-center-right::before,
+	.hexagon-top-midleft::before,
+	.hexagon-top-mid::before,
+	.hexagon-top-midright::before,
+	.hexagon-midtop-left::before,
+	.hexagon-midtop-midleft::before,
+	.hexagon-midtop-midright::before,
+	.hexagon-midtop-right::before,
+	.hexagon-midbot-left::before,
+	.hexagon-midbot-midleft::before,
+	.hexagon-midbot-midright::before,
+	.hexagon-midbot-right::before,
+	.hexagon-bot-midleft::before,
+	.hexagon-bot-mid::before,
+	.hexagon-bot-midright::before{
+		border-bottom: calc(calc(100px / 1.73) / 2) solid #001F44;
+		bottom: 100%;
+	}
+	.hexagon-center::after,
+	.hexagon-center-left::after,
+	.hexagon-center-right::after,
+	.hexagon-top-midleft::after,
+	.hexagon-top-mid::after,
+	.hexagon-top-midright::after,
+	.hexagon-midtop-left::after,
+	.hexagon-midtop-midleft::after,
+	.hexagon-midtop-midright::after,
+	.hexagon-midtop-right::after,
+	.hexagon-midbot-left::after,
+	.hexagon-midbot-midleft::after,
+	.hexagon-midbot-midright::after,
+	.hexagon-midbot-right::after,
+	.hexagon-bot-midleft::after,
+	.hexagon-bot-mid::after,
+	.hexagon-bot-midright::after{
+		border-top: calc(calc(100px / 1.73) / 2) solid #001F44;
+		top: 100%;
+	}
+	
+	/* ---------------------------------- HEX: top-midleft ---------------------------------- */
+	.hexagon-top-midleft{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% - 155px);
+		top: -60px;
+	}
+	/* ---------------------------------- HEX: top-mid ---------------------------------- */
+	.hexagon-top-mid{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% - 50px);
+		top: -60px;
+	}
+	/* ---------------------------------- HEX: top-midright ---------------------------------- */
+	.hexagon-top-midright{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% + 550px);
+		top: -60px;
+	}
+	/* ---------------------------------- HEX: midtop-left ---------------------------------- */
+	.hexagon-midtop-left{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% - 207.5px);
+		top: 30px;
+	}
+	/* ---------------------------------- HEX: midtop-midleft ---------------------------------- */
+	.hexagon-midtop-midleft{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% - 102.5px);
+		top: 30px;
+	}
+	/* ---------------------------------- HEX: midtop-midright ---------------------------------- */
+	.hexagon-midtop-midright{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% + 2.5px);
+		top: 30px;
+	}
+	/* ---------------------------------- HEX: midtop-right ---------------------------------- */
+	.hexagon-midtop-right{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% + 107.5px);
+		top: 30px;
+	}
+	/* ---------------------------------- HEX: midbot-left ---------------------------------- */
+	.hexagon-midbot-left{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% - 207.5px);
+		bottom: 30px;
+	}
+	/* ---------------------------------- HEX: midbot-midleft ---------------------------------- */
+	.hexagon-midbot-midleft{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% - 102.5px);
+		bottom: 30px;
+	}
+	
+	/* ---------------------------------- HEX: midbot-midright ---------------------------------- */
+	.hexagon-midbot-midright{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% + 2.5px);
+		bottom: 30px;
+	}
+	/* ---------------------------------- HEX: midbot-right ---------------------------------- */
+	.hexagon-midbot-right{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% + 107.5px);
+		bottom: 30px;
+	}
+	/* ---------------------------------- HEX: bot-midleft ---------------------------------- */
+	.hexagon-bot-midleft{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% - 155px);
+		bottom: -60px;
+	}
+	/* ---------------------------------- HEX: bot-mid ---------------------------------- */
+	.hexagon-bot-mid{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% - 50px);
+		bottom: -60px;
+	}
+	/* ---------------------------------- HEX: bot-midright ---------------------------------- */
+	.hexagon-bot-midright{
+		width: 100px;
+		height: calc(100px / 1.73);
+		background-color: #001F44;
+		position: absolute;
+		left: calc(50% + 55px);
+		bottom: -60px;
+	}
+
+
+	/* ________________ Stilling __________________ */
+	.stilling td{
+		font-size: 10px;
+		padding: 10px 10px;
+		text-align: left;
+	}
+
+
+	/* _____________ BILLET & TV _________________ */
+	.billet-tv-section{
+		flex-direction: column;
+	}
+	.billet-tv-section .details{
+		width: 100%;
+		margin: auto;
+	}
+
+	.billet-tv-section .image-container{
+		width: 100%;
+	}
+	.billet-tv-section img{
+		width: 30%;
+		object-fit: cover;
+	}
+
+
+	/* ___________________ TV & STREAM ____________________ */
+
+	.livestream{
+	
+		width: 300px;
+		height: 169px;
+	}
+	.control-bar{
+		padding: 0 10px;
+	}
+	.timer{
+		width: 85%;
+	}
+
+	
+	/* _____________ AFK Kampprogram ____________ */
+	.match-box{
+		width: 100%;
+		align-items: center;
+	}
+	.match-box .match{
+		flex-direction: column;
+	}
+	.match .hometeam{
+		justify-content: flex-end;
+		flex-direction: row-reverse;
+	}
+	.match .hometeam{
+		justify-content: flex-end;
+	}
+
+	/* ____________ AFK-ACADEMY ______________ */
+	.main-top h1{
+		font-size: 40px;
+	}
+	.action-box{
+		flex-direction: column;
+	}
+	.academy-sign-up,
+	.about-futsal{
+		width: 100%;
+	}
+
+	/* _____________________ Kontakt _______________________ */
+	.contact-wrapper{
+		display: flex;
+		flex-direction: column;
+		gap: 20px
+	}
+	.phone-box,
+	.mail-box{
+		width: 100%;
+	}
+
+
+	/* __________________________________ HOLD-sider ______________________________________ */
+
+		/* ------------------------------ HOLD-NAV & general --------------------------- */
+
+	.hold-nav{
+		justify-content: flex-start;
+		padding: 0 85px;
+	}
+	.hold-nav a{
+		font-size: 12px;
+	}
+
+
+	/* ________________________________ OM Futsal _________________________________________ */
+	/* -----------------------------  Futsal Regler ----------------------------- */
+	.vid2{
+		height: auto;
+		width: 100%;
+	}
+
+}
