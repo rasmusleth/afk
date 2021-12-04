@@ -1,3 +1,6 @@
+// Here we simply check to see if we're in the production environment or not 
+  // The "process.env.NODE_ENV" is set by default by node
+  // We check this since we only want to load in this environment-variable if we are in our development environment
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config()
 }
@@ -9,6 +12,8 @@ const express = require("express")
 const app = express()
 const expressLayouts = require("express-ejs-layouts")
 
+
+// Here, after we created this "index-route" in our "routes-folder", we need to import it into our server
 const indexRouter = require("./routes/index")
 
 // Now we can start configuring our "express application"
@@ -31,13 +36,15 @@ app.use(express.static("public"))
   mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
   // Lastly, we simply want to log whether or not we are connected to our database
   const db = mongoose.connection
+  // What we say here is essentially, on "error", please return error
   db.on("error", error => console.error(error))
+  // And here, we want to log the following only ONCE, if the connection is open
   db.once("open", () => console.log("Connected to Mongoose"))
 
 
 
-
+// As we have imported our index-route above (and assigned it to the variable "indexRouter"), we can tell our app to use that route
 app.use("/", indexRouter)
 
-// We can now tell our app, that we want to listen on a certain port
+// We can now tell our app, that we want to listen on a certain port - this port will come from our environment-variable if deployed(online), and by default(not deployed) it will listen on port 3000
 app.listen(process.env.PORT || 3000)

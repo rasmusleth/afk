@@ -1,2 +1,6 @@
+# In this, we put all the files that we dont want to have in our git-repository
+# Our ".env" files can contain sensitive information, and we dont want to include these
+# The node_modules is where all our dependencies/libraries are installed and it is quite big - however, our "package-lock.json" and "package.json" hold all these in a more condenced way, so that is sufficient
+# --- When someone installs our project, the can simply type in "npm install", and it will install all these dependencies for them
 .env
 node_modules
