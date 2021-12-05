@@ -1,0 +1,10 @@
+<h2>Search Matches</h2>
+<form action="/matches" method="GET">
+  <label for="">Team</label>
+  <input type="text" name="hometeam" id="" value="<%= searchOptions.hometeam %>">
+  <button type="submit">Search</button>
+</form>
+<br>
+<% matches.forEach(match => { %>
+  <div><%= match.hometeam %></div>
+<% }) %>

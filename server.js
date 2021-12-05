@@ -15,6 +15,7 @@ const expressLayouts = require("express-ejs-layouts")
 
 // Here, after we created this "index-route" in our "routes-folder", we need to import it into our server
 const indexRouter = require("./routes/index")
+const matchRouter = require("./routes/matches")
 
 // Now we can start configuring our "express application"
 app.set("view engine", "ejs")
@@ -27,6 +28,8 @@ app.set("layout", "layouts/layout")
 app.use(expressLayouts)
 // We also want to tell express where our public files are going to bee (stylesheets, javascript, images, etc.)
 app.use(express.static("public"))
+app.use(express.urlencoded({ limit: "10mb", extended: false}))
+app.use(express.json())
 
 
 // Mongoose installation
@@ -45,6 +48,7 @@ app.use(express.static("public"))
 
 // As we have imported our index-route above (and assigned it to the variable "indexRouter"), we can tell our app to use that route
 app.use("/", indexRouter)
+app.use("/matches", matchRouter)
 
 // We can now tell our app, that we want to listen on a certain port - this port will come from our environment-variable if deployed(online), and by default(not deployed) it will listen on port 3000
 app.listen(process.env.PORT || 3000)
