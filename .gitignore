@@ -4,3 +4,4 @@
 # --- When someone installs our project, the can simply type in "npm install", and it will install all these dependencies for them
 .env
 node_modules
+public/uploads

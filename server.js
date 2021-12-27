@@ -16,6 +16,7 @@ const expressLayouts = require("express-ejs-layouts")
 // Here, after we created this "index-route" in our "routes-folder", we need to import it into our server
 const indexRouter = require("./routes/index")
 const authorRouter = require("./routes/authors")
+const bookRouter = require("./routes/books")
 
 // Now we can start configuring our "express application"
 app.set("view engine", "ejs")
@@ -49,6 +50,7 @@ app.use(express.json())
 // As we have imported our index-route above (and assigned it to the variable "indexRouter"), we can tell our app to use that route
 app.use("/", indexRouter)
 app.use("/authors", authorRouter)
+app.use("/books", bookRouter)
 
 // We can now tell our app, that we want to listen on a certain port - this port will come from our environment-variable if deployed(online), and by default(not deployed) it will listen on port 3000
 app.listen(process.env.PORT || 3000)

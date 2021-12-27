@@ -4,10 +4,17 @@
 const express = require("express")
 // Getting the "router"-portion of that express-variable from above
 const router = express.Router()
+const Book = require("../models/book")
 
 // Now, with that "router"-variable we just created, we can create our route 
-router.get("/", (req, res) => {
-  res.render("index")
+router.get("/", async (req, res) => {
+  let books = []
+  try {
+    books = await Book.find().sort({ createdAt: "desc" }).limit(10).exec()
+  } catch {
+    books = []
+  }
+  res.render("index", { books: books })
 })
 
 // This doesn't work yet, since we haven't hooked up our application yet to USE THIS ROUTER - the server doesn't know that this router exists

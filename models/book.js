@@ -1,4 +1,7 @@
 const mongoose = require("mongoose")
+const path = require("path")
+
+const coverImageBasePath = "uploads/bookCovers"
 
 // Here we setup a table in our mongoose-database - it is set up as a JSON object, with each key-value pay being a column
 const bookSchema = new mongoose.Schema({
@@ -33,4 +36,11 @@ const bookSchema = new mongoose.Schema({
   }
 })
 
+bookSchema.virtual("coverImagePath").get(function () {
+  if (this.coverImageName != null) {
+    return path.join("/", coverImageBasePath, this.coverImageName)
+  }
+})
+
 module.exports = mongoose.model("Book", bookSchema)
+module.exports.coverImageBasePath = coverImageBasePath

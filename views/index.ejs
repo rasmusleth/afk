@@ -1,2 +1,7 @@
 <!-- What we put in here (at least for index-requests(i.e. no resources)) will be imported into the body-tag in our layout-file -->
-Test
+<h2>Recently Added</h2>
+<div>
+  <% books.forEach(book => { %>
+    <img height="150" width="100" src="<%= book.coverImagePath %>" alt="">
+  <% }) %>
+</div>
