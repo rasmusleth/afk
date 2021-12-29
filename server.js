@@ -11,6 +11,7 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express")
 const app = express()
 const expressLayouts = require("express-ejs-layouts")
+const methodOverride = require("method-override")
 
 
 // Here, after we created this "index-route" in our "routes-folder", we need to import it into our server
@@ -27,6 +28,7 @@ app.set("views", __dirname + "/views")
 app.set("layout", "layouts/layout")
 // WE need to tell our express-app that we want to use "Express Layouts"
 app.use(expressLayouts)
+app.use(methodOverride("_method"))
 // We also want to tell express where our public files are going to bee (stylesheets, javascript, images, etc.)
 app.use(express.static("public"))
 app.use(express.urlencoded({ limit: "10mb", extended: false}))
