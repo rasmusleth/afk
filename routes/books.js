@@ -92,7 +92,7 @@ router.put("/:id", async (req, res) => {
     if (book != null) {
       renderEditPage(res, book, true)
     } else {
-      redirect("/")
+      res.redirect("/")
     }
   }
 

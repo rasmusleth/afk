@@ -11,15 +11,20 @@
   <script defer src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
   <script defer src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
   <script defer src="/javascripts/fileUpload.js"></script>
+  <link rel="stylesheet" href="/stylesheets/main.css">
   <title>Aalborg Futsal Klub</title>
 </head>
 <body>
-  <%- include("../partials/header.ejs") %> 
-  <hr>
-  <%- include("../partials/errorMessage.ejs") %> 
-  <%- body %>
-  <br>
-  <hr>
-  Footer
+  <div class="container">
+    <%- include("../partials/header.ejs") %> 
+    <hr>
+    <div class="inner-container">
+    <%- include("../partials/errorMessage.ejs") %> 
+    <%- body %>
+    </div>
+    <br>
+    <hr>
+    Footer
+  </div>
 </body>
 </html>
