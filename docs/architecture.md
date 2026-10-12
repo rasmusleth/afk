@@ -99,6 +99,14 @@ Examples:
 
 This avoids duplicated state and synchronization problems.
 
+Competition standings are a narrow exception to deriving every displayed
+number from matches. A competition may have a team-specific points adjustment
+for a disciplinary ruling or another decision outside a match. Store each
+adjustment as an explicit fact with a signed points change, reason, and source
+when available. Apply it only to the competition whose table it affects; a
+ruling originating in a previous season may affect the current competition.
+Do not store an independently editable total of points on Team documents.
+
 # Event-driven match model
 
 Match events represent facts that occurred during a match.
@@ -108,6 +116,10 @@ Examples:
 - goal
 - yellow card
 - red card
+
+Support a distinction between an ordinary goal and a penalty goal, and a
+separate missed-penalty event when the source data establishes those facts.
+Inspect DBU examples before finalizing penalty variants or mappings.
 
 Goal events should be capable of representing at least:
 
@@ -123,12 +135,18 @@ Example conceptual event:
 type: "goal",
 team: <Team reference>,
 scorer: <Player reference>,
-assist: <Player reference | null>,
+assist: {
+  status: "credited" | "none" | "unknown",
+  player: <Player reference, when credited and identified>
+},
 minute: 16
 }
 
 Prefer typed event structures rather than a generic object with many unrelated
 optional fields.
+
+Represent an assist as credited to a player, known to have none, or unknown.
+Do not turn a missing DBU assist into a known absence of an assist.
 
 # Match score
 
@@ -183,6 +201,10 @@ that they played, appearance status may be unknown rather than false.
 
 An event involving a substitute is evidence that the player participated.
 
+For a completed match, being listed as a starter is sufficient evidence of an
+appearance. Being listed as a substitute alone is not. An administrator must
+be able to resolve an unknown substitute appearance to played or did not play.
+
 Shirt numbers should be stored at match-participation level because numbers
 may change between matches/seasons. A Player may separately have a current or
 default number if useful.
@@ -220,11 +242,15 @@ https://dbu.dk/resultater/kamp/602659_508399/kampinfo
 
 https://dbu.dk/resultater/kamp/602665_508399/kampinfo
 
-The Aalborg schedule page can be used as the discovery/index source for
-matches.
+Full competition schedule and standing:
 
-The DBU competition schedule may alternatively be used if league-wide results
-are needed.
+https://dbu.dk/resultater/pulje/508399/kampprogramFuld
+
+https://dbu.dk/resultater/pulje/508399/stilling
+
+Discover fixtures from the full competition schedule so all teams and results
+are available for a league table. Aalborg matches remain the first priority
+for detailed player data and manual review.
 
 The schedule provides basic match information such as:
 
@@ -248,8 +274,14 @@ Event types may be represented by icons/images in DBU's HTML rather than
 explicit textual labels. Inspect the actual HTML attributes, image URLs,
 classes, alt text, or related markup before defining event mappings.
 
-Also inspect team/player links and underlying HTML for stable DBU identifiers.
-Prefer stable DBU IDs over matching entities by name whenever available.
+The full schedule currently links team entries using URLs such as
+`/resultater/hold/404636_508399`. The first number appears to identify the
+team entry and the second the competition pool; verify these meanings and do
+not assume the team entry number is stable across seasons. In the two example
+match pages above, player names in lineups and events appear as plain text
+without visible player IDs or profile links. Preserve source names and do not merge
+Player documents based on names alone. Recheck these observations against
+saved HTML fixtures when implementing the importer.
 
 # External identity
 
@@ -273,6 +305,10 @@ Sanity document IDs and array `_key` values remain our internal identifiers.
 
 Do not derive Sanity identity directly from mutable display values such as
 player names.
+
+Where no reliable DBU player ID is available, preserve the source name and
+team on match data. Link it to a Player document only when identity is
+sufficiently certain; ambiguous matches need administrator review.
 
 # Importer structure
 
@@ -326,6 +362,12 @@ lastDetailSyncAt: "..."
 
 Most synchronization metadata should be hidden or read-only for ordinary
 Sanity Studio editors.
+
+The initial sports-data workflow has no review-and-publish approval step.
+Import directly to published sports documents and configure sports editing to
+take effect directly. Keep the public read model tolerant of incomplete
+records, and enforce importer integrity rules in code as well as Studio
+validation. Editorial content may use a different publication workflow.
 
 # Imported events and internal event identity
 
@@ -412,6 +454,15 @@ manual scorer correction.
 Editors should not have to manually manage technical override flags if this
 can reasonably be automated by the Studio editing workflow.
 
+Initially, removing an override allows the next successful DBU sync to supply
+that field again. A one-click restoration of the latest imported value is not
+required until editor use shows a need for it.
+
+Start with a small trusted group of sports editors and a separate importer
+credential. Hiding or making import fields read-only in Studio improves the
+editor experience, but must not be treated as the only protection for imported
+data.
+
 # Manual events
 
 Admins may add events that DBU does not contain.
@@ -487,6 +538,17 @@ The system may eventually surface warnings such as:
 
 Similar checks can identify incomplete information requiring admin enrichment.
 
+Surface actionable exceptions in an administrator review queue. Prioritize
+ambiguous player identity, event reconciliation, score discrepancies, and
+conflicts with manual corrections. For Aalborg matches, also surface unknown
+assists and substitute appearances. Unknown information is valid and should
+not block import; the queue helps administrators improve completeness.
+
+The official DBU standing can be compared with the table derived from match
+results and competition-specific points adjustments. A mismatch is a signal
+to investigate a missing ruling or competition rule, not a reason to silently
+overwrite match facts.
+
 # Derived statistics
 
 Statistics should be calculated from canonical match data.
@@ -519,11 +581,57 @@ Team
 Player
 Match
 
+Team means a playing side or competition entry in the initial model. It is
+not the wider club organization. A Club document can be added later and
+referenced by teams if needed.
+
+Competition belongs to one Season. Match references Competition; its season
+is derived through that reference rather than stored twice.
+
+Participants and typed events are objects embedded in Match arrays, with
+persistent Sanity `_key` values. Player and Team are separate documents
+referenced from those objects when their identities are known.
+
+The initial schema should cover these fields (exact editor labels and code
+names can be refined during implementation):
+
+| Document | Core fields |
+| --- | --- |
+| Season | Name, start date, end date |
+| Competition | Name, Season reference, DBU pool identity, points adjustments |
+| Team | Name, optional short name, scoped DBU team-entry identity |
+| Player | Name, optional public profile content, optional verified external identity |
+| Match | Competition reference, home and away Team references, kickoff/date precision, venue, status, official score, participants, events, import metadata |
+
+A points adjustment is an object on Competition with a Team reference,
+signed integer points change, reason, and optional source and originating
+season. Multiple adjustments for one team must be possible. Each should have
+its own stable `_key`.
+
+A participant has a Team reference, optional Player reference, preserved
+source player name when applicable, match shirt number, lineup status
+(starter, substitute, or unknown), and appearance state (played, did not
+play, or unknown). A missing Player reference must not discard the source
+name or create a confirmed identity from a name match alone.
+
+The first typed events are goal, yellow card, and red card. Each has a Team,
+optional resolved Player and preserved source player name, and an optional
+minute. Goals have an explicit assist state and optional assister. Only add
+penalty details to the schema once representative DBU markup has been
+inspected. Imported participants and events need an origin and reconciliation
+metadata; manual events remain separate from imported ones.
+
+At minimum, validate required names and references, Season date order,
+distinct home and away teams, complete non-negative official scores, valid
+event-specific fields, and duplicate resolved participants within a team.
+Incomplete event coverage and unknown assists or appearances are warnings or
+review items, not invalid records. Apply equivalent integrity checks in the
+importer because Studio schema validation does not govern API writes.
+
 Match contains or references:
 
 - external/import metadata
 - competition
-- season
 - date/time
 - venue
 - status
@@ -558,13 +666,14 @@ Do not prematurely optimize for:
 
 These should be investigated rather than guessed:
 
-1. Exact DBU HTML structure for each event type.
-2. Whether DBU exposes stable player IDs in links/markup.
-3. Whether DBU exposes stable team IDs in links/markup.
-4. Full set of DBU event types relevant to futsal.
-5. Full set of match status codes.
-6. Best event reconciliation strategy when no event ID exists.
-7. Best Sanity Studio UX for automatically recording manual overrides.
-8. Whether Aalborg's team schedule or the full competition schedule should be
-   the primary discovery endpoint.
-9. How frequently schedule/detail synchronization should run.
+1. Exact DBU HTML structure for penalty, red-card, and any additional event
+   types; save representative fixtures before defining mappings.
+2. Whether DBU team-entry IDs persist across seasons, and whether another
+   reliable player identifier exists outside the two inspected match pages.
+3. Full set of match status codes and exceptional result rules.
+4. Best event reconciliation strategy when no event ID exists.
+5. Best Sanity Studio UX for automatically recording manual overrides and
+   reviewing unresolved player identities.
+6. How frequently schedule/detail synchronization should run.
+7. Competition ranking and tie-break rules needed to reproduce DBU's table
+   after explicit points adjustments.
