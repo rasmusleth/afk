@@ -10,6 +10,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
+- Never expose secrets through `NEXT_PUBLIC_*` environment variables.
+- Never move server-side credentials into client components.
+
 ## Project
 
 This is the Aalborg Futsal Klub website.
