@@ -1,0 +1,20 @@
+import {defineConfig} from 'sanity';
+import {structureTool} from 'sanity/structure';
+import {schemaTypes} from './sanity/schemaTypes';
+
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID;
+const dataset = process.env.SANITY_STUDIO_DATASET;
+if (!projectId || !dataset) {
+  throw new Error('Set SANITY_STUDIO_PROJECT_ID and SANITY_STUDIO_DATASET in .env.local. See docs/sanity-studio.md.');
+}
+export default defineConfig({
+  name: 'afk', title: 'Aalborg Futsal Klub', projectId, dataset,
+  plugins: [structureTool({structure: S => S.list().title('Sports').items([
+    S.documentTypeListItem('match').title('Matches'),
+    S.documentTypeListItem('competition').title('Competitions'),
+    S.documentTypeListItem('season').title('Seasons'),
+    S.documentTypeListItem('team').title('Teams'),
+    S.documentTypeListItem('player').title('Players'),
+  ])})],
+  schema: {types: schemaTypes},
+});

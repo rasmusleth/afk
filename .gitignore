@@ -42,3 +42,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Sanity Studio build and generated runtime
+/dist/
+/.sanity/
+!.env.example
