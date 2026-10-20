@@ -11,7 +11,7 @@
     "test": "node --test sports/*.test.ts sanity/schemaTypes/*.test.ts",
     "studio": "sanity dev",
     "studio:build": "sanity build --yes",
-    "studio:schema": "sanity schema extract --path .sanity/schema.json"
+    "studio:schema": "sanity schema extract --path .sanity/schema.json --force"
   },
   "dependencies": {
     "next": "16.4.0",
