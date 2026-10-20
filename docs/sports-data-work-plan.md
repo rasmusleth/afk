@@ -12,7 +12,7 @@ blank PR cell means no PR exists yet.
 
 | Task | Status | PR | Merge date |
 | --- | --- | --- | --- |
-| 0. Record decisions and work plan | Drafted locally | — | — |
+| 0. Record decisions and work plan | In review | [#8](https://github.com/rasmusleth/afk/pull/8) | — |
 | 1. Sanity sports foundation | Not started | — | — |
 | 2. DBU fixtures and pure parsers | Not started | — | — |
 | 3. Full competition schedule sync | Not started | — | — |
