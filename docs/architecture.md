@@ -73,6 +73,21 @@ become significantly more complex.
 
 Avoid introducing PostgreSQL/Directus preemptively.
 
+## Repository layout
+
+Use one pnpm workspace and lockfile with separate application packages:
+
+- `apps/web`: the public Next.js website, its assets and app configuration.
+- `apps/studio`: the standalone Sanity Studio, schemas and Studio configuration.
+- `packages/sports`: shared TypeScript domain models and pure validation,
+  independent of Next.js, React and Sanity runtime dependencies.
+
+Each app owns its runtime dependencies and local environment files. The root
+contains workspace commands, shared development tooling and documentation.
+Studio imports the sports package through `workspace:*`; the public site and
+future importer can use that same domain package when needed. The apps build
+and run separately, and the website does not require Studio configuration.
+
 # Core sports-data principle
 
 ## Matches are the source of truth

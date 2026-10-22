@@ -1,11 +1,11 @@
 import {defineConfig} from 'sanity';
 import {structureTool} from 'sanity/structure';
-import {schemaTypes} from './sanity/schemaTypes';
+import {schemaTypes} from './schemaTypes';
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID;
 const dataset = process.env.SANITY_STUDIO_DATASET;
 if (!projectId || !dataset) {
-  throw new Error('Set SANITY_STUDIO_PROJECT_ID and SANITY_STUDIO_DATASET in .env.local. See docs/sanity-studio.md.');
+  throw new Error('Set SANITY_STUDIO_PROJECT_ID and SANITY_STUDIO_DATASET in apps/studio/.env.local. See docs/sanity-studio.md.');
 }
 export default defineConfig({
   name: 'afk', title: 'Aalborg Futsal Klub', projectId, dataset,

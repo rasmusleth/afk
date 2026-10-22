@@ -2,7 +2,7 @@
 .pi
 
 # dependencies
-/node_modules
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -15,11 +15,11 @@
 /coverage
 
 # next.js
-/.next/
-/out/
+**/.next/
+**/out/
 
 # production
-/build
+**/build/
 
 # misc
 .DS_Store
@@ -44,6 +44,6 @@ yarn-error.log*
 next-env.d.ts
 
 # Sanity Studio build and generated runtime
-/dist/
-/.sanity/
+**/dist/
+**/.sanity/
 !.env.example

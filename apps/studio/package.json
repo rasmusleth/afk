@@ -1,0 +1,24 @@
+{
+  "name": "@afk/studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build --yes",
+    "schema": "sanity schema extract --path .sanity/schema.json --force",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test schemaTypes/*.test.ts"
+  },
+  "dependencies": {
+    "@afk/sports": "workspace:*",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sanity": "^6.20.0",
+    "styled-components": "^6.6.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19"
+  }
+}

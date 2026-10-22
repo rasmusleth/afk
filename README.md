@@ -1,44 +1,36 @@
-# afk
+# Aalborg Futsal Klub
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+A pnpm workspace containing two independent applications and shared sports logic:
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```text
+apps/
+  web/           Next.js public website
+  studio/        Sanity Studio, configuration and schemas
+packages/
+  sports/        Framework-independent sports models and validation
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Use Node 22.12+ (Node 24 recommended) and pnpm 12.11.2. Install from the
+repository root with `pnpm install`; the workspace uses one lockfile.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Root command | Purpose |
+| --- | --- |
+| `pnpm dev` | Start the website at http://localhost:3000 |
+| `pnpm build` | Build the website |
+| `pnpm start` | Serve the built website |
+| `pnpm studio` | Start Studio at http://localhost:3333 |
+| `pnpm studio:build` | Build Studio into `apps/studio/dist/` |
+| `pnpm studio:schema` | Extract Studio schema into `apps/studio/.sanity/schema.json` |
+| `pnpm test` | Run domain and schema tests |
+| `pnpm typecheck` | Check all workspace packages |
+| `pnpm lint` | Lint source across the workspace |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Each application has its own `package.json` and configuration. Use
+`pnpm --filter @afk/web <command>` or `pnpm --filter @afk/studio <command>`
+to target one application. Shared development tools are managed at the root.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## Sports Studio
-
-See [the Studio setup guide](docs/sanity-studio.md) for local Sanity configuration,
-commands, data contracts, and remaining setup. The Studio runs separately from
-the public website with `pnpm studio`.
+Sanity's project and dataset configuration goes in `apps/studio/.env.local`.
+Next.js environment settings go in `apps/web/.env.local`. The public website
+can build without any Sanity settings. See the [Studio setup guide](docs/sanity-studio.md)
+for the account setup command and remaining manual steps, and
+[architecture.md](docs/architecture.md) for the sports data model.

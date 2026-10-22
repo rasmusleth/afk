@@ -3,7 +3,7 @@ import {
   record, validateName, validateSeason, validateScore, validateAssist,
   validateParticipant, validateEvent, validateAdjustment, validateExternal,
   validateImport, validateKickoff, validateMatch, validateTeamIdentity,
-} from '../../sports/validation.ts';
+} from '@afk/sports/validation';
 
 const reference = (name: string, title: string, to: string, required = false) => defineField({
   name, title, type: 'reference', to: [{type: to}],
