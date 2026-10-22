@@ -12,8 +12,8 @@ blank PR cell means no PR exists yet.
 
 | Task | Status | PR | Merge date |
 | --- | --- | --- | --- |
-| 0. Record decisions and work plan | In review | [#8](https://github.com/rasmusleth/afk/pull/8) | — |
-| 1. Sanity sports foundation | In review | [#9](https://github.com/rasmusleth/afk/pull/9) | — |
+| 0. Record decisions and work plan | Merged | [#8](https://github.com/rasmusleth/afk/pull/8) | 2026-10-20 |
+| 1. Sanity sports foundation | Merged | [#9](https://github.com/rasmusleth/afk/pull/9) | 2026-10-22 |
 | 2. DBU fixtures and pure parsers | Not started | — | — |
 | 3. Full competition schedule sync | Not started | — | — |
 | 4. Match detail sync and reconciliation | Not started | — | — |

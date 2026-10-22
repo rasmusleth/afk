@@ -1,0 +1,65 @@
+[
+  {
+    "file": "competition-508399.html",
+    "url": "https://dbu.dk/resultater/pulje/508399/kampprogramFuld",
+    "capturedOn": "2026-10-22",
+    "sha256": "71fbe9afc5cd0e73f9c0df6145c8ad7051aca0e18c82ae7b01dc6dd4ec64c7d2",
+    "selection": ".sr--header, .sr--tabs, .sr--pool--match-program"
+  },
+  {
+    "file": "match-602658.html",
+    "url": "https://dbu.dk/resultater/kamp/602658_508399/kampinfo",
+    "capturedOn": "2026-10-22",
+    "sha256": "4aed95836abb63baf8e0aee7a33fd99dc10ebe5433a4b66b2ccbfc48cf2d3959",
+    "selection": ".sr--header, .sr--tabs, .sr--match--info, .sr--match--live-score, .sr--match--team-cards"
+  },
+  {
+    "file": "match-602659.html",
+    "url": "https://dbu.dk/resultater/kamp/602659_508399/kampinfo",
+    "capturedOn": "2026-10-22",
+    "sha256": "0b04173c04b0a18cfa0f49179109d0203957f037546bed84c4dd2cb15082ee73",
+    "selection": ".sr--header, .sr--tabs, .sr--match--info, .sr--match--live-score, .sr--match--team-cards"
+  },
+  {
+    "file": "match-602662.html",
+    "url": "https://dbu.dk/resultater/kamp/602662_508399/kampinfo",
+    "capturedOn": "2026-10-22",
+    "sha256": "f15f06a591f8112a3c7f4afe7f00df266900025c108dee958a37d962cde6990a",
+    "selection": ".sr--header, .sr--tabs, .sr--match--info, .sr--match--live-score, .sr--match--team-cards"
+  },
+  {
+    "file": "match-602665.html",
+    "url": "https://dbu.dk/resultater/kamp/602665_508399/kampinfo",
+    "capturedOn": "2026-10-22",
+    "sha256": "310d874237004b1421f5c90a267908d93a9f6ba0b62e8a223c561be3eea4868b",
+    "selection": ".sr--header, .sr--tabs, .sr--match--info, .sr--match--live-score, .sr--match--team-cards"
+  },
+  {
+    "file": "match-602675.html",
+    "url": "https://dbu.dk/resultater/kamp/602675_508399/kampinfo",
+    "capturedOn": "2026-10-22",
+    "sha256": "bef0a06733435c36af1661b9650e09e4c2b74cc7f70e04b346f4511390246a2a",
+    "selection": ".sr--header, .sr--tabs, .sr--match--info, .sr--match--live-score, .sr--match--team-cards"
+  },
+  {
+    "file": "match-602678.html",
+    "url": "https://dbu.dk/resultater/kamp/602678_508399/kampinfo",
+    "capturedOn": "2026-10-22",
+    "sha256": "65aae1f6ee661c6519eef93bd3e18a66615078d5ef0fe12cfa873391d1703b40",
+    "selection": ".sr--header, .sr--tabs, .sr--match--info, .sr--match--live-score, .sr--match--team-cards"
+  },
+  {
+    "file": "match-662399.html",
+    "url": "https://dbu.dk/resultater/kamp/662399_476135/kampinfo",
+    "capturedOn": "2026-10-22",
+    "sha256": "b69410aef95cf08c4690e0f0a4481ca35d0063be48e05d182c8256bcced66e7a",
+    "selection": ".sr--header, .sr--tabs, .sr--match--info, .sr--match--live-score, .sr--match--team-cards"
+  },
+  {
+    "file": "match-671446.html",
+    "url": "https://dbu.dk/resultater/kamp/671446_476135/kampinfo",
+    "capturedOn": "2026-10-22",
+    "sha256": "3f6e8e5dbdee47dff06786a73cdd2b7dd954787f8438ba892530ea40350aa82b",
+    "selection": ".sr--header, .sr--tabs, .sr--match--info, .sr--match--live-score, .sr--match--team-cards"
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "name": "@afk/dbu",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./parse": "./parse.ts",
+    "./normalize": "./normalize.ts",
+    "./model": "./model.ts"
+  },
+  "scripts": {
+    "test": "node --test *.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0"
+  }
+}
