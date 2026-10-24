@@ -83,6 +83,8 @@ Use one pnpm workspace and lockfile with separate application packages:
   independent of Next.js, React and Sanity runtime dependencies.
 - `packages/dbu`: source-specific pure HTML parsing and normalization, with
   saved fixtures and external-identity snapshots; no fetching or persistence.
+- `packages/importer`: server-only manual schedule synchronization, with public
+  fetching, reconciliation and revision-checked Sanity persistence.
 
 Each app owns its runtime dependencies and local environment files. The root
 contains workspace commands, shared development tooling and documentation.
@@ -427,6 +429,24 @@ hasBeenEdited: true
 flag for an entire match/event.
 
 Prefer field-level ownership/override information where necessary.
+
+## Schedule field baselines
+
+Schedule synchronization records hidden per-field fingerprints in
+`import.scheduleBaseline`. Compare local values with the last accepted local
+baseline before applying source changes. A divergence becomes a field override;
+legacy values without baselines and manually owned records are preserved
+conservatively. Missing source values never erase known local information.
+Record the retained local value as the new baseline while preserving the
+override, so clearing that override allows a subsequent sync to supply the field
+again when there has been no newer local edit. Revision-checked patches and
+atomic creates prevent stale plans from overwriting concurrent editor changes.
+
+The initial manual importer supports only the `development` dataset and requires
+an explicit source IANA timezone assertion; DBU's timezone contract is unverified.
+Reject ambiguous/nonexistent wall times, and keep numeric schedule scores
+separate from unverified completion status. See
+[schedule sync](./dbu-schedule-sync.md) for its limits and execution workflow.
 
 ## Manual enrichment
 

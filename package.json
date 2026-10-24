@@ -11,7 +11,8 @@
     "test": "pnpm -r --if-present test",
     "studio": "pnpm --filter @afk/studio dev",
     "studio:build": "pnpm --filter @afk/studio build",
-    "studio:schema": "pnpm --filter @afk/studio schema"
+    "studio:schema": "pnpm --filter @afk/studio schema",
+    "sync:schedule": "pnpm --filter @afk/importer sync"
   },
   "devDependencies": {
     "@types/node": "^20",

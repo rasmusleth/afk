@@ -1,0 +1,10 @@
+[
+  {
+    "_id": "season-example",
+    "_type": "season",
+    "_rev": "example-only",
+    "name": "Example 2026–27",
+    "startDate": "2026-07-01",
+    "endDate": "2027-06-30"
+  }
+]
