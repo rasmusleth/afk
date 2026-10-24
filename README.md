@@ -8,6 +8,7 @@ apps/
   studio/        Sanity Studio, configuration and schemas
 packages/
   sports/        Framework-independent sports models and validation
+  dbu/           Pure DBU HTML parsing, normalization and saved test fixtures
 ```
 
 Use Node 22.12+ (Node 24 recommended) and pnpm 12.11.2. Install from the
@@ -21,7 +22,7 @@ repository root with `pnpm install`; the workspace uses one lockfile.
 | `pnpm studio` | Start Studio at http://localhost:3333 |
 | `pnpm studio:build` | Build Studio into `apps/studio/dist/` |
 | `pnpm studio:schema` | Extract Studio schema into `apps/studio/.sanity/schema.json` |
-| `pnpm test` | Run domain and schema tests |
+| `pnpm test` | Run domain, DBU parser and schema tests |
 | `pnpm typecheck` | Check all workspace packages |
 | `pnpm lint` | Lint source across the workspace |
 
@@ -34,3 +35,7 @@ Next.js environment settings go in `apps/web/.env.local`. The public website
 can build without any Sanity settings. See the [Studio setup guide](docs/sanity-studio.md)
 for the account setup command and remaining manual steps, and
 [architecture.md](docs/architecture.md) for the sports data model.
+
+DBU source observations, verified event variants, and unresolved import questions
+are recorded in [the DBU notes](docs/dbu-source-notes.md). The parser package
+contains no fetching or Sanity persistence.

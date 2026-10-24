@@ -81,6 +81,8 @@ Use one pnpm workspace and lockfile with separate application packages:
 - `apps/studio`: the standalone Sanity Studio, schemas and Studio configuration.
 - `packages/sports`: shared TypeScript domain models and pure validation,
   independent of Next.js, React and Sanity runtime dependencies.
+- `packages/dbu`: source-specific pure HTML parsing and normalization, with
+  saved fixtures and external-identity snapshots; no fetching or persistence.
 
 Each app owns its runtime dependencies and local environment files. The root
 contains workspace commands, shared development tooling and documentation.
@@ -246,6 +248,9 @@ This principle should be reflected in schemas and importer behavior.
 Primary source:
 
 https://dbu.dk/
+
+See [DBU source observations](./dbu-source-notes.md) for verified markup,
+fixture provenance, supported mappings and remaining normalization questions.
 
 Example Aalborg season schedule:
 
