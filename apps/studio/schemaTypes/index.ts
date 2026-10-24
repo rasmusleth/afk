@@ -35,6 +35,13 @@ const externalIdentity = defineType({
     defineField({name: 'sourceUrl', type: 'url'}),
   ],
 });
+const scheduleFieldBaseline = defineType({
+  name: 'scheduleFieldBaseline', title: 'Schedule field baseline', type: 'object',
+  fields: [
+    defineField({name: 'path', type: 'string', validation: rule => rule.required()}),
+    defineField({name: 'fingerprint', type: 'string', validation: rule => rule.required().regex(/^[a-f0-9]{64}$/)}),
+  ],
+});
 const importMetadata = defineType({
   name: 'importMetadata', title: 'Import metadata', type: 'object',
   validation: rule => rule.custom(validateImport),
@@ -42,6 +49,7 @@ const importMetadata = defineType({
     choice('origin', 'Origin', [{title: 'Manual', value: 'manual'}, {title: 'Imported', value: 'imported'}], 'manual'),
     ...['firstImportedAt', 'lastSeenAt', 'lastScheduleSyncAt', 'lastDetailSyncAt'].map(name => defineField({name, type: 'datetime'})),
     defineField({name: 'overrides', type: 'array', of: [defineArrayMember({type: 'string'})], description: 'Paths relative to this object. Clearing a path allows the next successful sync to supply that field.', validation: rule => rule.unique()}),
+    defineField({name: 'scheduleBaseline', title: 'Last accepted schedule field fingerprints', type: 'array', readOnly: true, hidden: true, of: [defineArrayMember({type: 'scheduleFieldBaseline'})]}),
     defineField({name: 'needsReview', type: 'boolean'}),
     defineField({name: 'reviewReason', type: 'text', rows: 2}),
   ],
@@ -142,4 +150,4 @@ const match = defineType({
   preview: {select: {home: 'homeTeam.name', away: 'awayTeam.name', subtitle: 'competition.name'}, prepare: ({home, away, subtitle}) => ({title: `${home ?? 'Home'} – ${away ?? 'Away'}`, subtitle})},
 });
 export const sportsDocuments = [season, competition, team, player, match];
-export const schemaTypes = [externalIdentity, importMetadata, pointsAdjustment, score, kickoff, participant, assist, ...events, ...sportsDocuments];
+export const schemaTypes = [externalIdentity, scheduleFieldBaseline, importMetadata, pointsAdjustment, score, kickoff, participant, assist, ...events, ...sportsDocuments];

@@ -110,3 +110,11 @@ test('date and timestamp integrity checks reject malformed source values', () =>
   invalid(validateKickoff({precision: 'time', dateTime: '2026-10-20T18:00:00'}));
   invalid(validateKickoff({precision: 'time', dateTime: '2026-02-30T18:00:00Z'}));
 });
+
+test('schedule baselines validate stable field keys and unique fingerprints', () => {
+  const baseline = {_type: 'scheduleFieldBaseline', _key: 'venue', path: 'venue', fingerprint: 'a'.repeat(64)};
+  assert.equal(validateImport({origin: 'imported', scheduleBaseline: [baseline]}), true);
+  invalid(validateImport({origin: 'imported', scheduleBaseline: [baseline, baseline]}));
+  invalid(validateImport({origin: 'imported', scheduleBaseline: [{...baseline, fingerprint: 'invalid'}]}));
+  invalid(validateImport({origin: 'imported', scheduleBaseline: [{...baseline, _key: 'other'}]}));
+});

@@ -1,5 +1,11 @@
 /** Canonical sports facts. Unknown states are deliberately explicit. */
 export interface Reference { _type: 'reference'; _ref: string }
+export interface ScheduleFieldBaseline {
+  _type: 'scheduleFieldBaseline';
+  _key: string;
+  path: string;
+  fingerprint: string;
+}
 export interface ImportMetadata {
   _type: 'importMetadata';
   origin: 'manual' | 'imported';
@@ -9,6 +15,8 @@ export interface ImportMetadata {
   lastDetailSyncAt?: string;
   /** Field paths relative to the containing document/object, never display names. */
   overrides?: string[];
+  /** Fingerprints of local field values accepted at the last schedule sync. */
+  scheduleBaseline?: ScheduleFieldBaseline[];
   needsReview?: boolean;
   reviewReason?: string;
 }
