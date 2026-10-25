@@ -22,19 +22,20 @@ function lessPrecise(field: string, local: unknown, incoming: unknown): boolean 
 }
 /** Only source-owned top-level fields are patched. Never replace a document. */
 export function reconcile(
-  proposed: Document, current: Document | undefined, fields: string[], now: string,
+  proposed: Document, current: Document | undefined, fields: string[], now: string, mode: 'schedule' | 'detail' = 'schedule',
 ): {document: Document; operation: Operation; review: ReviewItem[]} {
   if (current && !current._rev) throw new SyncError(`Missing revision on ${current._id}; cannot safely update.`);
   if (current && validateImport(current.import) !== true) throw new SyncError(`Invalid import metadata on ${current._id}; resolve it before syncing.`);
+  const baselineField = mode === 'schedule' ? 'scheduleBaseline' : 'detailBaseline';
   const previous = record(current?.import);
   const overrides = Array.isArray(previous.overrides) && previous.overrides.every(path => typeof path === 'string') ? [...previous.overrides] : [];
   if (previous.overrides != null && (!Array.isArray(previous.overrides) || !previous.overrides.every(path => typeof path === 'string' && path.trim().length))) throw new SyncError(`Invalid override metadata on ${current?._id}.`);
   const baselines = new Map<string, string>();
-  if (previous.scheduleBaseline != null) {
-    if (!Array.isArray(previous.scheduleBaseline)) throw new SyncError(`Invalid schedule baseline on ${current?._id}.`);
-    for (const item of previous.scheduleBaseline) {
+  if (previous[baselineField] != null) {
+    if (!Array.isArray(previous[baselineField])) throw new SyncError(`Invalid field baseline on ${current?._id}.`);
+    for (const item of previous[baselineField] as unknown[]) {
       const baseline = record(item);
-      if (typeof baseline.path !== 'string' || typeof baseline.fingerprint !== 'string' || !/^[a-f0-9]{64}$/.test(baseline.fingerprint) || baselines.has(baseline.path)) throw new SyncError(`Invalid schedule baseline on ${current?._id}.`);
+      if (typeof baseline.path !== 'string' || typeof baseline.fingerprint !== 'string' || !/^[a-f0-9]{64}$/.test(baseline.fingerprint) || baselines.has(baseline.path)) throw new SyncError(`Invalid field baseline on ${current?._id}.`);
       baselines.set(baseline.path, baseline.fingerprint);
     }
   }
@@ -43,7 +44,9 @@ export function reconcile(
   const merged: Document = current ? {...current} : {...proposed};
   for (const field of fields) {
     const local = current?.[field], incoming = proposed[field];
-    const baseline = baselines.get(field);
+    const otherBaseline = previous[mode === 'schedule' ? 'detailBaseline' : 'scheduleBaseline'];
+    const sharedStatus = field === 'status' && Array.isArray(otherBaseline) ? otherBaseline.map(record).find(item => item.path === 'status')?.fingerprint : undefined;
+    const baseline = baselines.get(field) ?? (typeof sharedStatus === 'string' ? sharedStatus : undefined);
     const manual = !!current && previous.origin !== 'imported';
     const changedLocally = !!current && (baseline ? fingerprint(local) !== baseline : known(local));
     if (manual || changedLocally) {
@@ -68,9 +71,17 @@ export function reconcile(
   const metadata: ImportMetadata = {
     ...previous, _type: 'importMetadata', origin: current && previous.origin !== 'imported' ? 'manual' : 'imported',
     firstImportedAt: typeof previous.firstImportedAt === 'string' ? previous.firstImportedAt : now,
-    lastScheduleSyncAt: now, overrides, scheduleBaseline,
+    [mode === 'schedule' ? 'lastScheduleSyncAt' : 'lastDetailSyncAt']: now, overrides, [baselineField]: scheduleBaseline,
     ...(review.length ? {needsReview: true, reviewReason: reasons.join('\n')} : {}),
   };
+  // Both importers can receive explicit completion evidence. Keep their status
+  // baselines aligned so a trusted importer change is not mistaken for an edit.
+  const otherField = mode === 'schedule' ? 'detailBaseline' : 'scheduleBaseline';
+  const other = previous[otherField];
+  if (fields.includes('status') && Array.isArray(other)) metadata[otherField] = other.map(item => {
+    const entry = record(item);
+    return entry.path === 'status' ? {_type: 'scheduleFieldBaseline', _key: 'status', path: 'status', fingerprint: fingerprint(merged.status)} : item;
+  });
   // Metadata on unrelated detail syncs, review markers and manual arrays survive.
   set.import = metadata;
   merged.import = metadata;

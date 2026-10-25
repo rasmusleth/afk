@@ -93,7 +93,7 @@ player goals. Participants and typed goal/yellow-card/red-card objects live
 in arrays, each with a persistent Sanity `_key`. New manual items receive a
 manual origin; future imports must explicitly set imported origin and retain
 keys on reconciliation. Repeated otherwise identical events are valid facts.
-Penalty variants await inspected DBU fixtures.
+Verified penalty goals now expose a scoring-method choice; unspecified does not prove a non-penalty goal. Missed penalties and own-goal credit remain unmapped.
 
 Player references assert confirmed identity; unresolved participants, scorers,
 and assisters retain source names instead. Shirt numbers belong to match
@@ -116,8 +116,7 @@ reason is required; source citation and originating Season are optional.
 `external` stores `{source, id, scope?, sourceUrl?}` separately from Sanity IDs.
 For DBU, Match `id` will be the match number, Competition `id` the pool ID,
 and Team `id` the team-entry ID **with pool ID as `scope`**. Player identities
-must only be supplied when verified; names alone are not identifiers. The schedule importer uses these identities; participant/event persistence
-remains separate future work.
+must only be supplied when verified; names alone are not identifiers. The schedule importer uses these identities; participant/event persistence is handled separately by detail sync.
 
 `import` stores origin, first-import/last-seen/schedule/detail timestamps,
 review markers, and `overrides`. Override entries are paths relative to the
@@ -137,4 +136,4 @@ for conservative handling of legacy/manual records and concurrent edits.
 **Studio override controls and the review queue remain Task 5.** Protection
 currently happens at schedule-sync time; recording overrides immediately in the
 editing workflow and clearing them through editor-facing controls are still
-pending. Detail-event synchronization and reconciliation remain Task 4.
+pending. Detail synchronization now preserves embedded keys, corrections and uncertainty; see [the detail guide](dbu-match-details.md).

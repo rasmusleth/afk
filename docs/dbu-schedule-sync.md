@@ -5,7 +5,7 @@ retrieval, pure parsing/normalization, reconciliation and Sanity persistence
 separate. The default is a dry-run. Development and tests use saved HTML and
 simulated persistence; no real Sanity import has been executed by this PR.
 The command imports Competition, scoped Team entries and Match fixture facts.
-Lineups, players and events remain Task 4.
+Lineups and supported events are imported separately through [Task 4 detail sync](dbu-match-details.md); Player identities are never inferred from names.
 
 ## Start with the offline preview
 

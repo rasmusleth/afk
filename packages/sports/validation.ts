@@ -46,6 +46,7 @@ export function validateEvent(value: unknown): Check {
   if (!ref(v.team)) return 'Choose the event’s team.';
   if (!ref(v.player) && !text(v.sourceName)) return 'Choose a player or preserve the source player name.';
   if (v.minute != null && !whole(v.minute)) return 'Minute must be a non-negative whole number.';
+  if (v.method != null && (v._type !== 'goal' || !oneOf(v.method, ['unspecified', 'penalty']))) return 'Only goals can have a supported scoring method.';
   if (v._type !== 'goal' && v.assist != null) return 'Only goals can have assists.';
   if (v._type === 'goal') {
     const result = validateAssist(v.assist);
@@ -76,13 +77,17 @@ export function validateImport(value: unknown): Check {
   const v = record(value);
   if (!oneOf(v.origin, ['manual', 'imported'])) return 'Choose a data origin.';
   if (v.overrides != null && (!Array.isArray(v.overrides) || v.overrides.some(p => !text(p)) || new Set(v.overrides).size !== v.overrides.length)) return 'Override paths must be non-blank and unique.';
-  if (v.scheduleBaseline != null) {
-    if (!Array.isArray(v.scheduleBaseline)) return 'Schedule baseline must be an array.';
-    const paths = new Set<string>();
-    for (const entry of v.scheduleBaseline) {
-      const item = record(entry);
-      if (item._type !== 'scheduleFieldBaseline' || typeof item.path !== 'string' || !/^[a-zA-Z][a-zA-Z0-9]*$/.test(item.path) || item._key !== item.path || typeof item.fingerprint !== 'string' || !/^[a-f0-9]{64}$/.test(item.fingerprint) || paths.has(item.path)) return 'Schedule baselines need unique field paths, stable keys and valid fingerprints.';
-      paths.add(item.path);
+  if (v.detailSignature != null && (typeof v.detailSignature !== 'string' || !/^[a-f0-9]{64}$/.test(v.detailSignature))) return 'Invalid detail source fingerprint.';
+  if (v.detailKeys != null && (!Array.isArray(v.detailKeys) || v.detailKeys.some(key => !text(key)) || new Set(v.detailKeys).size !== v.detailKeys.length)) return 'Detail keys must be unique strings.';
+  for (const baseline of [v.scheduleBaseline, v.detailBaseline]) {
+    if (baseline != null) {
+      if (!Array.isArray(baseline)) return 'Field baseline must be an array.';
+      const paths = new Set<string>();
+      for (const entry of baseline) {
+        const item = record(entry);
+        if (item._type !== 'scheduleFieldBaseline' || typeof item.path !== 'string' || !/^[a-zA-Z][a-zA-Z0-9]*$/.test(item.path) || item._key !== item.path || typeof item.fingerprint !== 'string' || !/^[a-f0-9]{64}$/.test(item.fingerprint) || paths.has(item.path)) return 'Field baselines need unique field paths, stable keys and valid fingerprints.';
+        paths.add(item.path);
+      }
     }
   }
   return true;

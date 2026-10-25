@@ -83,7 +83,7 @@ Use one pnpm workspace and lockfile with separate application packages:
   independent of Next.js, React and Sanity runtime dependencies.
 - `packages/dbu`: source-specific pure HTML parsing and normalization, with
   saved fixtures and external-identity snapshots; no fetching or persistence.
-- `packages/importer`: server-only manual schedule synchronization, with public
+- `packages/importer`: server-only manual schedule and match-detail synchronization, with public
   fetching, reconciliation and revision-checked Sanity persistence.
 
 Each app owns its runtime dependencies and local environment files. The root
@@ -447,6 +447,22 @@ an explicit source IANA timezone assertion; DBU's timezone contract is unverifie
 Reject ambiguous/nonexistent wall times, and keep numeric schedule scores
 separate from unverified completion status. See
 [schedule sync](./dbu-schedule-sync.md) for its limits and execution workflow.
+
+## Detail reconciliation baselines
+
+Match detail sync records separate `detailBaseline` field fingerprints on
+embedded facts and a source `detailSignature` for exact observation matching.
+Signatures identify observations for reconciliation, not confirmed people or
+external event identities. Preserve internal keys and manual enrichment; retain
+changed/disappearing observations and flag ambiguity instead of guessing a
+replacement. Match-level `detailKeys` detect local array removals. Repeated
+identical events retain keys by occurrence only with unchanged multiplicity and
+remain flagged. Schedule and detail baselines/timestamps do not replace each
+other. See [detail sync](./dbu-match-details.md) for execution and limitations.
+
+Verified DBU penalty-goal markup now supports an optional goal `method` of
+`penalty` or `unspecified`. No absence of a penalty marker proves an ordinary
+goal; missed penalties and own-goal credit remain unmapped.
 
 ## Manual enrichment
 

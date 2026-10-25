@@ -1,0 +1,187 @@
+[
+  {
+    "_id": "season-example",
+    "_type": "season",
+    "_rev": "example-only",
+    "name": "Example 2026–27",
+    "startDate": "2026-07-01",
+    "endDate": "2027-06-30"
+  },
+  {
+    "_id": "dbu-competition-508399",
+    "_type": "competition",
+    "name": "Futsal Liga - Herrer",
+    "season": {
+      "_type": "reference",
+      "_ref": "season-example"
+    },
+    "external": {
+      "_type": "externalIdentity",
+      "source": "dbu",
+      "id": "508399",
+      "sourceUrl": "https://dbu.dk/resultater/pulje/508399/kampprogramFuld"
+    },
+    "import": {
+      "_type": "importMetadata",
+      "origin": "imported",
+      "firstImportedAt": "2026-10-25T10:00:00Z",
+      "lastScheduleSyncAt": "2026-10-25T10:00:00Z",
+      "overrides": [],
+      "scheduleBaseline": [
+        {
+          "_type": "scheduleFieldBaseline",
+          "_key": "name",
+          "path": "name",
+          "fingerprint": "3fc2ba8b2dc91a1b1faae03845d9ac62259ccda29911fdf1b0d8a5011d08afe8"
+        },
+        {
+          "_type": "scheduleFieldBaseline",
+          "_key": "season",
+          "path": "season",
+          "fingerprint": "826a85c4df032cb14aeff8065e5715f6b41aec9e408aec736ece08aac25a53d9"
+        }
+      ]
+    },
+    "_rev": "example-only"
+  },
+  {
+    "_id": "dbu-team-508399-434282",
+    "_type": "team",
+    "name": "Hundested IK",
+    "external": {
+      "_type": "externalIdentity",
+      "source": "dbu",
+      "id": "434282",
+      "scope": "508399"
+    },
+    "import": {
+      "_type": "importMetadata",
+      "origin": "imported",
+      "firstImportedAt": "2026-10-25T10:00:00Z",
+      "lastScheduleSyncAt": "2026-10-25T10:00:00Z",
+      "overrides": [],
+      "scheduleBaseline": [
+        {
+          "_type": "scheduleFieldBaseline",
+          "_key": "name",
+          "path": "name",
+          "fingerprint": "a0824fa423e68cefbdc2fbc42a71e2798377421243e0257cceb7d7001eae8e41"
+        }
+      ]
+    },
+    "_rev": "example-only"
+  },
+  {
+    "_id": "dbu-team-508399-404636",
+    "_type": "team",
+    "name": "Aalborg Futsal Klub",
+    "external": {
+      "_type": "externalIdentity",
+      "source": "dbu",
+      "id": "404636",
+      "scope": "508399"
+    },
+    "import": {
+      "_type": "importMetadata",
+      "origin": "imported",
+      "firstImportedAt": "2026-10-25T10:00:00Z",
+      "lastScheduleSyncAt": "2026-10-25T10:00:00Z",
+      "overrides": [],
+      "scheduleBaseline": [
+        {
+          "_type": "scheduleFieldBaseline",
+          "_key": "name",
+          "path": "name",
+          "fingerprint": "6b954132c508c4e5bb3399b128e405bc0a47e8560e517fcf96b560eb679b137b"
+        }
+      ]
+    },
+    "_rev": "example-only"
+  },
+  {
+    "_id": "dbu-match-602659",
+    "_type": "match",
+    "competition": {
+      "_type": "reference",
+      "_ref": "dbu-competition-508399"
+    },
+    "homeTeam": {
+      "_type": "reference",
+      "_ref": "dbu-team-508399-434282"
+    },
+    "awayTeam": {
+      "_type": "reference",
+      "_ref": "dbu-team-508399-404636"
+    },
+    "kickoff": {
+      "_type": "kickoff",
+      "precision": "time",
+      "dateTime": "2026-09-27T11:00:00.000Z"
+    },
+    "status": "unknown",
+    "score": {
+      "_type": "score",
+      "home": 4,
+      "away": 3
+    },
+    "venue": "Hundested Hallen",
+    "external": {
+      "_type": "externalIdentity",
+      "source": "dbu",
+      "id": "602659",
+      "sourceUrl": "https://dbu.dk/resultater/kamp/602659_508399/kampinfo"
+    },
+    "import": {
+      "_type": "importMetadata",
+      "origin": "imported",
+      "firstImportedAt": "2026-10-25T10:00:00Z",
+      "lastScheduleSyncAt": "2026-10-25T10:00:00Z",
+      "overrides": [],
+      "scheduleBaseline": [
+        {
+          "_type": "scheduleFieldBaseline",
+          "_key": "competition",
+          "path": "competition",
+          "fingerprint": "4a8d675c52e283d24974ceee2512325548c50b5d9987fbc9ed22dd9f5e30f09a"
+        },
+        {
+          "_type": "scheduleFieldBaseline",
+          "_key": "homeTeam",
+          "path": "homeTeam",
+          "fingerprint": "3a4ba8961471a2e355641fbcd4f193a5083e95dd885b47693c22e4f8f174ed38"
+        },
+        {
+          "_type": "scheduleFieldBaseline",
+          "_key": "awayTeam",
+          "path": "awayTeam",
+          "fingerprint": "5067edf734ae00b917a4e95cd862e12b549d996be84cd8534ae0bf90e1e5163e"
+        },
+        {
+          "_type": "scheduleFieldBaseline",
+          "_key": "kickoff",
+          "path": "kickoff",
+          "fingerprint": "b76f97792a15d471a547aa97ab04634abfdef99002708e009a7a2ee7c0cc4449"
+        },
+        {
+          "_type": "scheduleFieldBaseline",
+          "_key": "venue",
+          "path": "venue",
+          "fingerprint": "c619ce6c179a5be32cbff4dd7856fd553d5d8718ecd61298ad0de71225c186fc"
+        },
+        {
+          "_type": "scheduleFieldBaseline",
+          "_key": "status",
+          "path": "status",
+          "fingerprint": "eb8bf0d80db323992f6b634aab492b1e6d9e96a8e87a511c2a0db75ab929452c"
+        },
+        {
+          "_type": "scheduleFieldBaseline",
+          "_key": "score",
+          "path": "score",
+          "fingerprint": "5d931b85d74a88df38b580dfe7518fc3a92873366892a77485e993562d5c64d1"
+        }
+      ]
+    },
+    "_rev": "example-only"
+  }
+]

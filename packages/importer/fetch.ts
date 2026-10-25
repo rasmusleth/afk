@@ -5,7 +5,15 @@ export const scheduleUrl = (poolId: string) => {
 };
 /** Bounded public HTML retrieval; never sends a Sanity token or browser cookies. */
 export async function fetchSchedule(poolId: string, request: typeof fetch = fetch): Promise<string> {
-  let url = scheduleUrl(poolId);
+  return fetchPublicHtml(scheduleUrl(poolId), request);
+}
+export function matchUrl(match: string, pool: string) {
+  if (!/^\d+$/.test(match) || !/^\d+$/.test(pool)) throw new SyncError('Match and pool IDs must be numeric.');
+  return `https://dbu.dk/resultater/kamp/${match}_${pool}/kampinfo`;
+}
+export const fetchMatch = (match: string, pool: string, request: typeof fetch = fetch) => fetchPublicHtml(matchUrl(match, pool), request);
+async function fetchPublicHtml(initialUrl: string, request: typeof fetch) {
+  let url = initialUrl;
   try {
     for (let redirects = 0; redirects <= 3; redirects++) {
       const response = await request(url, {redirect: 'manual', headers: {Accept: 'text/html', 'User-Agent': 'AFK manual schedule importer'}, signal: AbortSignal.timeout(30_000)});
@@ -16,7 +24,7 @@ export async function fetchSchedule(poolId: string, request: typeof fetch = fetc
         url = target.href;
         continue;
       }
-      if (!response.ok || !response.headers.get('content-type')?.toLowerCase().includes('text/html') || !response.body) throw new SyncError('DBU did not return an HTML schedule.');
+      if (!response.ok || !response.headers.get('content-type')?.toLowerCase().includes('text/html') || !response.body) throw new SyncError('DBU did not return an HTML page.');
       const charset = response.headers.get('content-type')?.match(/charset=([^; ]+)/i)?.[1].replace(/[\"']/g, '').toLowerCase();
       if (charset && !['utf-8', 'utf8'].includes(charset)) throw new SyncError('Unverified source encoding; refusing to corrupt source names.');
       const reader = response.body.getReader();
@@ -26,7 +34,7 @@ export async function fetchSchedule(poolId: string, request: typeof fetch = fetc
         const {done, value} = await reader.read();
         if (done) break;
         size += value.byteLength;
-        if (size > 2_000_000) { await reader.cancel(); throw new SyncError('DBU response exceeds the schedule size limit.'); }
+        if (size > 2_000_000) { await reader.cancel(); throw new SyncError('DBU response exceeds the HTML size limit.'); }
         chunks.push(value);
       }
       return new TextDecoder('utf-8', {fatal: true}).decode(Buffer.concat(chunks));
@@ -34,6 +42,6 @@ export async function fetchSchedule(poolId: string, request: typeof fetch = fetc
     throw new SyncError('Too many DBU redirects.');
   } catch (error) {
     if (error instanceof SyncError) throw error;
-    throw new SyncError('DBU schedule download failed. Check network access and retry; no write was attempted.');
+    throw new SyncError('DBU download failed. Check network access and retry; no write was attempted.');
   }
 }
