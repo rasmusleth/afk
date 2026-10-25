@@ -6,7 +6,8 @@
   "exports": {
     "./parse": "./parse.ts",
     "./normalize": "./normalize.ts",
-    "./model": "./model.ts"
+    "./model": "./model.ts",
+    "./standings": "./standings.ts"
   },
   "scripts": {
     "test": "node --test *.test.ts",

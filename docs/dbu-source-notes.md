@@ -109,9 +109,8 @@ establish that a timeline actor is the same person. Missing assists remain unkno
 
 Penalty-goal snapshots have `method: "penalty"`; plain goal icons use
 `method: "unspecified"`, rather than asserting DBU has established every
-non-penalty detail. The existing Studio event schema has no penalty method yet.
-A future persistence adapter must preserve the observed method through a schema
-extension instead of silently flattening it. No six-/ten-metre distinction or
+non-penalty detail. The detail adapter and Studio schema now preserve that method, and player
+derivation counts a verified penalty goal once as a goal. No six-/ten-metre distinction or
 missed-penalty mapping is inferred. Own goals and combined yellow/red cards are
 retained as unsupported variants pending domain/statistics rules.
 
@@ -124,3 +123,7 @@ without treating it as proof of finality. Exceptional statuses/results outside
 the observed `Færdigspillet`, `Kamp udsat` and `UDS` values remain unknown with
 diagnostics. No application schema or architectural rule is changed by these
 source-boundary snapshots.
+
+Official standing-table columns, scoped identities and the applicable national
+ranking rules are documented in [the standings research](dbu-standings-research.md).
+The official snapshot is compared with derived match facts; it never replaces them.

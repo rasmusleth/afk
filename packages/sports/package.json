@@ -7,7 +7,10 @@
     "./model": "./model.ts",
     "./validation": "./validation.ts",
     "./ownership": "./ownership.ts",
-    "./review": "./review.ts"
+    "./review": "./review.ts",
+    "./statistics": "./statistics.ts",
+    "./standings": "./standings.ts",
+    "./derivation": "./derivation.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

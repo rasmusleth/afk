@@ -84,7 +84,7 @@ Use one pnpm workspace and lockfile with separate application packages:
 - `packages/dbu`: source-specific pure HTML parsing and normalization, with
   saved fixtures and external-identity snapshots; no fetching or persistence.
 - `packages/importer`: server-only manual schedule and match-detail synchronization, with public
-  fetching, reconciliation and revision-checked Sanity persistence.
+  fetching, reconciliation, revision-checked Sanity persistence and read-only reporting.
 
 Each app owns its runtime dependencies and local environment files. The root
 contains workspace commands, shared development tooling and documentation.
@@ -643,6 +643,23 @@ known.
 Season/player/team statistics should not become separate manually maintained
 sources of truth.
 
+The initial derivation API returns confirmed `known*` player counts with
+separate per-player unknown appearances and per-match/team coverage. Unresolved
+source names never become identities; absent sections and unknown assists do
+not become exhaustive zeroes. Season membership follows Competition references.
+Only completed-match facts contribute; official table results additionally need
+a complete official score. Duplicate/invalid inputs produce diagnostics.
+
+Standings use explicit caller-supplied scoring/ranking rules. The verified
+national men's futsal profile uses 3/1/0 points and no-show-first tie breaking.
+No-show facts are unavailable in our current model, so tied points stay shared
+unless a caller supplies verified counts. Unverified multi-team head-to-head
+interpretations stay unresolved. Competition points adjustments remain explicit
+facts, including reasons and sources. Official standings are comparison-only
+snapshots resolved by scoped external identity, never replacement totals or
+inferred rulings. See [the statistics guide](./derived-statistics.md) and
+[DBU rule research](./dbu-standings-research.md) for verified behavior and limits.
+
 # Initial core entities
 
 Expected Sanity domain model:
@@ -747,5 +764,5 @@ These should be investigated rather than guessed:
 5. Further editor feedback on the Studio review workflow, especially resolving
    uncertain source-event replacements without losing enrichment.
 6. How frequently schedule/detail synchronization should run.
-7. Competition ranking and tie-break rules needed to reproduce DBU's table
-   after explicit points adjustments.
+7. Verified no-show facts, historical rule versions and multi-team head-to-head
+   subgroup interpretation needed to resolve every official placement.

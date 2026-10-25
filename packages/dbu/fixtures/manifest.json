@@ -61,5 +61,12 @@
     "capturedOn": "2026-10-22",
     "sha256": "3f6e8e5dbdee47dff06786a73cdd2b7dd954787f8438ba892530ea40350aa82b",
     "selection": ".sr--header, .sr--tabs, .sr--match--info, .sr--match--live-score, .sr--match--team-cards"
+  },
+  {
+    "file": "standing-508399.html",
+    "url": "https://www.dbu.dk/resultater/pulje/508399/stilling",
+    "capturedOn": "2026-10-25",
+    "sha256": "46d4e3a3a37003693534aeb82a392a3cfa776f30ae1cf41f46996387656642f7",
+    "selection": ".sr--header, .sr--tabs, .sr--row--pool-position"
   }
 ]

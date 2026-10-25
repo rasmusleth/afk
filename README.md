@@ -25,6 +25,7 @@ repository root with `pnpm install`; the workspace uses one lockfile.
 | `pnpm studio:schema` | Extract Studio schema into `apps/studio/.sanity/schema.json` |
 | `pnpm sync:schedule --help` | Explain the development importer and preview options |
 | `pnpm sync:details --help` | Explain single-match detail import and preview options |
+| `pnpm stats:report --help` | Explain read-only statistics and official-table comparison |
 | `pnpm test` | Run domain, DBU parser and schema tests |
 | `pnpm typecheck` | Check all workspace packages |
 | `pnpm lint` | Lint source across the workspace |
@@ -52,3 +53,6 @@ supported events after schedule sync, beginning with a saved Aalborg match.
 
 The [sports editor guide](docs/sports-editor-review.md) explains the Studio review
 queue, Aalborg team selection, and preserving or releasing manual corrections.
+
+The [derived statistics guide](docs/derived-statistics.md) explains confirmed player
+facts, competition/Season scope, provisional standings and read-only DBU comparison.

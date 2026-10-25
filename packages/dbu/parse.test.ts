@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {load} from 'cheerio/slim';
+import {parseStandings} from './standings.ts';
 import {DbuMarkupError, parseMatch, parseSchedule} from './parse.ts';
 import {normalizeMatch, normalizeSchedule} from './normalize.ts';
 import type {RawEvent} from './model.ts';
@@ -19,11 +20,12 @@ const mutate = (id: string, update: (document: ReturnType<typeof load>) => void)
 
 test('saved public HTML excerpts match their provenance checksums', () => {
   const manifest: {file: string; sha256: string; url: string}[] = JSON.parse(fixture('manifest.json'));
-  assert.equal(manifest.length, 9);
+  assert.equal(manifest.length, 10);
   for (const entry of manifest) {
     const bytes = readFileSync(new URL(`./fixtures/${entry.file}`, import.meta.url));
     assert.equal(createHash('sha256').update(bytes).digest('hex'), entry.sha256, entry.file);
     if (entry.file.startsWith('match-')) assert.ok(parseMatch(bytes.toString('utf8'), entry.url));
+    else if (entry.file.startsWith('standing-')) assert.ok(parseStandings(bytes.toString('utf8'), entry.url));
     else assert.ok(parseSchedule(bytes.toString('utf8'), entry.url));
   }
 });
