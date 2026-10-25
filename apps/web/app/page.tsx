@@ -1,5 +1,4 @@
-import Image from "next/image"
-
+import { SportsView } from "./sports-view";
 export default function Home() {
-  return <p>afk</p>
+  return <SportsView view="kampe" />;
 }

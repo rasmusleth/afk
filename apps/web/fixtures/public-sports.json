@@ -1,0 +1,276 @@
+{
+  "seasons": [
+    {
+      "_id": "example-season",
+      "name": "Eksempelsæson 2026/27",
+      "startDate": "2026-08-01"
+    }
+  ],
+  "competitions": [
+    {
+      "_id": "example-cup",
+      "name": "Eksempelliga (fiktive data)",
+      "season": {
+        "_type": "reference",
+        "_ref": "example-season"
+      },
+      "pointsAdjustments": [
+        {
+          "_type": "pointsAdjustment",
+          "_key": "ruling",
+          "team": {
+            "_type": "reference",
+            "_ref": "example-other"
+          },
+          "points": -1,
+          "reason": "Fiktiv pointafgørelse til visningstest.",
+          "source": "https://example.com/ruling"
+        }
+      ]
+    }
+  ],
+  "teams": [
+    {
+      "_id": "example-afk",
+      "name": "Aalborg (eksempel)",
+      "isClubTeam": true
+    },
+    {
+      "_id": "example-other",
+      "name": "Modstander (eksempel)"
+    }
+  ],
+  "players": [
+    {
+      "_id": "example-player",
+      "name": "Eksempelspiller A",
+      "profile": "Fiktiv spiller til lokal visningstest."
+    },
+    {
+      "_id": "example-sub",
+      "name": "Eksempelspiller B"
+    }
+  ],
+  "matches": [
+    {
+      "_id": "match-draw",
+      "competition": {
+        "_type": "reference",
+        "_ref": "example-cup"
+      },
+      "homeTeam": {
+        "_type": "reference",
+        "_ref": "example-afk"
+      },
+      "awayTeam": {
+        "_type": "reference",
+        "_ref": "example-other"
+      },
+      "status": "completed",
+      "score": {
+        "_type": "score",
+        "home": 0,
+        "away": 0
+      },
+      "kickoff": {
+        "precision": "time",
+        "dateTime": "2026-10-20T17:00:00Z"
+      },
+      "venue": "Eksempelhallen",
+      "participants": [
+        {
+          "_type": "participant",
+          "_key": "starter",
+          "team": {
+            "_type": "reference",
+            "_ref": "example-afk"
+          },
+          "player": {
+            "_type": "reference",
+            "_ref": "example-player"
+          },
+          "lineupStatus": "starter",
+          "appearance": "unknown"
+        },
+        {
+          "_type": "participant",
+          "_key": "sub",
+          "team": {
+            "_type": "reference",
+            "_ref": "example-afk"
+          },
+          "player": {
+            "_type": "reference",
+            "_ref": "example-sub"
+          },
+          "lineupStatus": "substitute",
+          "appearance": "unknown"
+        },
+        {
+          "_type": "participant",
+          "_key": "unresolved",
+          "team": {
+            "_type": "reference",
+            "_ref": "example-afk"
+          },
+          "sourceName": "Unresolved fixture identity",
+          "lineupStatus": "substitute",
+          "appearance": "unknown"
+        }
+      ],
+      "events": []
+    },
+    {
+      "_id": "match-win",
+      "competition": {
+        "_type": "reference",
+        "_ref": "example-cup"
+      },
+      "homeTeam": {
+        "_type": "reference",
+        "_ref": "example-afk"
+      },
+      "awayTeam": {
+        "_type": "reference",
+        "_ref": "example-other"
+      },
+      "status": "completed",
+      "score": {
+        "_type": "score",
+        "home": 2,
+        "away": 1
+      },
+      "kickoff": {
+        "precision": "date",
+        "date": "2026-10-21"
+      },
+      "venue": "Eksempelhallen",
+      "participants": [
+        {
+          "_type": "participant",
+          "_key": "starter",
+          "team": {
+            "_type": "reference",
+            "_ref": "example-afk"
+          },
+          "player": {
+            "_type": "reference",
+            "_ref": "example-player"
+          },
+          "lineupStatus": "starter",
+          "appearance": "unknown"
+        },
+        {
+          "_type": "participant",
+          "_key": "sub",
+          "team": {
+            "_type": "reference",
+            "_ref": "example-afk"
+          },
+          "player": {
+            "_type": "reference",
+            "_ref": "example-sub"
+          },
+          "lineupStatus": "substitute",
+          "appearance": "unknown"
+        },
+        {
+          "_type": "participant",
+          "_key": "unresolved",
+          "team": {
+            "_type": "reference",
+            "_ref": "example-afk"
+          },
+          "sourceName": "Unresolved fixture identity",
+          "lineupStatus": "substitute",
+          "appearance": "unknown"
+        }
+      ],
+      "events": [
+        {
+          "_type": "goal",
+          "_key": "goal",
+          "team": {
+            "_type": "reference",
+            "_ref": "example-afk"
+          },
+          "player": {
+            "_type": "reference",
+            "_ref": "example-player"
+          },
+          "assist": {
+            "_type": "assist",
+            "status": "unknown"
+          }
+        }
+      ]
+    },
+    {
+      "_id": "match-next",
+      "competition": {
+        "_type": "reference",
+        "_ref": "example-cup"
+      },
+      "homeTeam": {
+        "_type": "reference",
+        "_ref": "example-afk"
+      },
+      "awayTeam": {
+        "_type": "reference",
+        "_ref": "example-other"
+      },
+      "status": "scheduled",
+      "kickoff": {
+        "precision": "date",
+        "date": "2026-11-01"
+      },
+      "venue": "Eksempelhallen"
+    },
+    {
+      "_id": "match-unverified",
+      "competition": {
+        "_type": "reference",
+        "_ref": "example-cup"
+      },
+      "homeTeam": {
+        "_type": "reference",
+        "_ref": "example-afk"
+      },
+      "awayTeam": {
+        "_type": "reference",
+        "_ref": "example-other"
+      },
+      "status": "unknown",
+      "kickoff": {
+        "precision": "unknown"
+      },
+      "venue": "Eksempelhallen",
+      "score": {
+        "_type": "score",
+        "home": 3,
+        "away": 2
+      }
+    },
+    {
+      "_id": "match-missing-score",
+      "competition": {
+        "_type": "reference",
+        "_ref": "example-cup"
+      },
+      "homeTeam": {
+        "_type": "reference",
+        "_ref": "example-afk"
+      },
+      "awayTeam": {
+        "_type": "reference",
+        "_ref": "example-other"
+      },
+      "status": "completed",
+      "kickoff": {
+        "precision": "date",
+        "date": "2026-11-01"
+      },
+      "venue": "Eksempelhallen"
+    }
+  ]
+}
