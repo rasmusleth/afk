@@ -20,7 +20,7 @@ blank PR cell means no PR exists yet.
 | 5. Sports editor review experience | Merged | [#13](https://github.com/rasmusleth/afk/pull/13) | 2026-10-25 |
 | 6. Derived statistics and standings | Merged | [#14](https://github.com/rasmusleth/afk/pull/14) | 2026-10-25 |
 | 6a. Batch competition import | Merged | [#15](https://github.com/rasmusleth/afk/pull/15) | 2026-10-25 |
-| 7. Public sports views | In review | — | — |
+| 7. Public sports views | In review | [#16](https://github.com/rasmusleth/afk/pull/16) | — |
 
 ## Paste-ready task prompts
 
