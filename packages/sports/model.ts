@@ -40,7 +40,7 @@ export interface PointsAdjustment {
 export interface Competition extends Imported {
   _type: 'competition'; name: string; season: Reference; pointsAdjustments?: PointsAdjustment[];
 }
-export interface Team extends Imported { _type: 'team'; name: string; shortName?: string }
+export interface Team extends Imported { _type: 'team'; name: string; shortName?: string; isClubTeam?: boolean }
 export interface Player extends Imported { _type: 'player'; name: string; profile?: string }
 export interface Participant extends Imported {
   _type: 'participant'; _key: string; team: Reference; player?: Reference;

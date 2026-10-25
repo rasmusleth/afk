@@ -49,3 +49,6 @@ apply workflow. Tokens are not needed for offline previews or tests.
 
 See [the match-detail guide](docs/dbu-match-details.md) for importing lineups and
 supported events after schedule sync, beginning with a saved Aalborg match.
+
+The [sports editor guide](docs/sports-editor-review.md) explains the Studio review
+queue, Aalborg team selection, and preserving or releasing manual corrections.

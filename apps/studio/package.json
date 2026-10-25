@@ -8,7 +8,7 @@
     "build": "sanity build --yes",
     "schema": "sanity schema extract --path .sanity/schema.json --force",
     "typecheck": "tsc --noEmit",
-    "test": "node --test schemaTypes/*.test.ts"
+    "test": "node --test schemaTypes/*.test.ts review/*.test.ts"
   },
   "dependencies": {
     "@afk/sports": "workspace:*",

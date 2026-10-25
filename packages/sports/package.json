@@ -5,7 +5,9 @@
   "type": "module",
   "exports": {
     "./model": "./model.ts",
-    "./validation": "./validation.ts"
+    "./validation": "./validation.ts",
+    "./ownership": "./ownership.ts",
+    "./review": "./review.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

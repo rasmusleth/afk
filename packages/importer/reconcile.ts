@@ -1,3 +1,4 @@
+import {canonicalValue} from '@afk/sports/ownership';
 import {createHash} from 'node:crypto';
 import {isDeepStrictEqual} from 'node:util';
 import type {ImportMetadata, ScheduleFieldBaseline} from '@afk/sports/model';
@@ -5,13 +6,7 @@ import {record, validateImport} from '@afk/sports/validation';
 import type {Document, Operation, ReviewItem} from './model.ts';
 import {SyncError} from './model.ts';
 
-function canonical(value: unknown): unknown {
-  if (value === undefined || value === null) return null;
-  if (Array.isArray(value)) return value.map(canonical);
-  if (typeof value === 'object') return Object.fromEntries(Object.entries(value).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([key, item]) => [key, canonical(item)]));
-  return value;
-}
-export const fingerprint = (value: unknown) => createHash('sha256').update(JSON.stringify(canonical(value))).digest('hex');
+export const fingerprint = (value: unknown) => createHash('sha256').update(canonicalValue(value)).digest('hex');
 const same = (a: unknown, b: unknown) => fingerprint(a) === fingerprint(b);
 const protects = (paths: string[], field: string) => paths.some(path => path === field || path.startsWith(`${field}.`) || field.startsWith(`${path}.`));
 function known(value: unknown): boolean {

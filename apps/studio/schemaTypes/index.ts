@@ -82,7 +82,7 @@ const competition = defineType({
 const team = defineType({
   name: 'team', title: 'Team', type: 'document', liveEdit: true, initialValue: originInitial,
   description: 'A playing side or competition entry, rather than the wider club.',
-  fields: [nameField(), defineField({name: 'shortName', title: 'Short name', type: 'string'}), ...metadata()],
+  fields: [nameField(), defineField({name: 'isClubTeam', title: 'Aalborg team', type: 'boolean', description: 'Turn on for Aalborg entries to prioritize their identity, assists and appearances in Sports review.'}), defineField({name: 'shortName', title: 'Short name', type: 'string'}), ...metadata()],
   validation: rule => rule.custom(value => {
     return validateTeamIdentity(record(value).external);
   }),
@@ -122,8 +122,8 @@ const assist = defineType({
   name: 'assist', title: 'Assist', type: 'object', initialValue: {status: 'unknown'}, validation: rule => rule.custom(validateAssist),
   fields: [
     choice('status', 'Assist', [{title: 'Unknown', value: 'unknown'}, {title: 'No assist', value: 'none'}, {title: 'Credited', value: 'credited'}], 'unknown'),
-    {...reference('player', 'Assister (confirmed identity)', 'player'), description: 'Use only for a credited assist; clear when selecting none or unknown.'},
-    defineField({name: 'sourceName', title: 'Assister name on source', type: 'string', description: 'Use only for a credited assist; clear when selecting none or unknown.'}),
+    {...reference('player', 'Assister (confirmed identity)', 'player'), hidden: ({parent}) => parent?.status !== 'credited', description: 'Use only for a credited assist; clear when selecting none or unknown.'},
+    defineField({name: 'sourceName', title: 'Assister name on source', type: 'string', hidden: ({parent}) => parent?.status !== 'credited', description: 'Use only for a credited assist; clear when selecting none or unknown.'}),
   ],
 });
 const events = (['goal', 'yellowCard', 'redCard'] as const).map(name => defineType({

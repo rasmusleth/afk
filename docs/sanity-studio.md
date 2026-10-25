@@ -133,7 +133,8 @@ and also respects explicit overrides. It never updates lineups/events or deletes
 missing source information. See [the importer workflow](dbu-schedule-sync.md)
 for conservative handling of legacy/manual records and concurrent edits.
 
-**Studio override controls and the review queue remain Task 5.** Protection
-currently happens at schedule-sync time; recording overrides immediately in the
-editing workflow and clearing them through editor-facing controls are still
-pending. Detail synchronization now preserves embedded keys, corrections and uncertainty; see [the detail guide](dbu-match-details.md).
+**Sports review and correction controls are now available.** Imported-field
+edits record protection immediately; editors can release corrections without
+editing metadata. See [the editor guide](sports-editor-review.md) for club
+selection, issue resolution and the manual development trial. Importer baseline
+checks still protect edits from other writers. Detail synchronization now preserves embedded keys, corrections and uncertainty; see [the detail guide](dbu-match-details.md).

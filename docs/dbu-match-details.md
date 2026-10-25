@@ -2,8 +2,8 @@
 
 Run the schedule importer first. This command adds participants and supported
 match events to an existing Match. Start with an Aalborg match, for example
-602659 in pool 508399. It does not create Players from names, calculate totals,
-or provide the editor review queue (Task 5).
+602659 in pool 508399. It does not create Players from names or calculate independent totals.
+The [editor review workflow](sports-editor-review.md) handles uncertainty and corrections.
 
 ## Offline trial
 
@@ -94,7 +94,7 @@ A manual development trial after review remains necessary.
 - Source diagnostics, identity uncertainty, unknown appearances/assists, and
   incomplete goal coverage produce review metadata and CLI review items.
   Review reasons persist until manually resolved; they are not automatically
-  cleared. The normal editor forms still hide technical metadata.
+  cleared. The normal editor forms still hide technical metadata; editor-facing review and correction controls are documented separately.
 - Explicit detail completion status can update an unprotected Match; a numeric
   score does not prove completion. Schedule facts such as score, venue and
   kickoff stay owned by schedule sync. A differing detail score is flagged.

@@ -106,9 +106,8 @@ No whole-document edited flag or independent statistics totals are introduced.
 Baselines accept the retained local value even while an override protects it.
 After that sync, clearing an override permits the next successful source sync
 to supply that field again, provided no newer local edit occurred. Nested
-paths such as `score.home` protect the full score object. Task 5 will supply
-editor-facing override/review controls; metadata remains hidden/read-only in
-normal forms. Import conflicts set review metadata and appear in the plan;
+paths such as `score.home` protect the full score object. The [editor review workflow](sports-editor-review.md) supplies field correction
+and review controls; metadata remains hidden/read-only in normal forms. Import conflicts set review metadata and appear in the plan;
 existing review markers are never automatically cleared.
 
 All creates and revision-checked patches are submitted as one atomic Sanity
