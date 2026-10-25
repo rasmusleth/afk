@@ -76,6 +76,15 @@ export function validateImport(value: unknown): Check {
   const v = record(value);
   if (!oneOf(v.origin, ['manual', 'imported'])) return 'Choose a data origin.';
   if (v.overrides != null && (!Array.isArray(v.overrides) || v.overrides.some(p => !text(p)) || new Set(v.overrides).size !== v.overrides.length)) return 'Override paths must be non-blank and unique.';
+  if (v.scheduleBaseline != null) {
+    if (!Array.isArray(v.scheduleBaseline)) return 'Schedule baseline must be an array.';
+    const paths = new Set<string>();
+    for (const entry of v.scheduleBaseline) {
+      const item = record(entry);
+      if (item._type !== 'scheduleFieldBaseline' || typeof item.path !== 'string' || !/^[a-zA-Z][a-zA-Z0-9]*$/.test(item.path) || item._key !== item.path || typeof item.fingerprint !== 'string' || !/^[a-f0-9]{64}$/.test(item.fingerprint) || paths.has(item.path)) return 'Schedule baselines need unique field paths, stable keys and valid fingerprints.';
+      paths.add(item.path);
+    }
+  }
   return true;
 }
 export function validateKickoff(value: unknown): Check {

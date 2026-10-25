@@ -1,0 +1,16 @@
+{
+  "name": "@afk/importer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node cli.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test *.test.ts"
+  },
+  "dependencies": {
+    "@afk/dbu": "workspace:*",
+    "@afk/sports": "workspace:*",
+    "@sanity/client": "^8.10.1"
+  }
+}

@@ -6,7 +6,9 @@ and local environment files. The root is a pnpm workspace with shared tooling.
 Run commands from the repository root using pnpm and Node 22.12+ (Node 24 is
 recommended and used for validation). Sanity and styled-components provide
 the Studio; the TypeScript version satisfies Sanity's workflow peer dependency.
-No importer, API credentials, deployment, or production connection is included.
+The server-only schedule importer is separate from Studio; see
+[its development workflow](dbu-schedule-sync.md). No API credentials, deployment
+or production connection is included.
 
 ## Local setup still needed
 
@@ -114,8 +116,8 @@ reason is required; source citation and originating Season are optional.
 `external` stores `{source, id, scope?, sourceUrl?}` separately from Sanity IDs.
 For DBU, Match `id` will be the match number, Competition `id` the pool ID,
 and Team `id` the team-entry ID **with pool ID as `scope`**. Player identities
-must only be supplied when verified; names alone are not identifiers. These
-are storage contracts, not implemented DBU mappings.
+must only be supplied when verified; names alone are not identifiers. The schedule importer uses these identities; participant/event persistence
+remains separate future work.
 
 `import` stores origin, first-import/last-seen/schedule/detail timestamps,
 review markers, and `overrides`. Override entries are paths relative to the
@@ -126,9 +128,13 @@ an override. Clearing a path permits the next successful sync to provide it;
 it does not immediately restore an old imported value.
 
 Technical metadata is hidden and read-only in normal forms. This is editor UX,
-not access control. **Automatic override recording, override-clearing controls,
-and a review queue are Task 5 of the work plan.** Until those exist, do not run
-synchronization against manually edited imported records. The initial Studio
-is suitable for manually entered sports records; it does not yet guarantee
-protection of manual changes during a future sync. No fetching, synchronization,
-reconciliation, or destructive import behavior is implemented here.
+not access control. The schedule importer compares hidden `scheduleBaseline`
+field fingerprints to detect and preserve later manual edits, including unsets,
+and also respects explicit overrides. It never updates lineups/events or deletes
+missing source information. See [the importer workflow](dbu-schedule-sync.md)
+for conservative handling of legacy/manual records and concurrent edits.
+
+**Studio override controls and the review queue remain Task 5.** Protection
+currently happens at schedule-sync time; recording overrides immediately in the
+editing workflow and clearing them through editor-facing controls are still
+pending. Detail-event synchronization and reconciliation remain Task 4.
