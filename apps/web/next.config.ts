@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   experimental: {
     agentFeedback: true,
+    agentUpgrade: "security",
   },
   turbopack: {
     rules: {
