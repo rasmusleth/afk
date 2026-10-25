@@ -50,6 +50,9 @@ const importMetadata = defineType({
     ...['firstImportedAt', 'lastSeenAt', 'lastScheduleSyncAt', 'lastDetailSyncAt'].map(name => defineField({name, type: 'datetime'})),
     defineField({name: 'overrides', type: 'array', of: [defineArrayMember({type: 'string'})], description: 'Paths relative to this object. Clearing a path allows the next successful sync to supply that field.', validation: rule => rule.unique()}),
     defineField({name: 'scheduleBaseline', title: 'Last accepted schedule field fingerprints', type: 'array', readOnly: true, hidden: true, of: [defineArrayMember({type: 'scheduleFieldBaseline'})]}),
+    defineField({name: 'detailBaseline', type: 'array', hidden: true, readOnly: true, of: [defineArrayMember({type: 'scheduleFieldBaseline'})]}),
+    defineField({name: 'detailSignature', type: 'string', hidden: true, readOnly: true}),
+    defineField({name: 'detailKeys', type: 'array', hidden: true, readOnly: true, of: [defineArrayMember({type: 'string'})]}),
     defineField({name: 'needsReview', type: 'boolean'}),
     defineField({name: 'reviewReason', type: 'text', rows: 2}),
   ],
@@ -127,7 +130,7 @@ const events = (['goal', 'yellowCard', 'redCard'] as const).map(name => defineTy
   name, title: {goal: 'Goal', yellowCard: 'Yellow card', redCard: 'Red card'}[name], type: 'object',
   initialValue: {...originInitial, ...(name === 'goal' ? {assist: {_type: 'assist', status: 'unknown'}} : {})},
   validation: rule => rule.custom(validateEvent),
-  fields: [...personFields(), defineField({name: 'minute', title: 'Minute (if known)', type: 'number', validation: rule => rule.integer().min(0)}), ...(name === 'goal' ? [defineField({name: 'assist', title: 'Assist', type: 'assist', validation: rule => rule.required()})] : []), ...metadata()],
+  fields: [...personFields(), defineField({name: 'minute', title: 'Minute (if known)', type: 'number', validation: rule => rule.integer().min(0)}), ...(name === 'goal' ? [choice('method', 'Scoring method', [{title: 'Unspecified', value: 'unspecified'}, {title: 'Penalty', value: 'penalty'}], 'unspecified'), defineField({name: 'assist', title: 'Assist', type: 'assist', validation: rule => rule.required()})] : []), ...metadata()],
   preview: {select: {player: 'player.name', source: 'sourceName', team: 'team.name', minute: 'minute'}, prepare: ({player, source, team, minute}) => ({title: `${player ?? source ?? 'Unresolved player'}${minute == null ? '' : ` · ${minute}′`}`, subtitle: `${name} · ${team ?? 'Team'}`})},
 }));
 const match = defineType({

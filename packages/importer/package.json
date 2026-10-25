@@ -6,7 +6,8 @@
   "scripts": {
     "sync": "node cli.ts",
     "typecheck": "tsc --noEmit",
-    "test": "node --test *.test.ts"
+    "test": "node --test *.test.ts",
+    "sync:details": "node detail-cli.ts"
   },
   "dependencies": {
     "@afk/dbu": "workspace:*",

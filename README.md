@@ -9,7 +9,7 @@ apps/
 packages/
   sports/        Framework-independent sports models and validation
   dbu/           Pure DBU HTML parsing, normalization and saved test fixtures
-  importer/      Server-only manual development schedule synchronization
+  importer/      Server-only manual development schedule and match-detail synchronization
 ```
 
 Use Node 22.12+ (Node 24 recommended) and pnpm 12.11.2. Install from the
@@ -24,6 +24,7 @@ repository root with `pnpm install`; the workspace uses one lockfile.
 | `pnpm studio:build` | Build Studio into `apps/studio/dist/` |
 | `pnpm studio:schema` | Extract Studio schema into `apps/studio/.sanity/schema.json` |
 | `pnpm sync:schedule --help` | Explain the development importer and preview options |
+| `pnpm sync:details --help` | Explain single-match detail import and preview options |
 | `pnpm test` | Run domain, DBU parser and schema tests |
 | `pnpm typecheck` | Check all workspace packages |
 | `pnpm lint` | Lint source across the workspace |
@@ -45,3 +46,6 @@ contains no fetching or Sanity persistence.
 See [the development schedule-import guide](docs/dbu-schedule-sync.md) for an
 offline preview, hidden token entry, manual-change protection and the explicit
 apply workflow. Tokens are not needed for offline previews or tests.
+
+See [the match-detail guide](docs/dbu-match-details.md) for importing lineups and
+supported events after schedule sync, beginning with a saved Aalborg match.

@@ -17,6 +17,11 @@ export interface ImportMetadata {
   overrides?: string[];
   /** Fingerprints of local field values accepted at the last schedule sync. */
   scheduleBaseline?: ScheduleFieldBaseline[];
+  detailBaseline?: ScheduleFieldBaseline[];
+  /** Source observation fingerprint, not an external event/player identity. */
+  detailSignature?: string;
+  /** Last accepted array keys detect deliberate local removals. */
+  detailKeys?: string[];
   needsReview?: boolean;
   reviewReason?: string;
 }
@@ -50,7 +55,7 @@ export interface Assist {
 interface EventFact extends Imported {
   _key: string; team: Reference; player?: Reference; sourceName?: string; minute?: number;
 }
-export interface Goal extends EventFact { _type: 'goal'; assist: Assist }
+export interface Goal extends EventFact { _type: 'goal'; method?: 'unspecified' | 'penalty'; assist: Assist }
 export interface YellowCard extends EventFact { _type: 'yellowCard' }
 export interface RedCard extends EventFact { _type: 'redCard' }
 export type MatchEvent = Goal | YellowCard | RedCard;
