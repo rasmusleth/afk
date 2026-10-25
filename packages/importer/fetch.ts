@@ -7,6 +7,11 @@ export const scheduleUrl = (poolId: string) => {
 export async function fetchSchedule(poolId: string, request: typeof fetch = fetch): Promise<string> {
   return fetchPublicHtml(scheduleUrl(poolId), request);
 }
+export const standingUrl = (pool: string) => {
+  if (!/^\d+$/.test(pool)) throw new SyncError('Pool ID must be numeric.');
+  return `https://dbu.dk/resultater/pulje/${pool}/stilling`;
+};
+export const fetchStanding = (pool: string, request: typeof fetch = fetch) => fetchPublicHtml(standingUrl(pool), request);
 export function matchUrl(match: string, pool: string) {
   if (!/^\d+$/.test(match) || !/^\d+$/.test(pool)) throw new SyncError('Match and pool IDs must be numeric.');
   return `https://dbu.dk/resultater/kamp/${match}_${pool}/kampinfo`;

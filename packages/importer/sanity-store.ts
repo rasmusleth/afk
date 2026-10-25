@@ -29,7 +29,7 @@ export function sanityStore(config: {projectId: string; dataset: string; token: 
         // Raw includes draft/release collisions. Pagination avoids silently
         // truncating the dataset before duplicate source identities are checked.
         for (let page = 0; page < 20; page++) {
-          const result = await client.fetch('*[_id > $after && (_type in ["season", "competition", "team", "match"] || _id in $reserved)] | order(_id asc) [0...500]', {after, reserved: reservedIds.flatMap(id => [id, `drafts.${id}`])});
+          const result = await client.fetch('*[_id > $after && (_type in ["season", "competition", "team", "player", "match"] || _id in $reserved)] | order(_id asc) [0...500]', {after, reserved: reservedIds.flatMap(id => [id, `drafts.${id}`])});
           const batch = decodeDocuments(result);
           if (batch.length > 500 || batch.some(document => document._id <= after)) throw new SyncError('Invalid pagination result from the store.');
           documents.push(...batch);

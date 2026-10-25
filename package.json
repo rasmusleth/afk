@@ -13,7 +13,8 @@
     "studio:build": "pnpm --filter @afk/studio build",
     "studio:schema": "pnpm --filter @afk/studio schema",
     "sync:schedule": "pnpm --filter @afk/importer sync",
-    "sync:details": "pnpm --filter @afk/importer sync:details"
+    "sync:details": "pnpm --filter @afk/importer sync:details",
+    "stats:report": "pnpm --filter @afk/importer stats:report"
   },
   "devDependencies": {
     "@types/node": "^20",
