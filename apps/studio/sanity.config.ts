@@ -1,5 +1,7 @@
 import {defineConfig} from 'sanity';
 import {structureTool} from 'sanity/structure';
+import {ReviewTool} from './review/ReviewTool';
+import {SportsInput} from './review/SportsInput';
 import {schemaTypes} from './schemaTypes';
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID;
@@ -16,5 +18,7 @@ export default defineConfig({
     S.documentTypeListItem('team').title('Teams'),
     S.documentTypeListItem('player').title('Players'),
   ])})],
+  tools: previous => [...previous, {name: 'sports-review', title: 'Sports review', component: ReviewTool}],
+  form: {components: {input: SportsInput}},
   schema: {types: schemaTypes},
 });

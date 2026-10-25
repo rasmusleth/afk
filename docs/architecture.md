@@ -605,6 +605,22 @@ results and competition-specific points adjustments. A mismatch is a signal
 to investigate a missing ruling or competition rule, not a reason to silently
 overwrite match facts.
 
+# Sports editor review
+
+The Studio Sports review tool derives current uncertainty from match facts,
+prioritizing explicitly designated Aalborg Team entries (`isClubTeam`) and
+import discrepancies. Names never establish club/player identity. Stable keyed
+paths link to the affected participant/event field. Resolved dynamic uncertainty
+leaves the queue; structural import notices remain until checked and can be
+raised again by a later sync. Review is not a publication gate.
+
+Imported-field edits record overrides in the normal form patch. Releasing a
+correction first accepts the current local fingerprint so the next successful
+sync can supply that field even before an intervening import. Array removal
+releases also accept current keys. Metadata remains hidden; editors use field
+labels and normal reference/assist/appearance controls. See the
+[editor guide](./sports-editor-review.md) for behavior and manual verification.
+
 # Derived statistics
 
 Statistics should be calculated from canonical match data.
@@ -728,8 +744,8 @@ These should be investigated rather than guessed:
    reliable player identifier exists outside the two inspected match pages.
 3. Full set of match status codes and exceptional result rules.
 4. Best event reconciliation strategy when no event ID exists.
-5. Best Sanity Studio UX for automatically recording manual overrides and
-   reviewing unresolved player identities.
+5. Further editor feedback on the Studio review workflow, especially resolving
+   uncertain source-event replacements without losing enrichment.
 6. How frequently schedule/detail synchronization should run.
 7. Competition ranking and tie-break rules needed to reproduce DBU's table
    after explicit points adjustments.
