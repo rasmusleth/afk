@@ -17,7 +17,28 @@ export function decodeDocuments(value: unknown): Document[] {
     return {...document, _id: document._id, _type: document._type, _rev: typeof document._rev === 'string' ? document._rev : undefined};
   });
 }
-export function sanityStore(config: {projectId: string; dataset: string; token: string}, transport?: SanityTransport, purpose: 'schedule' | 'detail' = 'schedule'): Store {
+export type ImportPurpose = 'schedule' | 'detail' | 'batch';
+
+/** Validate the exact transaction before presenting an apply confirmation. */
+export function planMutations(plan: Plan, purpose: ImportPurpose = 'schedule'): Mutation[] {
+  const allowed = new Set(purpose === 'detail' ? ['status', 'participants', 'events', 'import'] : ['name', 'season', 'competition', 'homeTeam', 'awayTeam', 'kickoff', 'venue', 'status', 'score', 'import', ...(purpose === 'batch' ? ['participants', 'events'] : [])]);
+  const ids = new Set<string>();
+  const mutations: Mutation[] = plan.operations.map(operation => {
+    const id = operation.kind === 'create' ? operation.document._id : operation.id;
+    if (!id || id.startsWith('drafts.') || id.startsWith('versions.') || ids.has(id)) throw new SyncError('Only one operation per published sports document is supported.');
+    ids.add(id);
+    if (operation.kind === 'create') {
+      if (purpose === 'detail' || !['competition', 'team', 'match'].includes(operation.document._type) || operation.document._rev !== undefined) throw new SyncError('Unsupported imported document create.');
+      return {create: operation.document};
+    }
+    if (!operation.revision || Object.keys(operation.set).some(field => !allowed.has(field)) || Object.values(operation.set).some(value => value === undefined)) throw new SyncError('Unsafe sports patch refused.');
+    return {patch: {id, ifRevisionID: operation.revision, set: operation.set}};
+  });
+  if (mutations.length > 500 || Buffer.byteLength(JSON.stringify(mutations)) > 4_000_000) throw new SyncError('Plan exceeds the initial atomic-import limit; nothing was written.');
+  return mutations;
+}
+
+export function sanityStore(config: {projectId: string; dataset: string; token: string}, transport?: SanityTransport, purpose: ImportPurpose = 'schedule'): Store {
   assertDevelopmentTarget(config.projectId, config.dataset);
   if (!config.token.trim()) throw new SyncError('A token must be supplied through the hidden terminal prompt.');
   const client: SanityTransport = transport ?? createClient({...config, apiVersion: '2026-03-01', perspective: 'raw', useCdn: false, maxRetries: 0, timeout: 30_000});
@@ -45,18 +66,7 @@ export function sanityStore(config: {projectId: string; dataset: string; token: 
     },
     async commit(plan: Plan) {
       if (!plan.operations.length) return;
-      const allowed = new Set(purpose === 'detail' ? ['status', 'participants', 'events', 'import'] : ['name', 'season', 'competition', 'homeTeam', 'awayTeam', 'kickoff', 'venue', 'status', 'score', 'import']);
-      const mutations: Mutation[] = plan.operations.map(operation => {
-        const id = operation.kind === 'create' ? operation.document._id : operation.id;
-        if (!id || id.startsWith('drafts.') || id.startsWith('versions.')) throw new SyncError('Only published sports documents can be written.');
-        if (operation.kind === 'create') {
-          if (purpose === 'detail' || !['competition', 'team', 'match'].includes(operation.document._type)) throw new SyncError('Unsupported imported document type.');
-          return {create: operation.document};
-        }
-        if (!operation.revision || Object.keys(operation.set).some(field => !allowed.has(field))) throw new SyncError('Unsafe schedule patch refused.');
-        return {patch: {id, ifRevisionID: operation.revision, set: operation.set}};
-      });
-      if (mutations.length > 500 || Buffer.byteLength(JSON.stringify(mutations)) > 4_000_000) throw new SyncError('Plan exceeds the initial atomic-import limit; nothing was written.');
+      const mutations = planMutations(plan, purpose);
       try {
         await client.mutate(mutations, {returnDocuments: false, visibility: 'sync', autoGenerateArrayKeys: false});
       } catch {

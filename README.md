@@ -24,6 +24,7 @@ repository root with `pnpm install`; the workspace uses one lockfile.
 | `pnpm studio:build` | Build Studio into `apps/studio/dist/` |
 | `pnpm studio:schema` | Extract Studio schema into `apps/studio/.sanity/schema.json` |
 | `pnpm sync:schedule --help` | Explain the development importer and preview options |
+| `pnpm sync:competition --help` | Explain a combined schedule, result and club-detail batch |
 | `pnpm sync:details --help` | Explain single-match detail import and preview options |
 | `pnpm stats:report --help` | Explain read-only statistics and official-table comparison |
 | `pnpm test` | Run domain, DBU parser and schema tests |
@@ -56,3 +57,7 @@ queue, Aalborg team selection, and preserving or releasing manual corrections.
 
 The [derived statistics guide](docs/derived-statistics.md) explains confirmed player
 facts, competition/Season scope, provisional standings and read-only DBU comparison.
+
+Use [the competition batch guide](docs/dbu-batch-sync.md) to refresh a full
+competition in one preview and transaction, verifying all reported results while
+importing player details for Aalborg matches by default.

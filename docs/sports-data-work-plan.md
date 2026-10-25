@@ -18,7 +18,8 @@ blank PR cell means no PR exists yet.
 | 3. Full competition schedule sync | Merged | [#11](https://github.com/rasmusleth/afk/pull/11) | 2026-10-25 |
 | 4. Match detail sync and reconciliation | Merged | [#12](https://github.com/rasmusleth/afk/pull/12) | 2026-10-25 |
 | 5. Sports editor review experience | Merged | [#13](https://github.com/rasmusleth/afk/pull/13) | 2026-10-25 |
-| 6. Derived statistics and standings | In review | [#14](https://github.com/rasmusleth/afk/pull/14) | — |
+| 6. Derived statistics and standings | Merged | [#14](https://github.com/rasmusleth/afk/pull/14) | 2026-10-25 |
+| 6a. Batch competition import | In review | [#15](https://github.com/rasmusleth/afk/pull/15) | — |
 | 7. Public sports views | Not started | — | — |
 
 ## Paste-ready task prompts
@@ -128,6 +129,22 @@ against DBU's official standing and flag differences. Handle unknown data
 honestly and do not store independently editable totals on Player or Team.
 Test incomplete events, unresolved substitutes, and points adjustments.
 Run relevant checks, open a PR, and update the tracker with its link.
+```
+
+### Task 6a — Batch competition import
+
+```text
+Read AGENTS.md and docs/architecture.md. Add a manual competition batch that
+refreshes the full schedule and verifies reported results from individual match
+pages. Import participants/events for Aalborg fixtures by default; other fixtures
+need results only unless full details are explicitly requested. Preserve manual
+overrides, embedded keys and unknown values. Reuse existing import layers and
+produce one dry-run preview and one revision-guarded atomic development
+transaction after explicit confirmation. Bound fetching and transaction size;
+stop on errors without partial commits or automatic retries. Test selection,
+result verification, manual protection, repeat imports and persistence guards.
+Document the execution steps and remaining setup needs. Run relevant checks,
+open a PR and update this tracker before proceeding to public sports views.
 ```
 
 ### Task 7 — Public sports views

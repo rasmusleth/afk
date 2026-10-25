@@ -112,7 +112,7 @@ function parseEvents($: CheerioAPI): RawEvent[] | undefined {
     };
   });
 }
-export function parseMatch(html: string, sourceUrl: string): RawMatch {
+export function parseMatch(html: string, sourceUrl: string, options: {includeDetails?: boolean} = {}): RawMatch {
   const {id, poolId} = pageIdentity(sourceUrl, 'kamp');
   const $ = load(html);
   const info = $('.sr--match--info');
@@ -133,6 +133,6 @@ export function parseMatch(html: string, sourceUrl: string): RawMatch {
     homeScoreText: text(result.find('.sr-match-score > .home')),
     awayScoreText: text(result.find('.sr-match-score > .away')),
     venue: text(labelValue($, 'Spillested').find('a').first()) || undefined,
-    participants: parseParticipants($, home, away), events: parseEvents($),
+    participants: options.includeDetails === false ? undefined : parseParticipants($, home, away), events: options.includeDetails === false ? undefined : parseEvents($),
   };
 }

@@ -7,6 +7,10 @@ simulated persistence; no real Sanity import has been executed by this PR.
 The command imports Competition, scoped Team entries and Match fixture facts.
 Lineups and supported events are imported separately through [Task 4 detail sync](dbu-match-details.md); Player identities are never inferred from names.
 
+For a schedule refresh combined with verified results and Aalborg player details,
+use [the competition batch workflow](./dbu-batch-sync.md). This command remains
+useful for schedule-only work.
+
 ## Start with the offline preview
 
 From the repository root (Node 24 recommended):
