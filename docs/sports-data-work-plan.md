@@ -18,7 +18,7 @@ blank PR cell means no PR exists yet.
 | 3. Full competition schedule sync | Merged | [#11](https://github.com/rasmusleth/afk/pull/11) | 2026-10-25 |
 | 4. Match detail sync and reconciliation | Merged | [#12](https://github.com/rasmusleth/afk/pull/12) | 2026-10-25 |
 | 5. Sports editor review experience | Merged | [#13](https://github.com/rasmusleth/afk/pull/13) | 2026-10-25 |
-| 6. Derived statistics and standings | Not started | — | — |
+| 6. Derived statistics and standings | In review | [#14](https://github.com/rasmusleth/afk/pull/14) | — |
 | 7. Public sports views | Not started | — | — |
 
 ## Paste-ready task prompts
