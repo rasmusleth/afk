@@ -365,6 +365,27 @@ syncMatchDetails() is responsible for:
 Do not build one large scraper function that mixes discovery, parsing,
 normalization, reconciliation, and persistence.
 
+A manual competition batch may orchestrate these existing modules without
+combining their responsibilities. It refreshes the full schedule, then checks
+scored or previously scored/completed fixtures against their individual match
+pages. A new completed result requires explicit completion and a complete
+non-negative official score on that page; a numeric score or past date alone
+never establishes completion. Unverified new results are withheld, existing
+local facts retained, and discrepancies flagged for review.
+
+By default, participants and events are parsed only for fixtures involving a
+Team explicitly designated as an Aalborg team in that pool (or an explicit DBU
+team entry supplied by the operator). Other fixtures receive result checks only.
+Full details for every selected fixture require an explicit option.
+
+Verified result observations feed schedule reconciliation before detail plans
+are staged in memory. The final transaction has at most one mutation per
+document, guards every patch with its original revision, and preserves manual
+overrides and embedded keys. Fetch/parse failures abort the whole batch; missing
+stored fixtures are retained for review. Initial bounds are 100 match pages,
+500 mutations and 4 MB per transaction, without partial commits or automatic
+retries. See [the batch guide](./dbu-batch-sync.md).
+
 # Import metadata
 
 Store synchronization/import metadata in Sanity alongside the entities it

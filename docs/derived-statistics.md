@@ -88,10 +88,10 @@ matches.** The schedule importer preserves scores whose completion status is
 unknown. Those results remain excluded with `unverified-result` issues until
 completion is established. To reproduce the full league table you need verified
 results for opponent-versus-opponent matches too; player lineups/events are not
-needed for standings. Use public match detail evidence through the existing
-single-match importer, or confirm the status and score manually in Studio.
-Do not mark a match completed just because it has a number or a past date.
-No batch crawler or automatic status inference is added here.
+needed for standings. Use [the competition batch importer](./dbu-batch-sync.md) to verify those
+results without importing all opponent player details. The single-match importer
+and manual Studio corrections remain available. Do not mark a match completed
+just because it has a number or a past date. No automatic status inference is used.
 
 Each adjustment is applied only to its containing Competition, even when its
 `originatingSeason` is earlier. Multiple rulings for the same team accumulate;

@@ -14,7 +14,8 @@
     "studio:schema": "pnpm --filter @afk/studio schema",
     "sync:schedule": "pnpm --filter @afk/importer sync",
     "sync:details": "pnpm --filter @afk/importer sync:details",
-    "stats:report": "pnpm --filter @afk/importer stats:report"
+    "stats:report": "pnpm --filter @afk/importer stats:report",
+    "sync:competition": "pnpm --filter @afk/importer sync:competition"
   },
   "devDependencies": {
     "@types/node": "^20",

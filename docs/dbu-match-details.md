@@ -49,8 +49,10 @@ pnpm sync:details --match 602659 --pool 508399 \
    A later run refreshes sync/last-seen timestamps, so a metadata patch is normal.
 
 Omit `--html` to fetch the current public match page instead. `--match` and
-`--pool` must agree with the actual source identity. Import one match per command;
-there is no bulk crawler or scheduler. Fixture HTML is a historical snapshot.
+`--pool` must agree with the actual source identity. This command imports one match at a time. For a complete competition refresh,
+use [the batch workflow](./dbu-batch-sync.md), which checks all reported results
+and imports Aalborg match details by default. Neither command is scheduled.
+Fixture HTML is a historical snapshot.
 No timezone flag is needed because this command leaves kickoff to schedule sync.
 
 The credential handling, development-only target, bounded public fetching,
