@@ -1,13 +1,13 @@
 "use client";
 
-// Throwaway: three homepage directions on /?variant=A|B|C. Not a production homepage.
+// Throwaway: homepage directions on /?variant=A|B|C|D. Not a production homepage.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./visual-directions.module.css";
 
-const variants = ["A", "B", "C"] as const;
+const variants = ["A", "B", "C", "D"] as const;
 type Variant = (typeof variants)[number];
-const names = { A: "Matchday", B: "Klubjournal", C: "På banen" };
+const names = { A: "Matchday", B: "Klubjournal", C: "På banen", D: "C + A / Split hero" };
 
 function Brand() {
   return <Link className={styles.brand} href="/">AFK<span>Aalborg<br />Futsal Klub</span></Link>;
@@ -35,6 +35,33 @@ export function VariantB() {
 }
 export function VariantC() {
   return <div className={styles.scoreboard}><header><Brand /><Navigation /></header><main id="indhold" tabIndex={-1}><section className={styles.cHero}><p className={styles.kicker}>Aalborg Futsal Klub</p><h1>HELE VEJEN.<br /><span>HELE HOLDET.</span></h1><div className={styles.cIntro}><p>Dit overblik over Aalborg på banen.<br />Kampe, resultater og menneskerne bag.</p><Link href="/kampe/">Se sæsonens kampe ↗</Link></div></section><div className={styles.cGrid}><section className={styles.cNext}><span className={styles.number}>01 / KAMPPROGRAM</span><NextMatch /></section><section className={styles.cResult}><span className={styles.number}>02 / SIDSTE FLØJT</span><LatestResult /><div className={styles.motif} aria-hidden="true">↗</div></section><div className={styles.cStory}><span className={styles.number}>03 / VORES KLUB</span><ClubStory /></div></div></main><footer>AALBORG FUTSAL KLUB<span>Fra første fløjt. Til sidste sekund.</span></footer></div>;
+}
+
+export function VariantD() {
+  return (
+    <div className={`${styles.scoreboard} ${styles.hybrid}`}>
+      <header><Brand /><Navigation /></header>
+      <main id="indhold" tabIndex={-1}>
+        <section className={styles.dHero}>
+          <div className={styles.dLead}>
+            <p className={styles.kicker}>Aalborg Futsal Klub / På banen</p>
+            <h1>LILLE BANE.<br />STORT<br /><span>AALBORG.</span></h1>
+            <p className={styles.intro}>Tæt på spillet. Tæt på holdet.<br />Følg Aalborg fra første fløjt.</p>
+            <Link className={styles.action} href="/kampe/">Følg holdet <span>↗</span></Link>
+          </div>
+          <div className={styles.dSide}>
+            <div className={styles.court}><Court /><span>FUTSAL / AALBORG</span></div>
+            <section className={styles.dNext}><NextMatch /></section>
+          </div>
+        </section>
+        <div className={styles.dLower}>
+          <section className={styles.cResult}><span className={styles.number}>01 / SIDSTE FLØJT</span><LatestResult /></section>
+          <div className={styles.dStory}><span className={styles.number}>02 / VORES KLUB</span><ClubStory /></div>
+        </div>
+      </main>
+      <footer>AALBORG FUTSAL KLUB<span>Fra første fløjt. Til sidste sekund.</span></footer>
+    </div>
+  );
 }
 
 export function VisualDirections() {
@@ -66,5 +93,5 @@ export function VisualDirections() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   });
-  return <div className={styles.prototype}><div className={styles.disclaimer}>DESIGNSTUDIE · Ikke officielle farver eller logo · Kampdata og tekst er illustrative</div>{variant === "A" ? <VariantA /> : variant === "B" ? <VariantB /> : <VariantC />}{process.env.NODE_ENV !== "production" && <aside className={styles.switcher} aria-label="Vælg designretning"><button onClick={() => change(-1)} aria-label="Forrige design">←</button><div><small>VISUEL RETNING · {variants.indexOf(variant) + 1} / 3</small><strong aria-live="polite">{variant} / {names[variant]}</strong></div><button onClick={() => change(1)} aria-label="Næste design">→</button></aside>}</div>;
+  return <div className={styles.prototype}><div className={styles.disclaimer}>DESIGNSTUDIE · Ikke officielle farver eller logo · Kampdata og tekst er illustrative</div>{variant === "A" ? <VariantA /> : variant === "B" ? <VariantB /> : variant === "C" ? <VariantC /> : <VariantD />}{process.env.NODE_ENV !== "production" && <aside className={styles.switcher} aria-label="Vælg designretning"><button onClick={() => change(-1)} aria-label="Forrige design">←</button><div><small>VISUEL RETNING · {variants.indexOf(variant) + 1} / {variants.length}</small><strong aria-live="polite">{variant} / {names[variant]}</strong></div><button onClick={() => change(1)} aria-label="Næste design">→</button></aside>}</div>;
 }

@@ -125,3 +125,35 @@
 .cStory .story h2 { margin:20px 0; font-size:30px; }
 .cStory .story p { margin-top:15px; }
 }
+
+/* D: A's split hero and breathing room, with C's palette and graphic styling. */
+.dHero { display:grid; grid-template-columns:1.2fr 1fr; gap:7%; padding:58px 5% 65px; }
+.dLead { min-width:0; }
+.dHero h1 { font-size:clamp(60px,7vw,110px); line-height:.9; letter-spacing:-5px; font-weight:900; margin:30px 0; }
+.dHero h1>span { color:transparent; -webkit-text-stroke:1.5px #163cca; }
+.dLead>.action { max-width:290px; margin-top:32px; }
+.dSide { display:flex; flex-direction:column; justify-content:space-between; min-width:0; }
+.dSide .court { color:#163cca; height:240px; margin-bottom:25px; }
+.dNext { padding:28px; background:#163cca; color:#fff; }
+.dNext .action { margin-top:20px; }
+.dLower { margin:0 5% 65px; display:grid; grid-template-columns:1fr 1.4fr; border-top:1px solid #163cca; border-bottom:1px solid #163cca; }
+.dLower>.cResult { padding:30px 35px 30px 0; border-right:1px solid #163cca; }
+.dStory { padding:30px 0 30px 40px; }
+.hybrid footer { background:#163cca; color:#fff; }
+@media(max-width:700px) {
+.dHero { grid-template-columns:1fr; gap:30px; padding:40px 6%; }
+.dHero h1 { font-size:clamp(46px,14vw,72px); letter-spacing:-3px; }
+.dSide .court { height:210px; margin-bottom:22px; }
+.dNext { padding:24px; }
+.dNext .fixture { gap:10px; }
+.dNext .fixture strong { font-size:20px; }
+.dLower { grid-template-columns:1fr; margin:0 6% 40px; }
+.dLower>.cResult { border-right:0; border-bottom:1px solid #163cca; padding:28px 0; }
+.dStory { padding:28px 0; }
+}
+.dNext .fixture { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); }
+.dNext .fixture strong { overflow-wrap:anywhere; }
+@media(min-width:701px) and (max-width:1000px) {
+.dNext .fixture { grid-template-columns:1fr; gap:8px; }
+.dNext .fixture strong { font-size:22px; }
+}
