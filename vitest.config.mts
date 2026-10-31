@@ -6,7 +6,7 @@ export default defineConfig({
     projects: ['packages/sports', 'packages/dbu', 'packages/importer', 'apps/studio', 'apps/web'].map(directory => ({
       test: {
         name: `@afk/${directory.split('/')[1]}`,
-        include: [`${directory}/**/*.test.ts`],
+        include: [`${directory}/**/*.test.{ts,tsx}`],
       },
     })),
   },

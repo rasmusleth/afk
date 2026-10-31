@@ -19,6 +19,7 @@ pnpm studio    # Sanity Studio: http://localhost:3333 (separate terminal)
 | --- | --- |
 | `pnpm test` | Run all Vitest workspace projects |
 | `pnpm test:watch` | Watch tests while developing |
+| `pnpm test:e2e` | Test the static export in desktop/mobile Chromium; [setup](docs/public-sports-views.md#browser-checks) |
 | `pnpm typecheck` | Type-check all workspace packages |
 | `pnpm lint` | Lint the workspace |
 | `pnpm build` | Export the website to `apps/web/out/` |

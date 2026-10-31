@@ -2,10 +2,20 @@
 :root {
   --background: #f5f4f0;
   --foreground: #172c28;
+  --brand: #123c32;
+  --brand-accent: #d4e7ab;
+  --surface: #fff;
+  --focus: #a5481d;
+  --content-width: 1160px;
+  --font-body: Arial, Helvetica, sans-serif;
 }
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
+  --color-brand-accent: var(--brand-accent);
+  --color-on-brand: var(--surface);
+  --font-sans: var(--font-body);
 }
 * {
   box-sizing: border-box;
@@ -14,57 +24,21 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   line-height: 1.6;
 }
 a {
   color: inherit;
   text-underline-offset: 4px;
 }
+button:focus-visible,
 a:focus-visible,
 [tabindex]:focus-visible {
-  outline: 3px solid #a5481d;
+  outline: 3px solid var(--focus);
   outline-offset: 4px;
 }
-.site-header {
-  background: #123c32;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px max(5vw, calc((100vw - 1160px) / 2));
-  gap: 24px;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 34px;
-  font-weight: 900;
-  text-decoration: none;
-  letter-spacing: -1px;
-}
-.brand span {
-  font-size: 13px;
-  max-width: 100px;
-  line-height: 1.3;
-  font-weight: 500;
-  letter-spacing: 0;
-}
-nav {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-nav a {
-  text-decoration: none;
-  padding: 8px 0;
-}
-nav a[aria-current] {
-  border-bottom: 2px solid #d4e7ab;
-}
 main {
-  max-width: 1160px;
+  max-width: var(--content-width);
   margin: auto;
   padding: 0 24px 64px;
 }
@@ -117,6 +91,9 @@ p {
   margin-top: 48px;
 }
 .competition-nav {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
   margin-top: 24px;
   font-size: 14px;
 }
@@ -236,14 +213,9 @@ dd {
   font-weight: 700;
   margin: 0;
 }
-footer {
-  background: #123c32;
-  color: #dce6dc;
-  padding: 28px 5vw;
-  font-size: 13px;
-}
 .skip-link {
   position: absolute;
+  z-index: 10;
   top: -100px;
   background: #fff;
   padding: 10px;
@@ -252,13 +224,6 @@ footer {
   top: 10px;
 }
 @media (max-width: 600px) {
-  .site-header {
-    padding: 20px 24px;
-    flex-wrap: wrap;
-  }
-  nav {
-    gap: 20px;
-  }
   .hero {
     padding-top: 40px;
   }

@@ -50,3 +50,7 @@ next-env.d.ts
 
 # Vitest artifacts
 .vitest/
+
+# Browser test output
+/playwright-report/
+/test-results/
