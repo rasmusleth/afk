@@ -384,7 +384,7 @@ document, guards every patch with its original revision, and preserves manual
 overrides and embedded keys. Fetch/parse failures abort the whole batch; missing
 stored fixtures are retained for review. Initial bounds are 100 match pages,
 500 mutations and 4 MB per transaction, without partial commits or automatic
-retries. See [the batch guide](./dbu-batch-sync.md).
+retries. See [the import guide](./sports-data.md).
 
 # Import metadata
 
@@ -467,7 +467,7 @@ The initial manual importer supports only the `development` dataset and requires
 an explicit source IANA timezone assertion; DBU's timezone contract is unverified.
 Reject ambiguous/nonexistent wall times, and keep numeric schedule scores
 separate from unverified completion status. See
-[schedule sync](./dbu-schedule-sync.md) for its limits and execution workflow.
+[the importer reference](./importer-reference.md) for its limits and execution workflow.
 
 ## Detail reconciliation baselines
 
@@ -479,7 +479,7 @@ changed/disappearing observations and flag ambiguity instead of guessing a
 replacement. Match-level `detailKeys` detect local array removals. Repeated
 identical events retain keys by occurrence only with unchanged multiplicity and
 remain flagged. Schedule and detail baselines/timestamps do not replace each
-other. See [detail sync](./dbu-match-details.md) for execution and limitations.
+other. See [the importer reference](./importer-reference.md) for execution and limitations.
 
 Verified DBU penalty-goal markup now supports an optional goal `method` of
 `penalty` or `unspecified`. No absence of a penalty marker proves an ordinary

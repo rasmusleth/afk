@@ -1,63 +1,39 @@
 # Aalborg Futsal Klub
 
-A pnpm workspace containing two independent applications and shared sports logic:
+The public website, Sanity Studio and DBU sports-data importer share one pnpm workspace.
 
-```text
-apps/
-  web/           Next.js public website
-  studio/        Sanity Studio, configuration and schemas
-packages/
-  sports/        Framework-independent sports models and validation
-  dbu/           Pure DBU HTML parsing, normalization and saved test fixtures
-  importer/      Server-only manual development schedule and match-detail synchronization
+**Importing sports data? Start with [Sports data: DBU → Sanity](docs/sports-data.md).**
+It explains the commands, one-time setup and normal preview → import → review workflow.
+
+## Local development
+
+Use Node 24 and pnpm 12.11.2. Run commands from the repository root.
+
+```sh
+pnpm install
+pnpm dev       # Website: http://localhost:3000
+pnpm studio    # Sanity Studio: http://localhost:3333 (separate terminal)
 ```
 
-Use Node 22.12+ (Node 24 recommended) and pnpm 12.11.2. Install from the
-repository root with `pnpm install`; the workspace uses one lockfile.
-
-| Root command | Purpose |
+| Command | Purpose |
 | --- | --- |
-| `pnpm dev` | Start the website at http://localhost:3000 |
-| `pnpm build` | Build the website |
-| `pnpm start` | Serve the built website |
-| `pnpm studio` | Start Studio at http://localhost:3333 |
+| `pnpm test` | Run all workspace tests |
+| `pnpm typecheck` | Type-check all workspace packages |
+| `pnpm lint` | Lint the workspace |
+| `pnpm build` | Export the website to `apps/web/out/` |
 | `pnpm studio:build` | Build Studio into `apps/studio/dist/` |
-| `pnpm studio:schema` | Extract Studio schema into `apps/studio/.sanity/schema.json` |
-| `pnpm sync:schedule --help` | Explain the development importer and preview options |
-| `pnpm sync:competition --help` | Explain a combined schedule, result and club-detail batch |
-| `pnpm sync:details --help` | Explain single-match detail import and preview options |
-| `pnpm stats:report --help` | Explain read-only statistics and official-table comparison |
-| `pnpm test` | Run domain, DBU parser and schema tests |
-| `pnpm typecheck` | Check all workspace packages |
-| `pnpm lint` | Lint source across the workspace |
+| `pnpm studio:schema` | Extract the Studio schema |
 
-Each application has its own `package.json` and configuration. Use
-`pnpm --filter @afk/web <command>` or `pnpm --filter @afk/studio <command>`
-to target one application. Shared development tools are managed at the root.
+The website is a static export; serve `apps/web/out/` with a static server rather
+than `pnpm start`. Without sports configuration it displays an empty state.
 
-Sanity's project and dataset configuration goes in `apps/studio/.env.local`.
-Next.js environment settings go in `apps/web/.env.local`. The public website
-can build without any Sanity settings. See the [Studio setup guide](docs/sanity-studio.md)
-for the account setup command and remaining manual steps, and
-[architecture.md](docs/architecture.md) for the sports data model.
+## Where things live
 
-DBU source observations, verified event variants, and unresolved import questions
-are recorded in [the DBU notes](docs/dbu-source-notes.md). The parser package
-contains no fetching or Sanity persistence.
+- `apps/web`: Next.js website. [Data preview and static serving](docs/public-sports-views.md).
+- `apps/studio`: Sanity Studio and schemas. [Setup](docs/sanity-studio.md) · [Editor guide](docs/sports-editor-review.md).
+- `packages/sports`: shared models, validation and derived statistics.
+- `packages/dbu`: pure HTML parsing and saved fixtures.
+- `packages/importer`: fetching, reconciliation, Sanity writes and reporting.
 
-See [the development schedule-import guide](docs/dbu-schedule-sync.md) for an
-offline preview, hidden token entry, manual-change protection and the explicit
-apply workflow. Tokens are not needed for offline previews or tests.
-
-See [the match-detail guide](docs/dbu-match-details.md) for importing lineups and
-supported events after schedule sync, beginning with a saved Aalborg match.
-
-The [sports editor guide](docs/sports-editor-review.md) explains the Studio review
-queue, Aalborg team selection, and preserving or releasing manual corrections.
-
-The [derived statistics guide](docs/derived-statistics.md) explains confirmed player
-facts, competition/Season scope, provisional standings and read-only DBU comparison.
-
-Use [the competition batch guide](docs/dbu-batch-sync.md) to refresh a full
-competition in one preview and transaction, verifying all reported results while
-importing player details for Aalborg matches by default.
+[Architecture](docs/architecture.md) records domain decisions.
+[Sports progress](docs/sports-data-work-plan.md) records milestones and remaining acceptance checks.
