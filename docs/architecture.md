@@ -673,8 +673,13 @@ a complete official score. Duplicate/invalid inputs produce diagnostics.
 
 Standings use explicit caller-supplied scoring/ranking rules. The verified
 national men's futsal profile uses 3/1/0 points and no-show-first tie breaking.
-No-show facts are unavailable in our current model, so tied points stay shared
-unless a caller supplies verified counts. Unverified multi-team head-to-head
+For the current club workflow, omit the no-show criterion when counts are not
+supplied (club decision, 2026-10-31: no team has failed to appear in the current
+competition). This is a temporary ranking policy, not a change to DBU's rules
+or a stored assertion of zero. Rank equal points by overall goal difference,
+goals scored, away goals and wins, then head-to-head criteria. Explicit verified
+no-show counts still take precedence; incomplete supplied counts leave the tie
+unresolved. Unverified multi-team head-to-head
 interpretations stay unresolved. Competition points adjustments remain explicit
 facts, including reasons and sources. Official standings are comparison-only
 snapshots resolved by scoped external identity, never replacement totals or

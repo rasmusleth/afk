@@ -37,7 +37,18 @@ test("table requires explicit rule selection; shared ranking is preserved", () =
   const table = publicCompetitions(snapshot(), ["cup"])[0].standings!;
   assert.equal(table.rows[0].points, 1);
   assert.equal(table.rows[0].sharedRank, true);
-  assert.ok(table.issues.some((issue) => issue.code === "unknown-no-shows"));
+  assert.ok(table.issues.some((issue) => issue.code === "unresolved-ranking"));
+});
+test("public table ranks three equal-point teams by goal difference without no-show inputs", () => {
+  const data = snapshot();
+  data.teams = ["a", "b", "c", "d", "e", "f"].map((_id) => ({ _id, name: _id }));
+  data.matches = [
+    { ...match, _id: "one", homeTeam: ref("a"), awayTeam: ref("d"), score: { _type: "score", home: 1, away: 0 } },
+    { ...match, _id: "two", homeTeam: ref("b"), awayTeam: ref("e"), score: { _type: "score", home: 5, away: 0 } },
+    { ...match, _id: "three", homeTeam: ref("c"), awayTeam: ref("f"), score: { _type: "score", home: 10, away: 0 } },
+  ];
+  const table = publicCompetitions(data, ["cup"])[0].standings!;
+  assert.deepEqual(table.rows.slice(0, 3).map((row) => [row.teamId, row.rank, row.sharedRank]), [["c", 1, false], ["b", 2, false], ["a", 3, false]]);
 });
 test("unknown status stays in fixtures even with a score; missing score remains a result needing confirmation", () => {
   const data = snapshot();
