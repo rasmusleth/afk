@@ -10,7 +10,7 @@ export const fingerprint = (value: unknown) => createHash('sha256').update(canon
 const same = (a: unknown, b: unknown) => fingerprint(a) === fingerprint(b);
 const protects = (paths: string[], field: string) => paths.some(path => path === field || path.startsWith(`${field}.`) || field.startsWith(`${path}.`));
 function known(value: unknown): boolean {
-  return value != null && value !== '' && value !== 'unknown' && record(value).precision !== 'unknown';
+  return value != null && value !== '' && value !== 'unknown' && record(value).precision !== 'unknown' && record(value).status !== 'unknown';
 }
 function lessPrecise(field: string, local: unknown, incoming: unknown): boolean {
   return field === 'kickoff' && record(local).precision === 'time' && record(incoming).precision !== 'time';

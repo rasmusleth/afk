@@ -2,7 +2,7 @@ import {useCallback, useEffect, useMemo, useState} from 'react';
 import {useClient} from 'sanity';
 import {IntentLink} from 'sanity/router';
 import styled from 'styled-components';
-import {matchReviewTitle, sportsReview, reviewPath, type ReviewDocument, type ReviewCategory} from '@afk/sports/review';
+import {dismissImportNotice, matchReviewTitle, sportsReview, reviewPath, type ReviewDocument, type ReviewCategory, type SportsReviewItem} from '@afk/sports/review';
 import {loadReviewDocuments} from './load-review.ts';
 import {record} from '@afk/sports/validation';
 
@@ -33,6 +33,8 @@ export function ReviewTool() {
   const [category, setCategory] = useState('all');
   const [matchId, setMatchId] = useState('all');
   const [version, setVersion] = useState(0);
+  const [dismissing, setDismissing] = useState('');
+  const [noticeMessage, setNoticeMessage] = useState('');
   const refresh = useCallback(() => setVersion(value => value + 1), []);
   useEffect(() => {
     let active = true;
@@ -50,6 +52,19 @@ export function ReviewTool() {
   const issues = useMemo(() => sportsReview(documents), [documents]);
   const shown = issues.filter(item => (scope === 'all' || item.club || item.category === 'import') && (category === 'all' || item.category === category) && (matchId === 'all' || item.documentId === matchId));
   const byId = useMemo(() => new Map(documents.map(doc => [doc._id, doc])), [documents]);
+  async function dismiss(item: SportsReviewItem) {
+    setDismissing(item.id); setNoticeMessage('');
+    try {
+      const document = byId.get(item.documentId);
+      if (!document || typeof document._rev !== 'string') throw new Error('Refresh required.');
+      const changes = dismissImportNotice(document, item);
+      if (!Object.keys(changes).length) throw new Error('Refresh required.');
+      await client.patch(document._id).ifRevisionId(document._rev).set(changes).commit();
+      setNoticeMessage('Notice dismissed. Your corrections are unchanged. A later import can report a conflict again.');
+      refresh();
+    } catch {setNoticeMessage('Could not dismiss the notice. Refresh and try again; check edit access if it persists.');}
+    finally {setDismissing('');}
+  }
   const clubTeams = documents.filter(doc => doc._type === 'team' && doc.isClubTeam === true);
   return <Page><div>
     <h1>Sports review</h1>
@@ -62,6 +77,7 @@ export function ReviewTool() {
     </div>
     {loading && <p role="status">Loading review…</p>}
     {error && <p role="alert">{error}</p>}
+    {noticeMessage && <p role="status">{noticeMessage}</p>}
     {!loading && !error && <>
       {clubTeams.length === 0 && <section aria-label="Choose Aalborg entries"><h2>Choose your Aalborg team entries</h2><p>Open each Aalborg Team and enable “Aalborg team”. This gives your club priority without guessing identity from names.</p><ul>{documents.filter(doc => doc._type === 'team').map(doc => <li key={doc._id}><IntentLink intent="edit" params={{id: doc._id, type: 'team', path: 'isClubTeam'}}>{String(doc.name ?? 'Unnamed team')}</IntentLink></li>)}</ul></section>}
       <p role="status">{shown.length} {shown.length === 1 ? 'issue' : 'issues'} in this view. Refresh after making changes.</p>
@@ -69,6 +85,7 @@ export function ReviewTool() {
       <ul aria-label="Sports review issues">{shown.map(item => <li key={item.id}>
         <span className="category">{categoryNames[item.category]}</span><h2 style={{fontSize: '1rem', margin: '4px 0'}}>{item.title}</h2>
         <p>{item.reason}</p>
+        {item.category === 'import' && <p><button type="button" disabled={loading || !!dismissing} onClick={() => void dismiss(item)}>{dismissing === item.id ? 'Dismissing…' : 'Dismiss checked notice'}</button></p>}
         <IntentLink intent="edit" params={{id: item.documentId, type: item.documentType, ...(item.path.length ? {path: reviewPath(item.path)} : {})}}>Open affected {item.documentType === 'match' ? 'match field' : 'record'}</IntentLink>
         {(() => {const external = record(byId.get(item.documentId)?.external); const url = external.sourceUrl;
           return typeof url === 'string' && /^https:\/\/(?:www\.)?dbu\.dk\//.test(url) ? <> · <a href={url} target="_blank" rel="noreferrer">Check DBU source</a></> : null;
