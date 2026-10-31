@@ -24,16 +24,21 @@ Current feedback: C’s colours and distinctive styling are preferred; A’s her
 spacing, split composition and side graphic are preferred. D explores that
 combination. Original A–C remain available for comparison. Final verdict pending.
 
-## E / Ro & bevægelse
+## E / Klubhub — revised after feedback
 
-The maintainer asked for the restraint and storytelling of Apple and Webflow,
-with subtle sports character. E explores sentence-case typography, generous
-space, a dimensional court illustration, compact match information and a
-sequence of editorial sections. Native CSS entrance/scroll motion respects
-reduced-motion preferences. No animation dependency, scroll interception,
-production content or CMS changes.
+The spacious, soft Apple/Webflow study was rejected. The maintainer prefers
+C/D's sharper sports identity and a denser news/community-hub composition,
+using https://www.hltv.org as a reference for information hierarchy.
 
-References inspected: https://www.apple.com and https://webflow.com.
-This is an interpretation of their hierarchy and pacing, not a reproduction.
-The next review should assess overall rhythm before detailed component tuning.
-Real club photography and the maintainer's sketches remain useful inputs.
+E now explores a compact match strip, a shorter split hero, editorial content
+alongside a league overview, news rows, and direct routes to sports views.
+White space is local to each block rather than large gaps between sections.
+Square edges and cobalt typography replace pill buttons and soft panels.
+
+News is explicitly proposed content. The table and matches are illustrative,
+not official current data. Expanding a news row reveals suggested editorial
+content; it does not publish or fetch anything. No community accounts, forums
+or other interactive services are introduced by the community-hub reference.
+
+D remains unchanged. The rejected E study remains available in commit d383fde.
+Verdict: awaiting review of density, hierarchy and sports character.

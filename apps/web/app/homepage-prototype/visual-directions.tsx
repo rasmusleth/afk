@@ -7,7 +7,7 @@ import styles from "./visual-directions.module.css";
 
 const variants = ["A", "B", "C", "D", "E"] as const;
 type Variant = (typeof variants)[number];
-const names = { A: "Matchday", B: "Klubjournal", C: "På banen", D: "C + A / Split hero", E: "Ro & bevægelse" };
+const names = { A: "Matchday", B: "Klubjournal", C: "På banen", D: "C + A / Split hero", E: "Klubhub" };
 
 function Brand() {
   return <Link className={styles.brand} href="/">AFK<span>Aalborg<br />Futsal Klub</span></Link>;
@@ -64,41 +64,49 @@ export function VariantD() {
   );
 }
 
+// Illustrative editorial content and standings; no club news or results are asserted.
+const hubStories = [
+  { category: "Optakt", title: "Det næste opgør starter her", text: "Plads til modstanderen, kampens betydning og alt det praktiske før næste kamp.", number: "01" },
+  { category: "Holdet", title: "Menneskene bag trøjen", text: "Spillerportrætter, samtaler og små historier fra hverdagen i klubben.", number: "02" },
+  { category: "Fra klubben", title: "Livet mellem kampene", text: "Her kan klubben dele nyt fra træning, arrangementer og fællesskabet omkring holdet.", number: "03" },
+];
 export function VariantE() {
   return (
-    <div className={styles.refined}>
+    <div className={styles.hub}>
       <header><Brand /><Navigation /></header>
       <main id="indhold" tabIndex={-1}>
-        <section className={styles.eHero}>
-          <div className={styles.eOpening}>
-            <p className={styles.kicker}>Aalborg Futsal Klub</p>
-            <h1>Et lille spil.<br /><span>En stor følelse.</span></h1>
-            <p>Tempoet. Samspillet. Øjeblikket.<br />Kom tættere på futsal i Aalborg.</p>
-            <Link className={styles.eButton} href="/kampe/">Følg holdet <span>↗</span></Link>
+        <div className={styles.hubTicker}>
+          <span className={styles.hubTag}>På banen</span>
+          <Link href="/kampe/"><small>NÆSTE KAMP · EKSEMPEL</small><strong>Aalborg FK – Gæsteholdet</strong><span>15. nov. / 14.00 ↗</span></Link>
+          <Link href="/kampe/"><small>SENEST AFSLUTTET · EKSEMPEL</small><strong>Aalborg FK <b>4–2</b> Udeholdet</strong></Link>
+        </div>
+        <div className={styles.hubTop}>
+          <section className={styles.hubLead}>
+            <div className={styles.hubLeadCopy}><p className={styles.kicker}>Aalborg Futsal Klub / Klubben. Kampene. Menneskene.</p><h1>HELE BYEN.<br /><span>HELE HOLDET.</span></h1><p>Følg Aalborg på banen og kom tættere på klubben bag.</p><Link className={styles.action} href="/kampe/">Følg sæsonen <span>↗</span></Link></div>
+            <div className={styles.hubCourt}><Court /></div>
+          </section>
+          <section className={styles.hubNext}><NextMatch /></section>
+        </div>
+        <div className={styles.hubColumns}>
+          <div>
+            <section className={styles.hubNews}>
+              <div className={styles.hubHeading}><h2>Fra klubben</h2><span>Forslag til indhold</span></div>
+              <article className={styles.hubFeature}>
+                <div className={styles.hubFeatureArt} aria-hidden="true"><span>AFK</span><Court /></div>
+                <div><p className={styles.kicker}>Tæt på holdet / Indholdsforslag</p><h3>En klub at følge.<br />Et hold at samles om.</h3><p>Her får den vigtigste klubhistorie sin plads. En optakt, et interview eller et indblik bag kulisserne.</p><Link href="/spillere/">Mød spillerne <span>↗</span></Link></div>
+              </article>
+              <div className={styles.hubStories}>{hubStories.map((story) => <details key={story.number}><summary><span className={styles.hubStoryNumber}>{story.number}</span><span><small>{story.category} / Indholdsforslag</small><strong>{story.title}</strong></span><span className={styles.hubExpand}>+</span></summary><p>{story.text}</p></details>)}</div>
+            </section>
+            <section id="klubben" className={styles.hubAbout}><div><p className={styles.kicker}>Mere end kampene</p><h2>Aalborg. Også uden for banen.</h2><p>Klubbens historie, mennesker og fællesskab får plads her.</p></div><Link href="/spillere/">Mød holdet ↗</Link></section>
           </div>
-          <div className={styles.eStage}>
-            <div className={styles.eStageLabel}><span>Spillet, helt tæt på.</span><span>AALBORG / FUTSAL</span></div>
-            <div className={styles.eCourt}><Court /></div>
-            <span className={styles.eStageCaption}>Små rum. Store øjeblikke.</span>
-          </div>
-        </section>
-        <section className={styles.eMatchStrip} aria-label="Kampoverblik">
-          <div><p className={styles.kicker}>Næste kamp · Eksempel</p><h2>Aalborg FK <span>vs</span> Gæsteholdet</h2><p>Søndag 15. november · 14.00 · Hjemmebane</p></div>
-          <Link href="/kampe/">Se kampprogrammet <span>↗</span></Link>
-        </section>
-        <section className={`${styles.eChapter} ${styles.eReveal}`}>
-          <div className={styles.eChapterIntro}><p className={styles.kicker}>01 / Følg sæsonen</p><h2>Fra første fløjt.<br /><span>Til næste gang.</span></h2><p>Det næste opgør at glæde sig til. Det seneste resultat at tale om. Følg holdet gennem sæsonen.</p></div>
-          <div className={styles.eResult}><LatestResult /><Link className={styles.eSecondary} href="/stilling/">Se stillingen <span>↗</span></Link></div>
-        </section>
-        <section id="klubben" className={`${styles.eClub} ${styles.eReveal}`}>
-          <p className={styles.kicker}>02 / Mere end kampen</p>
-          <h2>Fem på banen.<br /><span>En klub omkring.</span></h2>
-          <div className={styles.eClubBottom}><p>Bag hver aflevering er der et menneske. Her skal du møde holdet og historien om Aalborg Futsal Klub.</p><Link className={styles.eButton} href="/spillere/">Mød spillerne <span>↗</span></Link></div>
-          <div className={styles.eClubLine} aria-hidden="true"><span /><span /><span /><span /><span /></div>
-        </section>
-        <section className={`${styles.eEnd} ${styles.eReveal}`}><p className={styles.kicker}>Aalborg Futsal Klub</p><h2>Vi ses til næste kamp.</h2><Link href="/kampe/">Find næste kamp <span>↗</span></Link></section>
+          <aside className={styles.hubRail} aria-label="Sæsonoverblik">
+            <section className={styles.hubStandings}><div className={styles.hubHeading}><h2>Stillingen</h2><span>Eksempeltabel</span></div><table><caption>Illustrativ tabel — ikke aktuelle klubdata</caption><thead><tr><th scope="col">Pl.</th><th scope="col">Hold</th><th scope="col">K</th><th scope="col">Pt.</th></tr></thead><tbody>{[["1", "Eksempelhold A", "6", "15"], ["2", "Aalborg FK", "6", "12"], ["3", "Eksempelhold B", "6", "10"], ["4", "Eksempelhold C", "6", "9"]].map(([rank, name, played, points]) => <tr key={rank} className={rank === "2" ? styles.hubClubRow : undefined}><td>{rank}</td><th scope="row">{name}</th><td>{played}</td><td>{points}</td></tr>)}</tbody></table><Link className={styles.hubRailLink} href="/stilling/">Se hele stillingen <span>↗</span></Link></section>
+            <section className={styles.hubResult}><LatestResult /></section>
+            <section className={styles.hubQuick}><h2>Følg klubben</h2><Link href="/kampe/">Kampprogram <span>↗</span></Link><Link href="/spillere/">Spillere & statistik <span>↗</span></Link><Link href="#klubben">Om klubben <span>↓</span></Link></section>
+          </aside>
+        </div>
       </main>
-      <footer><Brand /><span>Visuelt studie · Forslag til tekst og identitet</span><Link href="/kampe/">Kampe & resultater ↗</Link></footer>
+      <footer><Brand /><span>Klubben. Kampene. Menneskene.</span><Link href="/kampe/">Kampe & resultater ↗</Link></footer>
     </div>
   );
 }
