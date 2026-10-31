@@ -1,4 +1,4 @@
-import {test} from 'node:test';
+import {test} from 'vitest';
 import assert from 'node:assert/strict';
 import {compareStandings, deriveStandings, nationalFutsalMen} from './standings.ts';
 import type {CompetitionRecord, MatchRecord} from './derivation.ts';

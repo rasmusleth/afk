@@ -1,4 +1,4 @@
-import {test} from 'node:test';
+import {test} from 'vitest';
 import assert from 'node:assert/strict';
 import type {Goal, Participant, Reference} from './model.ts';
 import {derivePlayerStatistics} from './statistics.ts';

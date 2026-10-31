@@ -17,12 +17,16 @@ pnpm studio    # Sanity Studio: http://localhost:3333 (separate terminal)
 
 | Command | Purpose |
 | --- | --- |
-| `pnpm test` | Run all workspace tests |
+| `pnpm test` | Run all Vitest workspace projects |
+| `pnpm test:watch` | Watch tests while developing |
 | `pnpm typecheck` | Type-check all workspace packages |
 | `pnpm lint` | Lint the workspace |
 | `pnpm build` | Export the website to `apps/web/out/` |
 | `pnpm studio:build` | Build Studio into `apps/studio/dist/` |
 | `pnpm studio:schema` | Extract the Studio schema |
+
+Use `pnpm --filter @afk/sports test` to run one package, or
+`pnpm test:watch --project @afk/web` to watch its tests.
 
 The website is a static export; serve `apps/web/out/` with a static server rather
 than `pnpm start`. Without sports configuration it displays an empty state.

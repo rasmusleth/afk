@@ -1,4 +1,4 @@
-import {test} from 'node:test';
+import {test} from 'vitest';
 import assert from 'node:assert/strict';
 import {reconcile} from './reconcile.ts';
 import type {Document} from './model.ts';
