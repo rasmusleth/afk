@@ -481,6 +481,12 @@ identical events retain keys by occurrence only with unchanged multiplicity and
 remain flagged. Schedule and detail baselines/timestamps do not replace each
 other. See [the importer reference](./importer-reference.md) for execution and limitations.
 
+Verified nested DBU assist names import as credited source names, without
+guessing Player identities. When upgrading older imports, uniquely matching
+source signatures from the previous parser may be retained in place (including
+the former combined scorer/assister text). Ambiguous matches stay flagged;
+manual corrections and internal keys remain protected.
+
 Verified DBU penalty-goal markup now supports an optional goal `method` of
 `penalty` or `unspecified`. No absence of a penalty marker proves an ordinary
 goal; missed penalties and own-goal credit remain unmapped.

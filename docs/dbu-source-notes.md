@@ -42,6 +42,19 @@ missing text, or resolve a Player identity from a name alone.
 
 ## Observed timeline markup
 
+### Recorded assists
+
+[Match 602673](https://dbu.dk/resultater/kamp/602673_508399/kampinfo), captured
+31 October 2026, contains three assisted goals. Inside `--event--player`, a
+`--event--sub` wrapper holds the scorer text and a nested `--event--player2`
+holds the assister. Read the scorer with that nested node removed, and import
+the secondary name as a credited assist. Do not split names by whitespace or
+infer the role from text color. Missing secondary names remain unknown assists.
+Both names still need confirmed Player references for attributed statistics.
+The saved fixture covers home and away goals; malformed/ambiguous nesting fails.
+
+### Icons and other events
+
 Timeline rows use `.sr--match--live-score--event`; the `--minute` element
 contains values such as `&#x27;34`, and the `--home` / `--away` descendant
 identifies the displayed side. The `--player` element holds a source name.

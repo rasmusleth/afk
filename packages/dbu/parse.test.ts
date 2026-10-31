@@ -20,7 +20,7 @@ const mutate = (id: string, update: (document: ReturnType<typeof load>) => void)
 
 test('saved public HTML excerpts match their provenance checksums', () => {
   const manifest: {file: string; sha256: string; url: string}[] = JSON.parse(fixture('manifest.json'));
-  assert.equal(manifest.length, 10);
+  assert.equal(manifest.length, 11);
   for (const entry of manifest) {
     const bytes = readFileSync(new URL(`./fixtures/${entry.file}`, import.meta.url));
     assert.equal(createHash('sha256').update(bytes).digest('hex'), entry.sha256, entry.file);
@@ -28,6 +28,31 @@ test('saved public HTML excerpts match their provenance checksums', () => {
     else if (entry.file.startsWith('standing-')) assert.ok(parseStandings(bytes.toString('utf8'), entry.url));
     else assert.ok(parseSchedule(bytes.toString('utf8'), entry.url));
   }
+});
+test('recorded goal assists keep the scorer separate from the secondary player in match 602673', () => {
+  const raw = match('602673');
+  const goal = raw.events?.find(event => event.minuteText === "'27");
+  assert.equal(goal?.sourceName, 'Bertram Rosendal Jensen');
+  const {value, diagnostics} = normalizeMatch(raw);
+  assert.deepEqual(diagnostics, []);
+  assert.deepEqual(value.events?.filter(event => event.type === 'goal' && event.assist.status === 'credited').map(event => [event.minute, event.sourceName, event.type === 'goal' ? event.assist : undefined]), [
+    [27, 'Bertram Rosendal Jensen', {status: 'credited', sourceName: 'Christian Søndergaard'}],
+    [19, 'Casper Flyvholm', {status: 'credited', sourceName: 'Tim Vigilsen Wiese'}],
+    [1, 'Mads Falck', {status: 'credited', sourceName: 'Tim Vigilsen Wiese'}],
+  ]);
+});
+test('ambiguous, blank or misplaced assister markup fails instead of inventing a name', () => {
+  for (const update of [
+    ($: ReturnType<typeof load>) => { const assister = $('.sr--match--live-score--event--player2').first(); assister.after(assister.clone()); },
+    ($: ReturnType<typeof load>) => { $('.sr--match--live-score--event--player2').first().text(' '); },
+    ($: ReturnType<typeof load>) => { const assister = $('.sr--match--live-score--event--player2').first(); assister.parent().parent().append(assister); },
+  ]) assert.throws(() => parseMatch(mutate('602673', update), matchUrl('602673')), DbuMarkupError);
+  const raw = match('602673');
+  const goal = raw.events!.find(event => event.assistSourceName)!;
+  goal.icons = ['/Content/Gfx/SR/livescorev2/icon_sr_yellow.svg'];
+  const result = normalizeMatch(raw);
+  assert.equal(result.value.events?.find(event => event.sourceIndex === goal.sourceIndex)?.type, 'unsupported');
+  assert.ok(result.diagnostics.some(item => item.code === 'unsupported-event'));
 });
 test('full competition discovery parses 90 fixtures once, ignoring only known ad rows and mobile duplicates', () => {
   const raw = parseSchedule(fixture('competition-508399.html'), scheduleUrl);
