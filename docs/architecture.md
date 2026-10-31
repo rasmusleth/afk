@@ -36,13 +36,81 @@ hosting.
 
 Do not design the application around requiring a persistent Next.js server.
 
-Content that changes frequently may later be fetched client-side from Sanity
-if necessary.
-
-Static rebuilds may also be triggered when Sanity content changes.
+Read public content and sports records at build time. A short rebuild delay
+after editorial publication or sports imports is acceptable. Configure automatic
+rebuilds during launch work; they are not implemented yet. Immediate browser
+refresh of content needs a new concrete requirement.
 
 The scraper/importer is independent of the public frontend and does not need
 to run on the same hosting.
+
+## Initial public website scope
+
+Prioritize editorial content and the existing public sports views, with a clear
+contact/joining route. Interactive services such as accounts, applications or
+payments need a concrete launch requirement before entering scope.
+
+Editors maintain defined fields and a small number of optional sections;
+frontend templates control layout. See [the template decision](adr/0001-structured-editorial-pages.md).
+[CONTEXT.md](../CONTEXT.md) defines editorial content and sports data.
+
+## Frontend conventions
+
+Use the existing Tailwind v4 setup for component styling, with shared colour,
+typography and spacing tokens. Global CSS holds site-wide foundations; custom
+CSS is appropriate where it makes a particular design clearer. Extract repeated
+presentation into a small set of AFK React components. Add accessible library
+primitives when a concrete interaction requires them.
+
+Keep routes, shared page layout and page composition in `apps/web/app`;
+reusable presentation in `apps/web/components`; and Sanity reads and content
+preparation in `apps/web/lib`. Components receive prepared data rather than
+issuing independent queries. Sports domain rules remain in the existing shared
+packages. Introduce further structure when real features need it.
+
+Render content through Server Components at build time. Use small Client
+Components and local React state for menus, filters and similar interactions.
+Additional state or data-fetching libraries need a concrete feature requirement.
+
+Editorial content uses drafts and explicit publication. Published content becomes
+eligible for the next static build; the existing sports direct-save workflow
+continues. Initially, editors review unpublished content in Studio; a private
+visual website preview needs a demonstrated editor requirement and a separate
+static-compatible design.
+
+Sanity owns editorial content, contact information, social links, sponsor content
+and page metadata. Use restrained rich text for longer articles and descriptions.
+Colours, typography, spacing and component layouts stay in the frontend.
+
+Required content read failures or invalid required content must fail the build.
+Failed builds must not replace the last successful deployment. Optional content
+has sensible fallbacks; sports reads retain their existing distinctions between
+unknown facts, confirmed zeroes and unavailable data.
+
+## Website media and language
+
+Editors manage editorial photos and sponsor images in Sanity, including crop
+and focal-point choices. Use Sanity's image CDN for responsive delivery with
+static-compatible image rendering. Keep the main club logo and interface icons
+in the repository. Choose properly licensed fonts during visual design and
+host the font files locally.
+
+Launch in Danish with readable Danish URLs, continuing the existing sports
+routes. Multilingual content needs an explicit translation and maintenance owner.
+
+## Website quality and testing
+
+Use Vitest for unit and integration tests, chosen for consistency with the
+maintainer's other project. Migrate the existing Node test-runner suite while
+preserving its assertions, fixtures and coverage. This is an agreed direction;
+the current test commands still use Node until migration is implemented.
+
+Use Playwright for a small browser suite against the served static export,
+covering page loading, navigation and mobile-menu behaviour. Keep TypeScript
+checking and lint as separate checks. Include manual keyboard and mobile checks,
+with WCAG 2.2 AA as the accessibility target. Browser automation is not a complete
+accessibility audit. Add screenshot regression tests after the visual design
+stabilizes if they provide value.
 
 ## CMS / datastore
 
