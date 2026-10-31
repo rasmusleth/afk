@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./visual-directions.module.css";
 
-const variants = ["A", "B", "C", "D"] as const;
+const variants = ["A", "B", "C", "D", "E"] as const;
 type Variant = (typeof variants)[number];
-const names = { A: "Matchday", B: "Klubjournal", C: "På banen", D: "C + A / Split hero" };
+const names = { A: "Matchday", B: "Klubjournal", C: "På banen", D: "C + A / Split hero", E: "Ro & bevægelse" };
 
 function Brand() {
   return <Link className={styles.brand} href="/">AFK<span>Aalborg<br />Futsal Klub</span></Link>;
@@ -64,6 +64,45 @@ export function VariantD() {
   );
 }
 
+export function VariantE() {
+  return (
+    <div className={styles.refined}>
+      <header><Brand /><Navigation /></header>
+      <main id="indhold" tabIndex={-1}>
+        <section className={styles.eHero}>
+          <div className={styles.eOpening}>
+            <p className={styles.kicker}>Aalborg Futsal Klub</p>
+            <h1>Et lille spil.<br /><span>En stor følelse.</span></h1>
+            <p>Tempoet. Samspillet. Øjeblikket.<br />Kom tættere på futsal i Aalborg.</p>
+            <Link className={styles.eButton} href="/kampe/">Følg holdet <span>↗</span></Link>
+          </div>
+          <div className={styles.eStage}>
+            <div className={styles.eStageLabel}><span>Spillet, helt tæt på.</span><span>AALBORG / FUTSAL</span></div>
+            <div className={styles.eCourt}><Court /></div>
+            <span className={styles.eStageCaption}>Små rum. Store øjeblikke.</span>
+          </div>
+        </section>
+        <section className={styles.eMatchStrip} aria-label="Kampoverblik">
+          <div><p className={styles.kicker}>Næste kamp · Eksempel</p><h2>Aalborg FK <span>vs</span> Gæsteholdet</h2><p>Søndag 15. november · 14.00 · Hjemmebane</p></div>
+          <Link href="/kampe/">Se kampprogrammet <span>↗</span></Link>
+        </section>
+        <section className={`${styles.eChapter} ${styles.eReveal}`}>
+          <div className={styles.eChapterIntro}><p className={styles.kicker}>01 / Følg sæsonen</p><h2>Fra første fløjt.<br /><span>Til næste gang.</span></h2><p>Det næste opgør at glæde sig til. Det seneste resultat at tale om. Følg holdet gennem sæsonen.</p></div>
+          <div className={styles.eResult}><LatestResult /><Link className={styles.eSecondary} href="/stilling/">Se stillingen <span>↗</span></Link></div>
+        </section>
+        <section id="klubben" className={`${styles.eClub} ${styles.eReveal}`}>
+          <p className={styles.kicker}>02 / Mere end kampen</p>
+          <h2>Fem på banen.<br /><span>En klub omkring.</span></h2>
+          <div className={styles.eClubBottom}><p>Bag hver aflevering er der et menneske. Her skal du møde holdet og historien om Aalborg Futsal Klub.</p><Link className={styles.eButton} href="/spillere/">Mød spillerne <span>↗</span></Link></div>
+          <div className={styles.eClubLine} aria-hidden="true"><span /><span /><span /><span /><span /></div>
+        </section>
+        <section className={`${styles.eEnd} ${styles.eReveal}`}><p className={styles.kicker}>Aalborg Futsal Klub</p><h2>Vi ses til næste kamp.</h2><Link href="/kampe/">Find næste kamp <span>↗</span></Link></section>
+      </main>
+      <footer><Brand /><span>Visuelt studie · Forslag til tekst og identitet</span><Link href="/kampe/">Kampe & resultater ↗</Link></footer>
+    </div>
+  );
+}
+
 export function VisualDirections() {
   const [variant, setVariant] = useState<Variant>("A");
   useEffect(() => {
@@ -93,5 +132,5 @@ export function VisualDirections() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   });
-  return <div className={styles.prototype}><div className={styles.disclaimer}>DESIGNSTUDIE · Ikke officielle farver eller logo · Kampdata og tekst er illustrative</div>{variant === "A" ? <VariantA /> : variant === "B" ? <VariantB /> : variant === "C" ? <VariantC /> : <VariantD />}{process.env.NODE_ENV !== "production" && <aside className={styles.switcher} aria-label="Vælg designretning"><button onClick={() => change(-1)} aria-label="Forrige design">←</button><div><small>VISUEL RETNING · {variants.indexOf(variant) + 1} / {variants.length}</small><strong aria-live="polite">{variant} / {names[variant]}</strong></div><button onClick={() => change(1)} aria-label="Næste design">→</button></aside>}</div>;
+  return <div className={styles.prototype}><div className={styles.disclaimer}>DESIGNSTUDIE · Ikke officielle farver eller logo · Kampdata og tekst er illustrative</div>{variant === "A" ? <VariantA /> : variant === "B" ? <VariantB /> : variant === "C" ? <VariantC /> : variant === "D" ? <VariantD /> : <VariantE />}{process.env.NODE_ENV !== "production" && <aside className={styles.switcher} aria-label="Vælg designretning"><button onClick={() => change(-1)} aria-label="Forrige design">←</button><div><small>VISUEL RETNING · {variants.indexOf(variant) + 1} / {variants.length}</small><strong aria-live="polite">{variant} / {names[variant]}</strong></div><button onClick={() => change(1)} aria-label="Næste design">→</button></aside>}</div>;
 }

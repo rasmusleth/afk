@@ -23,3 +23,17 @@ a direction, implement that decision on a fresh branch and leave this study here
 Current feedback: C’s colours and distinctive styling are preferred; A’s hero
 spacing, split composition and side graphic are preferred. D explores that
 combination. Original A–C remain available for comparison. Final verdict pending.
+
+## E / Ro & bevægelse
+
+The maintainer asked for the restraint and storytelling of Apple and Webflow,
+with subtle sports character. E explores sentence-case typography, generous
+space, a dimensional court illustration, compact match information and a
+sequence of editorial sections. Native CSS entrance/scroll motion respects
+reduced-motion preferences. No animation dependency, scroll interception,
+production content or CMS changes.
+
+References inspected: https://www.apple.com and https://webflow.com.
+This is an interpretation of their hierarchy and pacing, not a reproduction.
+The next review should assess overall rhythm before detailed component tuning.
+Real club photography and the maintainer's sketches remain useful inputs.
