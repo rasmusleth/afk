@@ -15,6 +15,7 @@ export interface StandingRules {
 }
 /** Verified national men's rules; do not apply to other competitions silently. */
 export const nationalFutsalMen: Readonly<StandingRules> = Object.freeze({win: 3, draw: 1, loss: 0, ranking: 'national-futsal-men'});
+/** No-show ranking is currently omitted unless explicit verified counts are supplied. */
 export interface StandingsOptions {rules: StandingRules; noShows?: Readonly<Record<string, number>>}
 interface Result {matchId: string; home: string; away: string; homeScore: number; awayScore: number}
 const descending = (a: number, b: number) => a > b ? -1 : a < b ? 1 : 0;
@@ -124,7 +125,9 @@ export function deriveStandings(competition: CompetitionRecord, entries: readonl
   }
   let position = 1;
   result.rows = groups([...rows.values()], row => row.points).flatMap(group => {
-    const ranked = rank(group, position); position += group.length; return ranked;
+    // Club policy: omit no-shows for now, rather than treating missing counts
+    // as recorded zeroes. Explicit counts still take precedence when provided.
+    const ranked = rank(group, position, options.noShows === undefined ? 1 : 0); position += group.length; return ranked;
   });
   return result;
 }

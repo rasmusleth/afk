@@ -69,6 +69,9 @@ The following are conclusions from these observations, not additional DBU rules:
   missing marker, a normal-looking result, or a zero points adjustment. Exact
   regulation ranking needs explicit counts or an explicit caller assertion that
   none occurred. Otherwise present rankings as provisional.
+  The current application intentionally omits this criterion by default under
+  the [club's temporary ranking policy](architecture.md#derived-statistics);
+  it does not infer or store zero no-shows from the scraped pages.
 - For multi-team head-to-head ties, the national text does not state whether to
   restart a mini-table after a subgroup separates. Do not borrow local-union
   semantics silently. Keep unresolved ties visible unless the interpretation is

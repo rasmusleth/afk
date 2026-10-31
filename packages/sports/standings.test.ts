@@ -23,13 +23,19 @@ test('signed competition adjustments accumulate once, including rulings originat
   assert.equal(row.earnedPoints, 3); assert.equal(row.adjustmentPoints, -5); assert.equal(row.points, -2);
   assert.equal(row.adjustments.length, 2); assert.deepEqual(adjusted, before);
 });
-test('no-shows precede goal difference; absent no-show data preserves a shared rank instead of guessing zero', () => {
+test('explicit no-shows precede goal difference; incomplete counts retain shared ranks', () => {
   const matches = [fixture('one', 'a', 'c', 10, 0), fixture('two', 'b', 'd', 1, 0)];
-  const unknown = deriveStandings(competition, entries.slice(0, 4), matches, {rules: nationalFutsalMen});
+  const unknown = deriveStandings(competition, entries.slice(0, 4), matches, {rules: nationalFutsalMen, noShows: {a: 0}});
   assert.equal(unknown.rows.find(r => r.teamId === 'a')!.rank, unknown.rows.find(r => r.teamId === 'b')!.rank);
   assert.ok(unknown.issues.some(i => i.code === 'unknown-no-shows'));
   const known = deriveStandings(competition, entries.slice(0, 4), matches, {...options, noShows: {a: 1, b: 0, c: 0, d: 0}});
   assert.equal(known.rows[0].teamId, 'b');
+});
+test('default ranking omits no-shows and separates three equal-point teams by overall goal difference', () => {
+  const teams = ['a', 'b', 'c', 'd', 'e', 'f'].map(_id => ({_id, name: _id}));
+  const result = deriveStandings(competition, teams, [fixture('one', 'a', 'd', 1, 0), fixture('two', 'b', 'e', 5, 0), fixture('three', 'c', 'f', 10, 0)], {rules: nationalFutsalMen});
+  assert.deepEqual(result.rows.slice(0, 3).map(row => [row.teamId, row.points, row.rank, row.sharedRank]), [['c', 3, 1, false], ['b', 3, 2, false], ['a', 3, 3, false]]);
+  assert.ok(!result.issues.some(issue => issue.code === 'unknown-no-shows'));
 });
 test('away goals and wins are genuine ranking criteria rather than alphabetical order', () => {
   const away = deriveStandings(competition, entries.slice(0, 4), [fixture('one', 'c', 'b', 0, 2), fixture('two', 'a', 'd', 2, 0)], options);

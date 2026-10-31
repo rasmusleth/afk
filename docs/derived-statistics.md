@@ -33,12 +33,17 @@ Inspect `standings`, `competitionPlayers`, `season.playerStatistics` and `compar
   batch to verify opponent results as well as Aalborg results.
 - Competition points adjustments apply only to that competition. Record a
   verified ruling with its reason; never invent one to match DBU's table.
-- Equal-point teams can share ranks because no-show counts or tie-break details
-  are unknown. Comparisons flag differences; they never copy DBU totals into Sanity.
+- Equal-point teams use overall goal difference, goals scored, away goals and
+  wins, then head-to-head points, goal difference, goals and away goals.
+  The no-show criterion is temporarily omitted by default, as agreed for the
+  current competition. This does not change DBU's official rules.
+- Unresolved two-team ties and unverified multi-team head-to-head cases keep
+  shared ranks. Comparisons flag differences; they never copy DBU totals into Sanity.
   `comparison.matches` stays false while derivation issues remain.
 
 For verified ranking inputs, `--no-shows FILE` accepts a JSON map of internal
-Team IDs to counts. Use `--assume-no-shows-zero` only if zero has been established
+Team IDs to counts; supplying it restores no-shows as the first tie-breaker.
+Incomplete supplied counts leave ties unresolved. Use `--assume-no-shows-zero` only if zero has been established
 for every team. Full rules and evidence: [standings research](dbu-standings-research.md).
 
 ## Offline example

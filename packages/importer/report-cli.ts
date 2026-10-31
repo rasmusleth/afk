@@ -14,7 +14,7 @@ Required: --competition PUBLISHED_ID --rules national-futsal-men (verify applica
 Offline: --existing DOCUMENT_ARRAY_JSON [--standing-html FILE]
 Connected: --project ID --dataset development [--compare-dbu | --standing-html FILE]
 Optional verified ranking inputs: --no-shows TEAM_COUNTS_JSON | --assume-no-shows-zero
-Default: tied ranks remain unresolved without verified no-show counts.
+Default: no-show ranking is temporarily omitted; supply verified counts to enable it.
 The connected token is entered through a hidden prompt. A Viewer token is sufficient.
 Counts are known facts with separate uncertainty/coverage, not exhaustive player totals.`); return;
   }
