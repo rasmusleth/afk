@@ -1,140 +1,52 @@
-# Sports Studio
+# Sanity Studio setup
 
-The Studio is a standalone static application in `apps/studio`, beside the
-public Next.js site in `apps/web`. Each app owns its dependencies, configuration,
-and local environment files. The root is a pnpm workspace with shared tooling.
-Run commands from the repository root using pnpm and Node 22.12+ (Node 24 is
-recommended and used for validation). Sanity and styled-components provide
-the Studio; the TypeScript version satisfies Sanity's workflow peer dependency.
-The server-only schedule importer is separate from Studio; see
-[its development workflow](dbu-schedule-sync.md). No API credentials, deployment
-or production connection is included.
+Reuse your existing project and `development` dataset if already configured.
+Studio edits content; the [import commands](sports-data.md) run separately.
 
-## Local setup still needed
+## Connect locally
 
-1. Choose or create a Sanity project and a **development dataset**. No project
-   or dataset has been provisioned by this PR.
-2. Copy `apps/studio/.env.example` to `apps/studio/.env.local` and supply
-   `SANITY_STUDIO_PROJECT_ID` and `SANITY_STUDIO_DATASET`. These are public configuration values, not
-   credentials. All `SANITY_STUDIO_*` variables can enter the browser bundle;
-   never use that prefix for secrets.
-3. Run `pnpm studio` and open http://localhost:3333. Sign in using Sanity's
-   normal Studio login with access to the chosen development dataset.
-4. If required by the project, an administrator must allow the local Studio
-   origin in Sanity. This PR does not change project access or CORS settings.
+1. Copy `apps/studio/.env.example` to `apps/studio/.env.local` and set:
 
-Decide the Studio hosting location before deployment. `pnpm studio:build`
-produces `apps/studio/dist/`, which can be hosted separately from the public
-site. No hosting configuration or deployment is included. A separate importer credential
-and dataset permissions are future setup, not a reason to put a token in Studio.
+   ```dotenv
+   SANITY_STUDIO_PROJECT_ID=your_project_id
+   SANITY_STUDIO_DATASET=development
+   ```
 
-For offline verification, the following deliberately fake project configuration
-allows schema extraction and bundling without accessing a real dataset:
+2. From the repository root, run `pnpm studio` and open http://localhost:3333.
+3. Sign in with your Sanity account. If the origin is rejected, a project
+   administrator needs to allow the local Studio origin in Sanity.
 
-```sh
-SANITY_STUDIO_PROJECT_ID=localtest SANITY_STUDIO_DATASET=development pnpm studio:schema
-SANITY_STUDIO_PROJECT_ID=localtest SANITY_STUDIO_DATASET=development pnpm studio:build
-pnpm test
-pnpm typecheck
-pnpm lint
-pnpm build
-```
+These two settings are public identifiers. Never put tokens in
+`SANITY_STUDIO_*` variables: they enter the browser bundle. The importer asks
+for its token separately in the terminal. Website configuration belongs in
+`apps/web/.env.local`; root environment files are not loaded by either app.
 
-Schema extraction writes `apps/studio/.sanity/schema.json`; Studio output is
-ignored by Git and ESLint. Bundling with placeholders does not verify login, permissions, or
-live editing against Content Lake. Verify those with the development dataset
-before giving editors access. Configuration fails clearly if either variable
-is missing, rather than silently targeting an unintended dataset.
-
-## Using the Sanity setup command
-
-This repository already contains the Studio and its schemas. To select or create
-an account project and development dataset through Sanity's interactive setup,
-run this from the repository root:
+If no Sanity project exists, the interactive account setup command is:
 
 ```sh
 pnpm create sanity@latest --bare --dataset development
 ```
 
-Choose the intended project/account in the prompts. `--bare` skips Studio
-scaffolding and prints the selected project ID and dataset name. Put those
-public values into `apps/studio/.env.local`, then run `pnpm studio`. This uses
-the existing sports schemas instead of generating a clean template over them.
-See [Sanity's init reference](https://www.sanity.io/docs/cli-reference/init).
-The command provisions/selects cloud resources, so it is a manual setup step;
-it is not needed for offline checks and has not been run by this PR.
+This creates/selects cloud resources. `--bare` uses the existing Studio rather
+than scaffolding another one. Copy the resulting project ID into the local
+configuration above. [Sanity setup reference](https://www.sanity.io/docs/cli-reference/init).
 
-For example, the local file should contain your public identifiers:
+## Editing
 
-```dotenv
-SANITY_STUDIO_PROJECT_ID=your_project_id
-SANITY_STUDIO_DATASET=development
+Sports edits save directly, without a publish step. Validation messages do not
+prevent incomplete live records from being saved. Use a small trusted editor group.
+See [the editor guide](sports-editor-review.md) for resolving imported data.
+
+## Build and schema checks
+
+`pnpm studio:build` writes `apps/studio/dist/`; `pnpm studio:schema` extracts
+`apps/studio/.sanity/schema.json`. Studio hosting is a separate launch decision.
+
+For offline bundling/schema checks without a real project:
+
+```sh
+SANITY_STUDIO_PROJECT_ID=localtest SANITY_STUDIO_DATASET=development pnpm studio:schema
+SANITY_STUDIO_PROJECT_ID=localtest SANITY_STUDIO_DATASET=development pnpm studio:build
 ```
 
-If you previously configured Sanity in a root `.env.local`, transfer only these
-Studio settings to `apps/studio/.env.local`; root environment files are no longer
-loaded by either app. Next.js settings belong in `apps/web/.env.local`.
-To run Studio commands directly, use `cd apps/studio` followed by `pnpm dev`,
-`pnpm build`, or `pnpm schema`. The root shortcuts do this through pnpm filters.
-
-## Editing and data contracts
-
-All five sports document types use `liveEdit: true`: edits are continuously
-saved to published documents, including incomplete records. There is no
-publish approval step. Validation provides editor feedback, but **does not
-block invalid live edits or govern API writes**. Future public readers must
-remain tolerant of incomplete records, and the importer must call the pure
-checks in `packages/sports/validation.ts` before writing. References are strong.
-Match season is obtained through Competition, not stored twice.
-
-Matches keep official scores independent of goal coverage. A score is either
-absent or a complete pair of non-negative integers. Missing events never invent
-player goals. Participants and typed goal/yellow-card/red-card objects live
-in arrays, each with a persistent Sanity `_key`. New manual items receive a
-manual origin; future imports must explicitly set imported origin and retain
-keys on reconciliation. Repeated otherwise identical events are valid facts.
-Verified penalty goals now expose a scoring-method choice; unspecified does not prove a non-penalty goal. Missed penalties and own-goal credit remain unmapped.
-
-Player references assert confirmed identity; unresolved participants, scorers,
-and assisters retain source names instead. Shirt numbers belong to match
-participants. Assist state explicitly distinguishes unknown, none, and credited
-(the latter needs a player or a source name). An appearance can be unknown,
-played, or did not play. `appearanceFromEvidence` recognizes completed-match
-starters and player-linked event involvement, including credited assists. It
-does not infer identity from equal source names. No editable statistics totals
-are stored on Player or Team.
-
-Kickoff precision is unknown, date only, or exact time. Populate only the
-corresponding date or timestamp; clear the previous value when changing
-precision. This avoids inventing a midnight kickoff. Similarly, clear an
-assister before switching the assist state away from credited. Signed points
-adjustments belong to the affected Competition and can repeat a team. Their
-reason is required; source citation and originating Season are optional.
-
-## Import and override metadata
-
-`external` stores `{source, id, scope?, sourceUrl?}` separately from Sanity IDs.
-For DBU, Match `id` will be the match number, Competition `id` the pool ID,
-and Team `id` the team-entry ID **with pool ID as `scope`**. Player identities
-must only be supplied when verified; names alone are not identifiers. The schedule importer uses these identities; participant/event persistence is handled separately by detail sync.
-
-`import` stores origin, first-import/last-seen/schedule/detail timestamps,
-review markers, and `overrides`. Override entries are paths relative to the
-containing document or embedded object, for example `venue` on Match or
-`player` and `assist` on a goal. An override protects an explicitly corrected
-field; missing imported data must also preserve manual enrichment even without
-an override. Clearing a path permits the next successful sync to provide it;
-it does not immediately restore an old imported value.
-
-Technical metadata is hidden and read-only in normal forms. This is editor UX,
-not access control. The schedule importer compares hidden `scheduleBaseline`
-field fingerprints to detect and preserve later manual edits, including unsets,
-and also respects explicit overrides. It never updates lineups/events or deletes
-missing source information. See [the importer workflow](dbu-schedule-sync.md)
-for conservative handling of legacy/manual records and concurrent edits.
-
-**Sports review and correction controls are now available.** Imported-field
-edits record protection immediately; editors can release corrections without
-editing metadata. See [the editor guide](sports-editor-review.md) for club
-selection, issue resolution and the manual development trial. Importer baseline
-checks still protect edits from other writers. Detail synchronization now preserves embedded keys, corrections and uncertainty; see [the detail guide](dbu-match-details.md).
+These commands verify the schema/bundle, not real login or dataset permissions.
