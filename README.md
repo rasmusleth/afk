@@ -36,4 +36,4 @@ than `pnpm start`. Without sports configuration it displays an empty state.
 - `packages/importer`: fetching, reconciliation, Sanity writes and reporting.
 
 [Architecture](docs/architecture.md) records domain decisions.
-[Sports progress](docs/sports-data-work-plan.md) records milestones and remaining acceptance checks.
+[Sports progress](docs/sports-data-work-plan.md) records the accepted sports scope and deferred work.

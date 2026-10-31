@@ -1,8 +1,8 @@
 # Sports-data work plan
 
 Use [architecture.md](./architecture.md) for domain and architecture decisions.
-This file is a task sequence and handoff aid, not another source of truth for
-the data model. Adjust later tasks when implementation reveals new facts.
+This file records implementation progress, acceptance and deferred work.
+Use [the import guide](sports-data.md) for everyday commands.
 
 ## Progress and PRs
 
@@ -22,23 +22,33 @@ blank PR cell means no PR exists yet.
 | 6a. Batch competition import | Merged | [#15](https://github.com/rasmusleth/afk/pull/15) | 2026-10-25 |
 | 7. Public sports views | Merged | [#16](https://github.com/rasmusleth/afk/pull/16) | 2026-10-25 |
 
-## Remaining acceptance checks
+## Status: accepted for the current scope
 
-Implementation is complete through Task 7. Merged code and automated tests do
-not establish whether the connected development workflow has been accepted.
-Record the outcome of these checks when performed; do not assume they passed.
-Start with [the import guide](sports-data.md).
+The club owner closed the sports phase on 31 October 2026 after confirming
+competition sync works, Studio import notices can be dismissed, and recorded
+DBU assists import correctly after rerunning sync.
 
-- [ ] Confirm the existing Studio, development dataset, Season and club Team setup.
-- [ ] Preview/apply a competition batch and inspect Aalborg details and opponent results.
-- [ ] Resolve confirmed player identities, an assist and a substitute appearance in Studio.
-- [ ] Repeat the import; verify corrections survive and records/events do not duplicate.
-- [ ] Release a correction and verify the next import can supply DBU's value.
-- [ ] Trace sample player counts to matches and explain differences from DBU's table.
-- [ ] Build the public pages from development data; check mobile and keyboard use.
-- [ ] Run tests, workspace type checking, lint and website/Studio builds; record failures.
+The final fixes are merged: [review/enrichment #19](https://github.com/rasmusleth/afk/pull/19),
+[tie-breaks #20](https://github.com/rasmusleth/afk/pull/20), and
+[recorded assists #21](https://github.com/rasmusleth/afk/pull/21).
+The combined local verification passed 165 tests, workspace type checking and
+lint. Website static export and Studio builds also passed during implementation.
+This records the checks actually reported; it does not claim an exhaustive
+live-data audit or completion of every earlier editor/mobile acceptance exercise.
 
-The sports phase can close when the connected workflow is verified and any
-blocking issues are fixed. Record accepted limitations and the check results here.
-Scheduled imports, production data access, hosting and rebuild automation remain
-launch work. The importer is currently manual and development-only.
+## Accepted limits and deferred work
+
+- Imports remain manual and development-only. Production data access, hosting,
+  scheduled imports and rebuild automation belong to launch planning.
+- The static website needs rebuilding after imports or Studio edits.
+- Player identities require confirmation; unknown assists/appearances remain valid.
+- No-shows are temporarily omitted from default ranking as agreed. Explicit
+  verified counts remain supported; rare multi-team head-to-head cases stay unresolved.
+- Unsupported DBU event variants remain review items; see [source notes](dbu-source-notes.md).
+- Broader live-data, editor, mobile and keyboard checks remain part of website/launch QA.
+
+## Next phase
+
+Build the club website around the existing sports pages, starting with homepage
+structure, navigation and visual direction. Agree the initial content before
+adding editorial schemas; reuse the current sports model and import workflow.
