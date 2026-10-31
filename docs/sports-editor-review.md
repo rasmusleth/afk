@@ -46,12 +46,20 @@ Correction release requires localhost or HTTPS.
 ## Clear investigated notices
 
 Identity, assist and appearance issues disappear when resolved and the review
-is refreshed. Import notices need explicit acknowledgement: expand **Import
+is refreshed. In **Sports review**, choose **Dismiss checked notice** after
+investigating an import discrepancy. This clears that notice from both the match
+summary and the affected item, keeping other notices and all corrections.
+
+Alternatively, expand **Import
 notices to check** and choose **Clear checked import notices** after investigation.
 A match summary and its embedded item may each have a notice.
 
 Clearing a notice does not change facts or remove correction protection.
 A later import can raise the issue again if it persists.
+
+Adding an assist when DBU's assist is unknown is enrichment, not a discrepancy.
+Older notices from that case can be dismissed once; subsequent imports will not
+recreate them. Known conflicting source information still raises a notice.
 
 ## Check correction protection
 

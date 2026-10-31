@@ -31,6 +31,41 @@ function noticePath(field: string, document: ReviewDocument): ReviewPath {
 }
 const dynamicReason = (reason: string) => /Player identity unresolved|Assist remains unknown|Substitute appearance remains unknown|Known goal coverage differs from official source score/.test(reason);
 
+function importNotices(document: ReviewDocument) {
+  const owners: {value: unknown; prefix: ReviewPath}[] = [{value: document, prefix: []}];
+  if (document._type === 'match') for (const field of ['participants', 'events']) {
+    for (const item of Array.isArray(document[field]) ? document[field].map(record) : []) {
+      if (typeof item._key === 'string') owners.push({value: item, prefix: [field, {_key: item._key}]});
+    }
+  }
+  return owners.flatMap(({value, prefix}) => {
+    const metadata = record(record(value).import);
+    if (metadata.needsReview !== true || typeof metadata.reviewReason !== 'string') return [];
+    return metadata.reviewReason.split('\n').filter(Boolean).map(line => {
+      const separator = line.indexOf(': ');
+      const field = separator < 0 ? '' : line.slice(0, separator);
+      const reason = separator < 0 ? line : line.slice(separator + 2);
+      const path = prefix.length ? [...prefix, ...(fields.has(field) ? [field] : [])] : noticePath(field, document);
+      return {prefix, path, line, reason, metadata};
+    });
+  });
+}
+
+/** Clear only this checked notice, including its duplicate match/item copies. */
+export function dismissImportNotice(document: ReviewDocument, item: SportsReviewItem): Record<string, string | boolean> {
+  if (item.category !== 'import' || item.documentId !== document._id) throw new Error('Only a stored import notice on this document can be dismissed.');
+  const notices = importNotices(document);
+  const matching = notices.filter(notice => notice.reason === item.reason && reviewPath(notice.path) === reviewPath(item.path));
+  const changes: Record<string, string | boolean> = {};
+  for (const notice of matching) {
+    const removed = new Set(matching.filter(other => reviewPath(other.prefix) === reviewPath(notice.prefix)).map(other => other.line));
+    const remaining = String(notice.metadata.reviewReason).split('\n').filter(line => line && !removed.has(line));
+    changes[reviewPath([...notice.prefix, 'import', 'needsReview'])] = remaining.length > 0;
+    changes[reviewPath([...notice.prefix, 'import', 'reviewReason'])] = remaining.join('\n');
+  }
+  return changes;
+}
+
 /** Read model only. Unknown facts remain valid; no totals or review rows are stored. */
 export function sportsReview(documents: ReviewDocument[]): SportsReviewItem[] {
   const byId = new Map(documents.map(d => [d._id, d]));
@@ -46,19 +81,9 @@ export function sportsReview(documents: ReviewDocument[]): SportsReviewItem[] {
     const away = byId.get(String(record(document.awayTeam)._ref));
     const matchClub = home?.isClubTeam === true || away?.isClubTeam === true;
     const title = document._type === 'match' ? matchReviewTitle(document, byId) : String(document.name ?? document._type);
-    function notices(value: unknown, prefix: ReviewPath = []) {
-      const metadata = record(record(value).import);
-      if (metadata.needsReview !== true || typeof metadata.reviewReason !== 'string') return;
-      for (const line of metadata.reviewReason.split('\n').filter(Boolean)) {
-        if (dynamicReason(line)) continue; // Current facts below determine resolution.
-        const separator = line.indexOf(': ');
-        const field = separator < 0 ? '' : line.slice(0, separator);
-        const reason = separator < 0 ? line : line.slice(separator + 2);
-        const path = prefix.length ? [...prefix, ...(fields.has(field) ? [field] : [])] : noticePath(field, document);
-        add(document, title, 'import', reason, path, matchClub || document.isClubTeam === true, 0);
-      }
+    for (const notice of importNotices(document)) {
+      if (!dynamicReason(notice.line)) add(document, title, 'import', notice.reason, notice.path, matchClub || document.isClubTeam === true, 0);
     }
-    notices(document);
     if (document._type !== 'match') continue;
     for (const field of ['participants', 'events'] as const) {
       for (const item of Array.isArray(document[field]) ? document[field].map(record) : []) {
@@ -71,7 +96,6 @@ export function sportsReview(documents: ReviewDocument[]): SportsReviewItem[] {
         if (club && document.status === 'completed' && field === 'participants' && item.lineupStatus === 'substitute' && appearanceFromEvidence(document, item) === 'unknown') add(document, itemTitle, 'appearance', 'Did this substitute play? Being listed does not establish an appearance.', [...path, 'appearance'], true, 2);
         if (club && document.status === 'completed' && item._type === 'goal' && record(item.assist).status === 'unknown') add(document, itemTitle, 'assist', 'Record a confirmed assister, choose no assist, or leave unknown until you know.', [...path, 'assist'], true, 2);
         if (club && item._type === 'goal' && record(item.assist).status === 'credited' && !record(record(item.assist).player)._ref) add(document, itemTitle, 'identity', 'Confirm the credited assister’s identity; their source name is preserved.', [...path, 'assist', 'player'], true, 1);
-        notices(item, path);
       }
     }
     if (document.status === 'completed' && document.score && Array.isArray(document.events)) {

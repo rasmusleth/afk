@@ -1,6 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {sportsReview, reviewPath, type ReviewDocument} from './review.ts';
+import {dismissImportNotice, sportsReview, reviewPath, type ReviewDocument} from './review.ts';
+import {record} from './validation.ts';
 const ref = (id: string) => ({_type: 'reference', _ref: id});
 const docs = (): ReviewDocument[] => [
   {_id: 'club', _type: 'team', name: 'Aalborg', isClubTeam: true},
@@ -66,6 +67,36 @@ test('non-match sports import conflicts appear; drafts and releases do not dupli
 });
 test('keyed edit paths escape source-derived text safely', () => {
   assert.equal(reviewPath(['events', {_key: 'a"b'}, 'player']), 'events[_key=="a\\"b"].player');
+});
+
+test('dismissing a checked import notice clears both copies and preserves other notices and sporting facts', () => {
+  const documents = docs(), match = documents[2];
+  match.import = {needsReview: true, reviewReason: 'events[goal].assist: Protected manual value differs from source.\nvenue: A different conflict.'};
+  const goal = record(Array.isArray(match.events) ? match.events[0] : undefined);
+  goal.assist = {status: 'credited', player: ref('assister')};
+  goal.import = {origin: 'imported', overrides: ['assist'], needsReview: true, reviewReason: 'assist: Protected manual value differs from source.'};
+  const item = sportsReview(documents).find(item => item.category === 'import' && item.reason === 'Protected manual value differs from source.')!;
+  const before = structuredClone(documents);
+  const changes = dismissImportNotice(match, item);
+  assert.deepEqual(changes, {
+    'import.needsReview': true,
+    'import.reviewReason': 'venue: A different conflict.',
+    'events[_key=="goal"].import.needsReview': false,
+    'events[_key=="goal"].import.reviewReason': '',
+  });
+  assert.deepEqual(documents, before);
+  Object.assign(record(match.import), {needsReview: changes['import.needsReview'], reviewReason: changes['import.reviewReason']});
+  Object.assign(record(goal.import), {needsReview: changes['events[_key=="goal"].import.needsReview'], reviewReason: changes['events[_key=="goal"].import.reviewReason']});
+  assert.deepEqual(sportsReview(documents).filter(item => item.category === 'import').map(item => item.reason), ['A different conflict.']);
+  assert.ok(sportsReview(documents).some(item => item.category === 'appearance'));
+  assert.deepEqual(goal.assist, {status: 'credited', player: ref('assister')});
+  assert.deepEqual(record(goal.import).overrides, ['assist']);
+});
+
+test('only stored import notices on the same document can be dismissed', () => {
+  const documents = docs(), item = sportsReview(documents)[0];
+  assert.throws(() => dismissImportNotice(documents[2], item));
+  assert.throws(() => dismissImportNotice(documents[0], {...item, category: 'import'}));
 });
 
 test('confirmed player-linked event evidence resolves an unknown substitute appearance in the queue', () => {
