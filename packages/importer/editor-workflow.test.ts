@@ -55,6 +55,17 @@ test('Studio source-name correction and manual assist survive detail synchroniza
   assert.deepEqual(kept.assist, goal.assist);
   assert.deepEqual(kept.player, goal.player);
 });
+test('a manually credited assist enriches an unknown DBU assist without creating an import discrepancy', () => {
+  const {documents, match} = setup();
+  const goal = (match.events as unknown[]).map(record).find(e => e._type === 'goal')!;
+  goal.assist = {_type: 'assist', status: 'credited', sourceName: 'Confirmed assister'};
+  record(goal.import).overrides = editedFields('goal', goal, [{type: 'set', path: ['assist', 'status']}]);
+  const plan = planMatchDetails(detail, documents, now);
+  assert.deepEqual(plan.review.filter(item => item.field === `events[${goal._key}].assist`), []);
+  apply(documents, plan);
+  assert.deepEqual((match.events as unknown[]).map(record).find(e => e._key === goal._key)!.assist, goal.assist);
+  assert.ok(!sportsReview(documents).some(item => item.category === 'import' && item.reason === 'Protected manual value differs from source.'));
+});
 test('Studio release of a local deletion allows source restoration on the very next detail sync', () => {
   const {documents, match} = setup();
   const count = (match.events as unknown[]).length;
