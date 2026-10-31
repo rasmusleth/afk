@@ -103,10 +103,20 @@ function parseEvents($: CheerioAPI): RawEvent[] | undefined {
   return rows.toArray().map((element, sourceIndex) => {
     const row = $(element);
     const sides = (['home', 'away', 'neutral'] as const).filter(side => row.find(`.${live}--event--${side}`).length > 0);
+    const player = row.find(`.${live}--event--player`);
+    const assister = player.find(`.${live}--event--player2`);
+    if (player.length > 1 || assister.length > 1 || row.find(`.${live}--event--player2`).length !== assister.length) throw new DbuMarkupError('Timeline player/assister layout changed.');
+    if (assister.length && (player.children(`.${live}--event--sub`).length !== 1 || assister.parent()[0] !== player.children(`.${live}--event--sub`)[0])) throw new DbuMarkupError('Timeline assister nesting changed.');
+    // DBU nests the assister inside the scorer's container. Exclude that
+    // verified secondary node before reading the scorer; never split names.
+    const scorer = player.clone();
+    scorer.find(`.${live}--event--player2`).remove();
+    if (assister.length && (!text(assister) || !text(scorer))) throw new DbuMarkupError('Timeline scorer or assister name missing.');
     return {
       sourceIndex, side: sides.length === 1 ? sides[0] : 'unknown',
       minuteText: text(row.find(`.${live}--event--minute`)),
-      sourceName: text(row.find(`.${live}--event--player`)) || undefined,
+      sourceName: text(scorer) || undefined,
+      ...(assister.length ? {assistSourceName: text(assister)} : {}),
       icons: row.find(`.${live}--event--icon img`).toArray().map(icon => $(icon).attr('src') ?? ''),
       text: text(row.find(`.${live}--event--text`)),
     };

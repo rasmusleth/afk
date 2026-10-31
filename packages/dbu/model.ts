@@ -32,6 +32,7 @@ export interface RawEvent {
   sourceIndex: number;
   side: Side | 'neutral' | 'unknown';
   sourceName?: string;
+  assistSourceName?: string;
   minuteText: string;
   icons: string[];
   text: string;
@@ -82,7 +83,7 @@ interface EventSnapshotBase {
   minute?: number;
 }
 export type EventSnapshot =
-  | (EventSnapshotBase & { type: 'goal'; team: ExternalKey; method: 'unspecified' | 'penalty'; assist: { status: 'unknown' } })
+  | (EventSnapshotBase & { type: 'goal'; team: ExternalKey; method: 'unspecified' | 'penalty'; assist: { status: 'unknown' } | {status: 'credited'; sourceName: string} })
   | (EventSnapshotBase & { type: 'yellowCard' | 'redCard'; team: ExternalKey })
   | (EventSnapshotBase & { type: 'matchMarker'; text: string })
   | (EventSnapshotBase & { type: 'unsupported'; raw: RawEvent });

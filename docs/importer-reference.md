@@ -98,6 +98,11 @@ batches also require every selected `match-NUMBER.html` in `--match-html-dir`.
 
 ## Preservation and limits
 
+DBU's recorded assists are imported as credited source names. Confirm the Player
+links in Studio to attribute statistics. Rerun a normal match-detail or competition
+sync to correct old combined scorer/assister names; no deletion/reimport is needed.
+Only uniquely matched stored source signatures upgrade automatically.
+
 - Missing source data does not delete records or erase manual enrichment.
   Ambiguous changed/disappearing events are retained and flagged; new unmatched
   events may be withheld for review. Reimports preserve existing item keys.

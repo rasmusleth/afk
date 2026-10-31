@@ -86,13 +86,13 @@ function event(raw: RawEvent, match: FixtureSnapshot, diagnostics: Diagnostic[])
   };
   if (raw.side === 'neutral' && raw.icons.length === 0 && raw.text) return {...base, type: 'matchMarker', text: raw.text};
   const type = raw.icons.length === 1 ? iconType(raw.icons[0]) : undefined;
-  if (!type || !base.team) {
+  if (!type || !base.team || (raw.assistSourceName && type !== 'goal' && type !== 'penaltyGoal')) {
     issue(diagnostics, 'unsupported-event', path, 'Unmapped icon or side; retained without crediting any player statistic.', raw.icons.join(', ') || raw.text);
     return {...base, type: 'unsupported', raw};
   }
   const known = {...base, team: base.team};
   if (!raw.sourceName) issue(diagnostics, 'unknown-event-player', `${path}.sourceName`, 'Known event with unresolved source player; do not invent an identity.');
-  if (type === 'goal' || type === 'penaltyGoal') return {...known, type: 'goal', method: type === 'penaltyGoal' ? 'penalty' : 'unspecified', assist: {status: 'unknown'}};
+  if (type === 'goal' || type === 'penaltyGoal') return {...known, type: 'goal', method: type === 'penaltyGoal' ? 'penalty' : 'unspecified', assist: raw.assistSourceName ? {status: 'credited', sourceName: raw.assistSourceName} : {status: 'unknown'}};
   return {...known, type};
 }
 export function normalizeMatch(raw: RawMatch): Normalized<MatchSnapshot> {

@@ -68,5 +68,12 @@
     "capturedOn": "2026-10-25",
     "sha256": "46d4e3a3a37003693534aeb82a392a3cfa776f30ae1cf41f46996387656642f7",
     "selection": ".sr--header, .sr--tabs, .sr--row--pool-position"
+  },
+  {
+    "file": "match-602673.html",
+    "url": "https://dbu.dk/resultater/kamp/602673_508399/kampinfo",
+    "capturedOn": "2026-10-31",
+    "sha256": "36b3e2438799277a8de5a2ed2a306afc483f9b7cff78ef12ef5d15c8e2bd5e77",
+    "selection": ".sr--header, .sr--tabs, .sr--match--info, .sr--match--live-score, .sr--match--team-cards"
   }
 ]

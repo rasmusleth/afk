@@ -68,11 +68,28 @@ export function planMatchDetails(source: MatchSnapshot, documents: Document[], n
       incomingGroups.set(key, [...(incomingGroups.get(key) ?? []), item]);
     }
     const imported = local.filter(item => record(item.import).origin === 'imported');
-    const unmatched = imported.filter(item => !incomingGroups.has(String(record(item.import).detailSignature)));
+    // Backward projections reproduce the previous parser/adapter exactly:
+    // assists were unknown, and nested assister text was folded into the scorer.
+    // Match stored source signatures, never mutable local names or Player IDs.
+    const legacyOwners = new Map<string, Set<string>>();
+    for (const [key, items] of incomingGroups) {
+      const item = items[0], assist = record(item.assist);
+      if (field !== 'events' || item._type !== 'goal' || assist.status !== 'credited') continue;
+      for (const sourceName of [item.sourceName, `${item.sourceName} ${assist.sourceName}`]) {
+        const legacy = signature({...item, sourceName, assist: {_type: 'assist', status: 'unknown'}});
+        legacyOwners.set(legacy, new Set([...(legacyOwners.get(legacy) ?? []), key]));
+      }
+    }
+    const candidatesByKey = new Map([...incomingGroups.keys()].map(key => [key, imported.filter(item => {
+      const stored = String(record(item.import).detailSignature);
+      return stored === key || (!incomingGroups.has(stored) && legacyOwners.get(stored)?.size === 1 && legacyOwners.get(stored)?.has(key));
+    })]));
+    const matched = new Set([...candidatesByKey.values()].flat());
+    const unmatched = imported.filter(item => !matched.has(item));
     if (unmatched.length) warn(field, 'Imported items changed or disappeared; retained. Unmatched new items require review.');
     const result = [...local];
     for (const [key, items] of incomingGroups) {
-      const candidates = imported.filter(item => record(item.import).detailSignature === key);
+      const candidates = candidatesByKey.get(key)!;
       if (candidates.length !== items.length && candidates.length > 0) {
         warn(field, 'Repeated source observations have ambiguous multiplicity; retained without adding or removing items.'); continue;
       }
@@ -104,7 +121,7 @@ export function planMatchDetails(source: MatchSnapshot, documents: Document[], n
     }
     return [{_type: event.type, team: team(event.team), sourceName: event.sourceName,
       ...(event.minute !== undefined ? {minute: event.minute} : {}),
-      ...(event.type === 'goal' ? {method: event.method, assist: {_type: 'assist', status: 'unknown'}} : {})}];
+      ...(event.type === 'goal' ? {method: event.method, assist: {_type: 'assist', ...event.assist}} : {})}];
   }));
   array('participants', source.participants?.map(item => ({_type: 'participant', team: team(item.team), sourceName: item.sourceName,
     ...(item.shirtNumber !== undefined ? {shirtNumber: item.shirtNumber} : {}), lineupStatus: item.lineupStatus,

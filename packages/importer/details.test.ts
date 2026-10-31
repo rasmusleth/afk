@@ -39,6 +39,67 @@ const match = (documents: Document[], id = '602659') => documents.find(d => d._i
 const items = (document: Document, field: string) => (document[field] as unknown[]).map(record);
 function imported() {const documents = scheduled(); return apply(documents, planMatchDetails(detail().value, documents, now));}
 
+test('recorded DBU assists import as unresolved credited names and repeat without duplicate goals', () => {
+  const source = detail('602673').value;
+  let documents = apply(scheduled(), planMatchDetails(source, scheduled(), now));
+  const assisted = items(match(documents, '602673'), 'events').filter(event => record(event.assist).status === 'credited');
+  assert.equal(assisted.length, 3);
+  assert.equal(assisted[0].sourceName, 'Bertram Rosendal Jensen');
+  assert.deepEqual(assisted[0].assist, {_type: 'assist', status: 'credited', sourceName: 'Christian Søndergaard'});
+  assert.ok(assisted.every(event => !event.player && !record(event.assist).player));
+  const before = items(match(documents, '602673'), 'events').map(event => event._key);
+  documents = apply(documents, planMatchDetails(source, documents, now));
+  assert.deepEqual(items(match(documents, '602673'), 'events').map(event => event._key), before);
+});
+
+test('verified legacy combined-name signatures upgrade without losing keys or manual enrichment', () => {
+  const source = detail('602673').value;
+  const legacy = structuredClone(source);
+  for (const event of legacy.events ?? []) if (event.type === 'goal' && event.assist.status === 'credited') {
+    event.sourceName = `${event.sourceName} ${event.assist.sourceName}`;
+    event.assist = {status: 'unknown'};
+  }
+  let documents = apply(scheduled(), planMatchDetails(legacy, scheduled(), now));
+  const old = items(match(documents, '602673'), 'events');
+  const goal = old.find(event => event.sourceName === 'Bertram Rosendal Jensen Christian Søndergaard')!;
+  goal.player = {_type: 'reference', _ref: 'confirmed-scorer'};
+  goal.assist = {_type: 'assist', status: 'credited', sourceName: 'Manual assister'};
+  record(goal.import).overrides = ['assist'];
+  const plan = planMatchDetails(source, documents, now);
+  documents = apply(documents, plan);
+  const after = items(match(documents, '602673'), 'events');
+  assert.deepEqual(after.map(event => event._key), old.map(event => event._key));
+  const kept = after.find(event => event._key === goal._key)!;
+  assert.equal(kept.sourceName, 'Bertram Rosendal Jensen');
+  assert.deepEqual(kept.player, goal.player);
+  assert.deepEqual(kept.assist, goal.assist);
+  assert.ok(plan.review.some(item => item.field === `events[${goal._key}].assist` && item.reason === 'Protected manual value differs from source.'));
+  assert.ok(!plan.review.some(item => item.reason.includes('changed or disappeared')));
+  const other = after.find(event => event.sourceName === 'Casper Flyvholm')!;
+  assert.deepEqual(other.assist, {_type: 'assist', status: 'credited', sourceName: 'Tim Vigilsen Wiese'});
+  assert.deepEqual(items(match(apply(documents, planMatchDetails(source, documents, now)), '602673'), 'events').map(event => event._key), after.map(event => event._key));
+});
+
+test('newly recorded assists enrich existing goals, but ambiguous legacy signatures are retained for review', () => {
+  const source = detail('602673').value;
+  const previous = structuredClone(source);
+  for (const event of previous.events ?? []) if (event.type === 'goal') event.assist = {status: 'unknown'};
+  const initial = scheduled();
+  const documents = apply(initial, planMatchDetails(previous, initial, now));
+  const upgraded = apply(documents, planMatchDetails(source, documents, now));
+  assert.equal(items(match(upgraded, '602673'), 'events').filter(event => record(event.assist).status === 'credited').length, 3);
+  assert.deepEqual(items(match(upgraded, '602673'), 'events').map(event => event._key), items(match(documents, '602673'), 'events').map(event => event._key));
+
+  const ambiguous = structuredClone(source);
+  const goal = ambiguous.events!.find(event => event.type === 'goal' && event.assist.status === 'credited')!;
+  if (goal.type !== 'goal') throw new Error('Expected goal fixture.');
+  ambiguous.events!.push({...goal, sourceIndex: 999, assist: {status: 'credited', sourceName: 'Another assister'}});
+  const plan = planMatchDetails(ambiguous, documents, now);
+  const kept = items(match(apply(documents, plan), '602673'), 'events');
+  assert.equal(kept.length, items(match(documents, '602673'), 'events').length);
+  assert.ok(plan.review.some(item => item.reason.includes('changed or disappeared')));
+});
+
 test('real completed fixture imports source names, starters and typed events without Player creation', () => {
   const documents = scheduled(), before = structuredClone(documents);
   const plan = planMatchDetails(detail().value, documents, now);

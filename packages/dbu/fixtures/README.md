@@ -1,7 +1,8 @@
 # DBU fixture provenance
 
 These are DOM excerpts of public DBU responses captured without authentication
-on 22 October 2026 (schedule/matches) and 25 October 2026 (standings). `manifest.json` records the original URL, selected containers,
+on 22 October 2026 (schedule/matches), 25 October 2026 (standings), and
+31 October 2026 (match 602673 with recorded assists). `manifest.json` records the original URL, selected containers,
 and SHA-256 of each saved excerpt. Only the outermost selected containers are included, so nested selections do
 not duplicate content. The excerpts are serialized with Cheerio;
 scripts are removed, line endings normalized to LF, and trailing whitespace
