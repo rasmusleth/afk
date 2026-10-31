@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PageIntro } from "../components/page-intro";
 import type { MatchRecord } from "@afk/sports/derivation";
 import { referenceId } from "@afk/sports/derivation";
 import { confirmedScore, publicCompetitions } from "../lib/sports";
@@ -93,43 +93,16 @@ export async function SportsView({
   }[view];
   return (
     <>
-      <header className="site-header">
-        <Link className="brand" href="/">
-          AFK<span>Aalborg Futsal Klub</span>
-        </Link>
-        <nav aria-label="Hovednavigation">
-          <Link
-            href="/kampe/"
-            aria-current={view === "kampe" ? "page" : undefined}
-          >
-            Kampe
-          </Link>
-          <Link
-            href="/stilling/"
-            aria-current={view === "stilling" ? "page" : undefined}
-          >
-            Stilling
-          </Link>
-          <Link
-            href="/spillere/"
-            aria-current={view === "spillere" ? "page" : undefined}
-          >
-            Spillere
-          </Link>
-        </nav>
-      </header>
-      <main id="indhold">
-        <div className="hero">
-          <p className="eyebrow">Aalborg Futsal Klub · På banen</p>
-          <h1>{title}</h1>
-          <p>
-            {view === "kampe"
-              ? "Følg Aalborg gennem sæsonen. Se kampprogrammet og de bekræftede resultater."
-              : view === "stilling"
-                ? "Ligaen, beregnet fra bekræftede kampresultater og registrerede pointjusteringer."
-                : "Bekræftede spillerprofiler og de præstationer, vi kender fra kampene."}
-          </p>
-        </div>
+      <main id="indhold" tabIndex={-1}>
+        <PageIntro
+          eyebrow="Aalborg Futsal Klub · På banen"
+          title={title}
+          description={view === "kampe"
+            ? "Følg Aalborg gennem sæsonen. Se kampprogrammet og de bekræftede resultater."
+            : view === "stilling"
+              ? "Ligaen, beregnet fra bekræftede kampresultater og registrerede pointjusteringer."
+              : "Bekræftede spillerprofiler og de præstationer, vi kender fra kampene."}
+        />
         <aside className="notice">
           {mode === "example"
             ? "Eksempelvisning med lokale testdata. Ikke aktuelle klubdata. "
@@ -382,9 +355,6 @@ export async function SportsView({
           </section>
         ))}
       </main>
-      <footer>
-        Aalborg Futsal Klub · Kampdata fra DBU og klubbens registreringer
-      </footer>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import {test} from 'node:test';
+import {test} from 'vitest';
 import assert from 'node:assert/strict';
 import {appearanceFromEvidence, validateAdjustment, validateAssist, validateEvent, validateExternal, validateImport, validateKickoff, validateMatch, validateName, validateParticipant, validateScore, validateSeason, validateTeamIdentity} from './validation.ts';
 import type {Match, Participant, Goal, Reference} from './model.ts';

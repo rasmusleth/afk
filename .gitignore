@@ -47,3 +47,10 @@ next-env.d.ts
 **/dist/
 **/.sanity/
 !.env.example
+
+# Vitest artifacts
+.vitest/
+
+# Browser test output
+/playwright-report/
+/test-results/

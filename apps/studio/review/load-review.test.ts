@@ -1,4 +1,4 @@
-import {test} from 'node:test';
+import {test} from 'vitest';
 import assert from 'node:assert/strict';
 import {loadReviewDocuments} from './load-review.ts';
 test('review reads subsequent pages instead of silently hiding later matches', async () => {

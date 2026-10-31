@@ -6,7 +6,7 @@
   "scripts": {
     "sync": "node cli.ts",
     "typecheck": "tsc --noEmit",
-    "test": "node --test *.test.ts",
+    "test": "vitest run --root ../.. --project @afk/importer",
     "sync:details": "node detail-cli.ts",
     "stats:report": "node report-cli.ts",
     "sync:competition": "node batch-cli.ts"

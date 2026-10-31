@@ -1,4 +1,4 @@
-import {test} from 'node:test';
+import {test} from 'vitest';
 import assert from 'node:assert/strict';
 import {dismissImportNotice, sportsReview, reviewPath, type ReviewDocument} from './review.ts';
 import {record} from './validation.ts';

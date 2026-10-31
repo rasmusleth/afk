@@ -10,7 +10,7 @@
     "./standings": "./standings.ts"
   },
   "scripts": {
-    "test": "node --test *.test.ts",
+    "test": "vitest run --root ../.. --project @afk/dbu",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

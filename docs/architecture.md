@@ -101,9 +101,9 @@ routes. Multilingual content needs an explicit translation and maintenance owner
 ## Website quality and testing
 
 Use Vitest for unit and integration tests, chosen for consistency with the
-maintainer's other project. Migrate the existing Node test-runner suite while
-preserving its assertions, fixtures and coverage. This is an agreed direction;
-the current test commands still use Node until migration is implemented.
+maintainer's other project. The existing suite runs in named
+workspace projects, preserving its assertions and saved fixtures. Run all tests
+with `pnpm test`, or use a package test command to select its project.
 
 Use Playwright for a small browser suite against the served static export,
 covering page loading, navigation and mobile-menu behaviour. Keep TypeScript

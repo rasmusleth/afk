@@ -61,3 +61,21 @@ use `pnpm --filter @afk/web exec next build --webpack` with the same data settin
 - Standings are labelled provisional; shared ranks and points adjustments are visible.
 - Mobile layouts, keyboard navigation and empty states work.
 - A configured data-read failure is visible rather than displayed as an empty league.
+
+## Browser checks
+
+Install Chromium once with `pnpm exec playwright install chromium`.
+Build the fictional-data export, overriding any local Sanity configuration:
+
+```sh
+AFK_SPORTS_PROJECT_ID='' AFK_SPORTS_DATASET='' \
+  AFK_SPORTS_SNAPSHOT="$PWD/apps/web/fixtures/public-sports.json" \
+  AFK_SPORTS_NATIONAL_MEN_COMPETITIONS=example-cup pnpm build
+pnpm test:e2e
+```
+
+The tests start and stop a local static server on port 4173, which must be free.
+They cover page loading, shared layout, active navigation, mobile disclosure,
+keyboard access and horizontal overflow at desktop/mobile viewport sizes.
+Use the webpack build alternative above if needed. These checks use fictional
+content and do not access Sanity; they are not a full accessibility audit.

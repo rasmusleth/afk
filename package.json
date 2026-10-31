@@ -8,20 +8,24 @@
     "start": "pnpm --filter @afk/web start",
     "lint": "eslint .",
     "typecheck": "pnpm -r typecheck",
-    "test": "pnpm -r --if-present test",
+    "test": "vitest run",
     "studio": "pnpm --filter @afk/studio dev",
     "studio:build": "pnpm --filter @afk/studio build",
     "studio:schema": "pnpm --filter @afk/studio schema",
     "sync:schedule": "pnpm --filter @afk/importer sync",
     "sync:details": "pnpm --filter @afk/importer sync:details",
     "stats:report": "pnpm --filter @afk/importer stats:report",
-    "sync:competition": "pnpm --filter @afk/importer sync:competition"
+    "sync:competition": "pnpm --filter @afk/importer sync:competition",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^24.19.2",
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
   },
   "packageManager": "pnpm@12.11.2"
 }

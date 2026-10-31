@@ -7,18 +7,19 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "next typegen && tsc --noEmit",
-    "test": "node --test lib/*.test.ts"
+    "test": "vitest run --root ../.. --project @afk/web"
   },
   "dependencies": {
+    "@afk/sports": "workspace:*",
     "next": "16.4.3",
     "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "@afk/sports": "workspace:*"
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/turbopack": "^4",
+    "postcss": "^8.5.31",
     "tailwindcss": "^4"
   }
 }
