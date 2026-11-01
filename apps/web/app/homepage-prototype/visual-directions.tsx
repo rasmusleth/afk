@@ -1,13 +1,13 @@
 "use client";
 
-// Throwaway: homepage directions on /?variant=A|B|C|D. Not a production homepage.
+// Throwaway: homepage directions on /?variant=A|B|C|D|E. Not a production homepage.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./visual-directions.module.css";
 
 const variants = ["A", "B", "C", "D", "E"] as const;
 type Variant = (typeof variants)[number];
-const names = { A: "Matchday", B: "Klubjournal", C: "På banen", D: "C + A / Split hero", E: "Klubhub" };
+const names = { A: "Matchday", B: "Klubjournal", C: "På banen", D: "Åben klubside", E: "Klubhub" };
 
 function Brand() {
   return <Link className={styles.brand} href="/">AFK<span>Aalborg<br />Futsal Klub</span></Link>;
@@ -54,10 +54,25 @@ export function VariantD() {
             <section className={styles.dNext}><NextMatch /></section>
           </div>
         </section>
-        <div className={styles.dLower}>
-          <section className={styles.cResult}><span className={styles.number}>01 / SIDSTE FLØJT</span><LatestResult /></section>
-          <div className={styles.dStory}><span className={styles.number}>02 / VORES KLUB</span><ClubStory /></div>
-        </div>
+        <section className={styles.dNews} aria-labelledby="d-news-title">
+          <div className={styles.dSectionHeading}><div><p className={styles.kicker}>01 / Fra klubben</p><h2 id="d-news-title">Tæt på Aalborg.</h2></div><span className={styles.detail}>Forslag til redaktionelt indhold</span></div>
+          <div className={styles.dNewsGrid}>
+            <article className={styles.dFeature}>
+              <div className={styles.dFeatureArt} aria-hidden="true"><span>INDE PÅ BANEN.<br />HELT TÆT PÅ.</span><Court /><small>AALBORG / FUTSAL</small></div>
+              <p className={styles.kicker}>Holdet / Indholdsforslag</p>
+              <h3>Spillet er kun halvdelen<br />af historien.</h3>
+              <p>Mød spillerne og menneskene omkring holdet. Her er plads til klubbens vigtigste historie lige nu.</p>
+              <Link href="/spillere/">Mød holdet <span>↗</span></Link>
+            </article>
+            <div className={styles.dNewsRows}>{hubStories.map((story) => <details key={story.number}><summary><span className={styles.number}>{story.number}</span><span><small>{story.category} / Indholdsforslag</small><strong>{story.title}</strong></span><span className={styles.dExpand}>+</span></summary><p>{story.text}</p></details>)}<p className={styles.dEditorialNote}>Optakter, portrætter og nyt fra hverdagen. En plads til det, der sker mellem kampene.</p></div>
+          </div>
+        </section>
+        <section className={styles.dSeason} aria-labelledby="d-season-title">
+          <div className={styles.dSeasonIntro}><p className={styles.kicker}>02 / På banen</p><h2 id="d-season-title">Sæsonen.<br />Kort fortalt.</h2><p>Seneste resultat og ligaens overblik, samlet ét sted.</p><Link className={styles.action} href="/kampe/">Alle kampe & resultater <span>↗</span></Link></div>
+          <section className={styles.dSeasonResult}><LatestResult /></section>
+          <section className={styles.dStandings}><h3>Stillingen</h3><table><caption>Eksempeltabel · Ikke aktuelle klubdata</caption><thead><tr><th scope="col">Pl.</th><th scope="col">Hold</th><th scope="col">K</th><th scope="col">Pt.</th></tr></thead><tbody>{[["1", "Eksempelhold A", "6", "15"], ["2", "Aalborg FK", "6", "12"], ["3", "Eksempelhold B", "6", "10"], ["4", "Eksempelhold C", "6", "9"]].map(([rank, name, played, points]) => <tr key={rank} className={rank === "2" ? styles.dClubRow : undefined}><td>{rank}</td><th scope="row">{name}</th><td>{played}</td><td>{points}</td></tr>)}</tbody></table><Link href="/stilling/">Se hele stillingen <span>↗</span></Link></section>
+        </section>
+        <div className={styles.dClub}><p className={styles.number}>03 / VORES KLUB</p><ClubStory /><span className={styles.dClubWord} aria-hidden="true">AFK.</span></div>
       </main>
       <footer>AALBORG FUTSAL KLUB<span>Fra første fløjt. Til sidste sekund.</span></footer>
     </div>
@@ -112,11 +127,11 @@ export function VariantE() {
 }
 
 export function VisualDirections() {
-  const [variant, setVariant] = useState<Variant>("A");
+  const [variant, setVariant] = useState<Variant>("D");
   useEffect(() => {
     const read = () => {
       const value = new URLSearchParams(window.location.search).get("variant");
-      setVariant(variants.find((key) => key === value) ?? "A");
+      setVariant(variants.find((key) => key === value) ?? "D");
     };
     read();
     window.addEventListener("popstate", read);

@@ -2,14 +2,15 @@
 
 Question: which visual direction should lead the AFK homepage?
 
-Run `pnpm dev` and open `http://localhost:3000/?variant=A`.
+Run `pnpm dev` and open `http://localhost:3000/?variant=D`.
 Use the floating arrows or your keyboard's left/right arrows to compare:
 
 - **A / Matchday:** dark ink, acid lime, oversized type, next-match panel.
 - **B / Klubjournal:** warm paper, brick red, serif typography, editorial rhythm.
 - **C / På banen:** cobalt and white, outlined type, a compact match dashboard.
-- **D / C + A:** C’s palette and outlined typography with A’s split hero, spacing,
-  court graphic and next-match placement. Open `/?variant=D` to review this refinement.
+- **D / Åben klubside:** selected direction. The split hero and court graphic
+  lead into open news, a season summary with a contained standings panel, and
+  the club story. Open `/?variant=D`; this is also the default without a variant.
 
 All match details and proposed copy are illustrative. AFK is a text placeholder,
 not a proposed official logo. System fonts stand in for future licensed fonts.
@@ -40,5 +41,18 @@ not official current data. Expanding a news row reveals suggested editorial
 content; it does not publish or fetch anything. No community accounts, forums
 or other interactive services are introduced by the community-hub reference.
 
-D remains unchanged. The rejected E study remains available in commit d383fde.
+The rejected spacious E study remains available in commit d383fde.
 Verdict: awaiting review of density, hierarchy and sports character.
+
+## Selected direction: D, open homepage
+
+The maintainer prefers D over E. Use open, full-page composition as the base;
+contained panels are appropriate for particular facts, not for every section.
+The fuller D study keeps its hero and adds an unboxed editorial feature and
+expandable news rows, a compact season section with a contained sample table,
+and an open club-story section. Proposed articles and sports data remain
+explicitly illustrative. No CMS, real data access or production route changes.
+
+Original D before this refinement is preserved in commit aec6bae. Continue this
+exploration in draft PR #25; implement the final selection on a fresh main-based
+branch rather than merging the throwaway prototype.

@@ -273,3 +273,88 @@
 .hubStories strong { font-size:13px; }
 .hub footer { padding:22px 5%; }
 }
+/* Selected direction D: open editorial sections, with containment only for useful facts. */
+.dNews { margin:0 5%; padding:34px 0 45px; border-top:1px solid #163cca; }
+.dSectionHeading { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:25px; }
+.dSectionHeading h2 { font-size:38px; letter-spacing:-1.5px; margin-top:10px; }
+.dNewsGrid { display:grid; grid-template-columns:1.2fr 1fr; gap:7%; }
+.dFeatureArt { position:relative; overflow:hidden; background:#163cca; color:#f1f3f8; height:245px; padding:28px; margin-bottom:22px; }
+.dFeatureArt>span { position:relative; z-index:1; font-size:clamp(25px,3vw,44px); line-height:1; letter-spacing:-1.8px; font-weight:800; }
+.dFeatureArt svg { position:absolute; width:80%; height:120%; right:-15%; bottom:-36%; color:#9baeff; stroke:currentColor; stroke-width:1.5; transform:rotate(-16deg); }
+.dFeatureArt small { position:absolute; left:28px; bottom:23px; font-size:8px; letter-spacing:2px; }
+.dFeature h3 { font-size:31px; line-height:1.1; letter-spacing:-1px; margin:12px 0; }
+.dFeature>p:not(.kicker) { font-size:14px; max-width:420px; line-height:1.7; }
+.dFeature>a { display:inline-block; font-size:12px; font-weight:700; margin-top:20px; }
+.dFeature>a span { margin-left:40px; }
+.dNewsRows details { border-top:1px solid #aebbe6; }
+.dNewsRows details:last-of-type { border-bottom:1px solid #aebbe6; }
+.dNewsRows summary { list-style:none; display:flex; gap:18px; align-items:start; padding:22px 0; cursor:pointer; }
+.dNewsRows summary::-webkit-details-marker { display:none; }
+.dNewsRows summary:focus-visible { outline:3px solid #163cca; outline-offset:4px; }
+.dNewsRows summary:hover strong { text-decoration:underline; text-underline-offset:4px; }
+.dNewsRows .number { padding:3px 0 0; opacity:.65; }
+.dNewsRows summary>span:nth-child(2) { flex:1; min-width:0; }
+.dNewsRows small { display:block; font-size:9px; text-transform:uppercase; letter-spacing:1px; margin-bottom:9px; }
+.dNewsRows strong { display:block; font-size:23px; letter-spacing:-.5px; line-height:1.2; }
+.dExpand { font-size:23px; line-height:1; }
+.dNewsRows details[open] .dExpand { transform:rotate(45deg); }
+.dNewsRows details>p { font-size:13px; padding:0 0 22px 31px; line-height:1.7; }
+.dEditorialNote { font-size:12px; max-width:290px; opacity:.75; padding-top:22px; }
+.dSeason { background:#e5eaf8; padding:35px 5%; display:grid; grid-template-columns:1fr 1fr 1.2fr; align-items:start; gap:35px; }
+.dSeasonIntro h2 { font-size:36px; letter-spacing:-1px; line-height:1.05; margin:18px 0; }
+.dSeasonIntro>p:not(.kicker) { font-size:13px; max-width:230px; }
+.dSeasonIntro .action { margin-top:22px; font-size:11px; }
+.dSeasonResult { padding-top:3px; }
+.dSeasonResult .kicker { font-size:10px; letter-spacing:1px; }
+.dSeasonResult .result { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); gap:12px; margin:30px 0 20px; font-size:12px; }
+.dSeasonResult .result>span { overflow-wrap:anywhere; }
+.dSeasonResult .result>span:last-child { text-align:right; }
+.dSeasonResult .result strong { font-size:48px; }
+.dSeasonResult>a { font-size:11px; }
+.dStandings { background:#f1f3f8; padding:20px; border:1px solid #afbee8; }
+.dStandings h3 { font-size:18px; margin-bottom:15px; }
+.dStandings table { font-size:11px; }
+.dStandings caption { font-size:9px; margin-bottom:8px; }
+.dStandings th,.dStandings td { border-color:#ccd5ed; padding:10px 7px; }
+.dStandings thead { color:#4b61a1; font-size:10px; }
+.dStandings tbody th { text-align:left; font-weight:400; }
+.dStandings .dClubRow { background:#dce4ff; }
+.dStandings .dClubRow th,.dStandings .dClubRow td { font-weight:800; }
+.dStandings>a { display:flex; justify-content:space-between; margin-top:16px; font-size:11px; }
+.dClub { position:relative; overflow:hidden; padding:40px 5% 55px; }
+.dClub .number { padding-bottom:18px; }
+.dClub .story { position:relative; z-index:1; max-width:650px; }
+.dClub .story h2 { font-size:clamp(32px,4.5vw,60px); letter-spacing:-2px; margin-top:16px; }
+.dClub .story>p:not(.kicker) { max-width:440px; }
+.dClubWord { position:absolute; bottom:10px; right:4%; font-size:clamp(120px,23vw,350px); font-weight:900; line-height:1; letter-spacing:-15px; opacity:.08; }
+@media(max-width:1000px) {
+.dSeason { grid-template-columns:1fr 1fr; gap:30px; }
+.dSeasonIntro { grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr; gap:12px 35px; align-items:start; }
+.dSeasonIntro .kicker { grid-column:1 / -1; }
+.dSeasonIntro h2 { grid-row:2 / 4; margin:0; }
+.dSeasonIntro .action { margin:0; }
+.dNewsRows strong { font-size:20px; }
+.dFeatureArt { height:210px; }
+}
+@media(max-width:700px) {
+.dNews { margin:0 6%; padding:28px 0 35px; }
+.dSectionHeading { align-items:start; flex-direction:column; gap:10px; }
+.dSectionHeading h2 { font-size:34px; }
+.dSectionHeading>.detail { font-size:10px; }
+.dNewsGrid { grid-template-columns:1fr; gap:28px; }
+.dFeatureArt { height:220px; }
+.dFeatureArt>span { font-size:33px; }
+.dFeature h3 { font-size:29px; }
+.dNewsRows strong { font-size:21px; }
+.dNewsRows summary { padding:18px 0; }
+.dSeason { grid-template-columns:1fr; padding:30px 6%; gap:28px; }
+.dSeasonIntro { display:block; }
+.dSeasonIntro h2 { margin:18px 0; }
+.dSeasonIntro>p:not(.kicker) { max-width:300px; }
+.dSeasonIntro .action { margin-top:18px; max-width:290px; }
+.dSeasonResult { border-top:1px solid #b8c5e9; padding-top:22px; }
+.dSeasonResult .result { margin:15px 0; }
+.dClub { padding:30px 6% 45px; }
+.dClub .story h2 { font-size:36px; letter-spacing:-1.5px; }
+.dClubWord { bottom:0; right:5%; letter-spacing:-9px; }
+}
