@@ -26,8 +26,9 @@ publication-triggered builds and unpublished website previews are launch work.
 News images and the optional club image support crop/hotspot and require an
 image description. Photos are optional; the code-drawn court is the fallback.
 The official image URL helper supplies responsive Sanity CDN crops without a
-Next.js image server. The AFK text mark and system font remain temporary until
-the club supplies its final logo and a licensed font is chosen.
+Next.js image server. The supplied white AFK crest is served locally from
+`apps/web/public/afk-logo-white-small.png`. The system font remains temporary
+until a licensed font is chosen.
 
 ## Local preview with fictional data
 
@@ -76,7 +77,19 @@ snapshot; this is not a live ticker.
 ## Before launch
 
 Publish the real homepage, club/contact text, news and photos; confirm the
-featured competition and rules; supply the logo; review long real team names
+featured competition and rules; choose the final font; review long real team names
 on mobile. Automatic rebuilds, hosting, production dataset configuration and
 final brand assets remain separate launch work. No Sanity documents are seeded
 or changed by the build or test commands.
+
+## Confirmed contact and draft copy
+
+The club supplied **Aalborg Futsal Klub** and **info@aalborgfutsal.dk** as the
+public contact. These prefill a newly created Forside draft; they do not change
+an existing document. For an existing Forside, enter those values in Studio.
+The website continues to read published contact fields from Sanity.
+
+[Homepage copy draft](homepage-copy.md) contains the proposed Danish text and
+confirmed contact. Review it in Studio before publishing. No training schedule
+has been confirmed, so leave that optional field empty. The local test fixture
+intentionally retains its fictional `example.com` contact.
