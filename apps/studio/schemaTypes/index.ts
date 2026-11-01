@@ -1,3 +1,4 @@
+import {editorialDocuments} from "./editorial";
 import {defineArrayMember, defineField, defineType} from 'sanity';
 import {
   record, validateName, validateSeason, validateScore, validateAssist,
@@ -153,4 +154,4 @@ const match = defineType({
   preview: {select: {home: 'homeTeam.name', away: 'awayTeam.name', subtitle: 'competition.name'}, prepare: ({home, away, subtitle}) => ({title: `${home ?? 'Home'} – ${away ?? 'Away'}`, subtitle})},
 });
 export const sportsDocuments = [season, competition, team, player, match];
-export const schemaTypes = [externalIdentity, scheduleFieldBaseline, importMetadata, pointsAdjustment, score, kickoff, participant, assist, ...events, ...sportsDocuments];
+export const schemaTypes = [externalIdentity, scheduleFieldBaseline, importMetadata, pointsAdjustment, score, kickoff, participant, assist, ...events, ...sportsDocuments, ...editorialDocuments];

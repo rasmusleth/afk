@@ -11,7 +11,10 @@ if (!projectId || !dataset) {
 }
 export default defineConfig({
   name: 'afk', title: 'Aalborg Futsal Klub', projectId, dataset,
-  plugins: [structureTool({structure: S => S.list().title('Sports').items([
+  plugins: [structureTool({structure: S => S.list().title('Aalborg Futsal Klub').items([
+    S.listItem().title('Forside').child(S.document().schemaType('homepage').documentId('homepage')),
+    S.documentTypeListItem('newsArticle').title('Nyheder'),
+    S.divider(),
     S.documentTypeListItem('match').title('Matches'),
     S.documentTypeListItem('competition').title('Competitions'),
     S.documentTypeListItem('season').title('Seasons'),
@@ -20,5 +23,6 @@ export default defineConfig({
   ])})],
   tools: previous => [...previous, {name: 'sports-review', title: 'Sports review', component: ReviewTool}],
   form: {components: {input: SportsInput}},
-  schema: {types: schemaTypes},
+  schema: {types: schemaTypes, templates: templates => templates.filter(template => template.schemaType !== 'homepage')},
+  document: {actions: (actions, context) => context.schemaType === 'homepage' ? actions.filter(action => action.action !== 'duplicate') : actions},
 });

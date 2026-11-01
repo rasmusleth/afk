@@ -22,3 +22,11 @@ test('match owns embedded facts and derives its season through competition', () 
   assert.equal(match.fields.find(field => field.name === 'participants')?.type, 'array');
   assert.deepEqual(schemaTypes.filter(type => ['goal', 'yellowCard', 'redCard'].includes(type.name)).map(type => [type.name, type.fields.some(field => field.name === 'assist')]), [['goal', true], ['yellowCard', false], ['redCard', false]]);
 });
+
+test('editorial documents publish explicitly while sports remain live-edit', () => {
+  for (const name of ['homepage', 'newsArticle']) {
+    const document = schemaTypes.find(type => type.name === name)!;
+    assert.ok(document);
+    assert.notEqual('liveEdit' in document && document.liveEdit, true);
+  }
+});

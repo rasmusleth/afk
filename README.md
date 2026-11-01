@@ -30,7 +30,7 @@ Use `pnpm --filter @afk/sports test` to run one package, or
 `pnpm test:watch --project @afk/web` to watch its tests.
 
 The website is a static export; serve `apps/web/out/` with a static server rather
-than `pnpm start`. Without sports configuration it displays an empty state.
+than `pnpm start`. Without content/data configuration it displays explicit empty states.
 
 ## Where things live
 
@@ -42,3 +42,8 @@ than `pnpm start`. Without sports configuration it displays an empty state.
 
 [Architecture](docs/architecture.md) records domain decisions.
 [Sports progress](docs/sports-data-work-plan.md) records the accepted sports scope and deferred work.
+
+## Homepage and news
+
+See [the homepage guide](docs/homepage.md) for Studio publishing, local fictional
+fixtures, content configuration, and the remaining launch requirements.
