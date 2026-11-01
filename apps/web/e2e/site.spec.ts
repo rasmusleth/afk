@@ -15,6 +15,9 @@ for (const [path, title] of [
     const response = await page.goto(path);
     expect(response?.status()).toBe(200);
     await expect(page.getByRole("banner")).toHaveCount(1);
+    const logo = page.getByRole("banner").locator("img");
+    await expect(logo).toBeVisible();
+    await expect(logo).toHaveJSProperty("naturalWidth", 320);
     await expect(page.getByRole("contentinfo")).toHaveCount(1);
     await expect(
       page.getByRole("heading", { level: 1, name: title, exact: true }),

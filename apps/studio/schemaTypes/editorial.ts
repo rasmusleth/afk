@@ -28,6 +28,11 @@ export const homepage = defineType({
   name: 'homepage',
   title: 'Forside',
   type: 'document',
+  // Starting values only: published contact information remains editor-owned.
+  initialValue: {
+    contactName: 'Aalborg Futsal Klub',
+    contactEmail: 'info@aalborgfutsal.dk',
+  },
   fields: [
     text('heroTitle', 'Overskrift', 40),
     text('heroAccent', 'Fremhævet linje', 30),
