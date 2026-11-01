@@ -1,9 +1,9 @@
 @import "tailwindcss";
 :root {
-  --background: #f5f4f0;
-  --foreground: #172c28;
-  --brand: #123c32;
-  --brand-accent: #d4e7ab;
+  --background: #f1f3f8;
+  --foreground: #163cca;
+  --brand: #163cca;
+  --brand-accent: #afc1ff;
   --surface: #fff;
   --focus: #a5481d;
   --content-width: 1160px;
@@ -51,7 +51,7 @@ main {
   letter-spacing: 2px;
   font-size: 12px;
   font-weight: 700;
-  color: #496659;
+  color: #445b9b;
 }
 h1 {
   font-size: clamp(36px, 6vw, 68px);
@@ -239,3 +239,18 @@ dd {
     padding: 4px 8px;
   }
 }
+
+.site-data-notice { padding:10px 5%; background:#e5eaf5; font-size:11px; color:#324d8c; }
+.news-index { padding:20px 0; max-width:800px; }
+.news-index article { padding:28px 0; border-top:1px solid #afbee8; }
+.news-index time { font-size:12px; }
+.news-index h2 { margin:12px 0; }
+.news-index p { font-size:15px; }
+.news-article { max-width:800px; margin:auto; padding:45px 0; }
+.news-article>header { margin:35px 0; }
+.news-article h1 { font-size:clamp(36px,5vw,64px); overflow-wrap:anywhere; }
+.article-intro { font-size:20px; line-height:1.6; }
+.article-body { max-width:680px; margin:35px 0; line-height:1.8; color:#263760; }
+.article-body p { margin-bottom:22px; }
+.article-body h2 { font-size:30px; margin:35px 0 18px; }
+.news-article picture { display:block; margin:25px 0; }

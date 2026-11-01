@@ -1,0 +1,89 @@
+{
+  "homepage": {
+    "_id": "homepage",
+    "heroTitle": "Lille bane. Stort",
+    "heroAccent": "Aalborg.",
+    "heroIntro": "Tæt på spillet. Tæt på holdet.\nFølg Aalborg fra første fløjt.",
+    "featuredCompetition": { "_ref": "example-cup" },
+    "newsHeading": "Tæt på Aalborg.",
+    "clubTitle": "Et hold på banen. En klub omkring det.",
+    "clubText": "Dette er eksempeltekst til den kommende klubintroduktion. Den erstattes af klubbens egen fortælling før lancering.",
+    "contactTitle": "Vil du være en del af klubben?",
+    "contactText": "Eksempel på en invitation til at høre om futsal og fællesskabet omkring klubben.",
+    "contactName": "Kontaktperson (eksempel)",
+    "contactEmail": "klub@example.com",
+    "trainingInfo": "Fiktiv kontakt til visningstest. Træningstider aftales med klubben før lancering.",
+    "seoDescription": "Eksempelvisning af Aalborg Futsal Klubs nye hjemmeside."
+  },
+  "news": [
+    {
+      "_id": "example-news-1",
+      "title": "Spillet er kun halvdelen af historien",
+      "slug": { "current": "spillet-og-historien" },
+      "publishedAt": "2026-10-30T10:00:00Z",
+      "excerpt": "En eksempelartikel viser pladsen til menneskerne og historierne omkring holdet.",
+      "body": [
+        {
+          "_type": "block",
+          "_key": "intro",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "text",
+              "text": "Dette er en lokal, fiktiv artikel til visningstest. Den beskriver ikke en virkelig begivenhed i klubben.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "example-news-2",
+      "title": "Det næste opgør starter her",
+      "slug": { "current": "det-naeste-opgoer" },
+      "publishedAt": "2026-10-29T10:00:00Z",
+      "excerpt": "Eksempel på en optakt med praktiske oplysninger før kampen.",
+      "body": [
+        {
+          "_type": "block",
+          "_key": "intro",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "text",
+              "text": "Denne optakt er et eksempel. Der er ingen aktuelle kampoplysninger i artiklen.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "example-news-3",
+      "title": "Menneskene bag trøjen",
+      "slug": { "current": "menneskene-bag-troejen" },
+      "publishedAt": "2026-10-28T10:00:00Z",
+      "excerpt": "Et fiktivt eksempel på en kommende historie om holdet.",
+      "body": [
+        {
+          "_type": "block",
+          "_key": "intro",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "text",
+              "text": "Her er plads til et rigtigt spillerportræt. Denne tekst er kun til lokal visning.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

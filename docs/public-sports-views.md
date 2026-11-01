@@ -1,6 +1,8 @@
 # Preview sports data on the website
 
-The website shows `/kampe/`, `/stilling/` and `/spillere/`; `/` also shows matches.
+The sports pages are `/kampe/`, `/stilling/` and `/spillere/`. The homepage at `/`
+combines editorial content with a selected competition summary; see the
+[homepage guide](homepage.md).
 It reads saved records, not DBU pages. Import using [DBU → Sanity](sports-data.md).
 All commands below run from the repository root.
 
@@ -30,7 +32,9 @@ not an independent squad roster. Reuse existing imported records to preview.
 ## Use fictional data without Sanity
 
 ```sh
-AFK_SPORTS_PROJECT_ID='' AFK_SPORTS_DATASET='' \
+AFK_CONTENT_PROJECT_ID='' AFK_CONTENT_DATASET='' \
+  AFK_CONTENT_SNAPSHOT="$PWD/apps/web/fixtures/editorial.json" \
+  AFK_SPORTS_PROJECT_ID='' AFK_SPORTS_DATASET='' \
   AFK_SPORTS_SNAPSHOT="$PWD/apps/web/fixtures/public-sports.json" \
   AFK_SPORTS_NATIONAL_MEN_COMPETITIONS=example-cup pnpm dev
 ```
@@ -68,7 +72,9 @@ Install Chromium once with `pnpm exec playwright install chromium`.
 Build the fictional-data export, overriding any local Sanity configuration:
 
 ```sh
-AFK_SPORTS_PROJECT_ID='' AFK_SPORTS_DATASET='' \
+AFK_CONTENT_PROJECT_ID='' AFK_CONTENT_DATASET='' \
+  AFK_CONTENT_SNAPSHOT="$PWD/apps/web/fixtures/editorial.json" \
+  AFK_SPORTS_PROJECT_ID='' AFK_SPORTS_DATASET='' \
   AFK_SPORTS_SNAPSHOT="$PWD/apps/web/fixtures/public-sports.json" \
   AFK_SPORTS_NATIONAL_MEN_COMPETITIONS=example-cup pnpm build
 pnpm test:e2e
@@ -76,6 +82,7 @@ pnpm test:e2e
 
 The tests start and stop a local static server on port 4173, which must be free.
 They cover page loading, shared layout, active navigation, mobile disclosure,
-keyboard access and horizontal overflow at desktop/mobile viewport sizes.
+keyboard access, news index/article navigation, contact links and horizontal
+overflow at desktop/mobile viewport sizes.
 Use the webpack build alternative above if needed. These checks use fictional
 content and do not access Sanity; they are not a full accessibility audit.

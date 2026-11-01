@@ -1,0 +1,508 @@
+.home {
+  max-width: none;
+  padding: 0;
+  color: var(--brand);
+}
+.home a {
+  text-decoration: none;
+}
+.home a:hover {
+  text-decoration: underline;
+}
+.home :global(.eyebrow) {
+  color: inherit;
+}
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 7%;
+  padding: 58px 5% 65px;
+}
+.lead h1 {
+  font-size: clamp(58px, 7vw, 110px);
+  line-height: 0.92;
+  letter-spacing: -5px;
+  font-weight: 900;
+  margin: 30px 0;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+}
+.lead h1 > span {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--brand);
+}
+.intro {
+  font-size: 17px;
+  max-width: 400px;
+  white-space: pre-line;
+}
+.action {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 1px solid;
+  padding: 15px 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+.lead > .action {
+  max-width: 290px;
+  margin-top: 32px;
+}
+.heroSide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+.court {
+  color: var(--brand);
+  height: 240px;
+  margin-bottom: 25px;
+  position: relative;
+  transform: rotate(-8deg);
+}
+.court > span {
+  position: absolute;
+  bottom: 8px;
+  right: 20px;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+.nextMatch {
+  padding: 28px;
+  background: var(--brand);
+  color: white;
+}
+.label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0;
+}
+.matchTeams {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin: 25px 0 16px;
+}
+.matchTeams strong {
+  font-size: 23px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.matchTeams strong:last-child {
+  text-align: right;
+}
+.versus {
+  font-size: 12px;
+  opacity: 0.7;
+}
+.score {
+  font-size: 48px;
+  font-weight: 800;
+  white-space: nowrap;
+  letter-spacing: -2px;
+}
+.matchDate {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.small {
+  font-size: 11px;
+  opacity: 0.8;
+}
+.nextMatch .action {
+  margin-top: 20px;
+}
+.noMatch {
+  margin-top: 22px;
+  font-size: 15px;
+}
+.news {
+  margin: 0 5%;
+  padding: 34px 0 45px;
+  border-top: 1px solid;
+}
+.sectionHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 25px;
+}
+.sectionHeading h2 {
+  font-size: 38px;
+  letter-spacing: -1.5px;
+  margin: 10px 0 0;
+}
+.sectionHeading > a {
+  font-size: 12px;
+  white-space: nowrap;
+}
+.newsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 7%;
+}
+.featureArt {
+  position: relative;
+  overflow: hidden;
+  background: var(--brand);
+  color: var(--surface);
+  height: 245px;
+  padding: 28px;
+  margin-bottom: 22px;
+}
+.featureArt > span {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(25px, 3vw, 44px);
+  line-height: 1;
+  letter-spacing: -1.8px;
+  font-weight: 800;
+}
+.featureArt svg {
+  position: absolute;
+  width: 80%;
+  height: 120%;
+  right: -15%;
+  bottom: -36%;
+  transform: rotate(-16deg);
+  opacity: 0.5;
+}
+.feature picture {
+  display: block;
+  margin-bottom: 22px;
+}
+.feature h3 {
+  font-size: 31px;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin: 12px 0;
+}
+.feature > p:not(.articleDate) {
+  font-size: 14px;
+  max-width: 420px;
+  line-height: 1.7;
+}
+.articleDate {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+.readMore {
+  display: inline-flex;
+  gap: 40px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+.newsRows article {
+  border-top: 1px solid #aebbe6;
+  padding: 20px 0;
+}
+.newsRows article:last-child {
+  border-bottom: 1px solid #aebbe6;
+}
+.newsRows h3 {
+  font-size: 23px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin: 10px 0;
+}
+.newsRows h3 a {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.newsRows article > p:last-child {
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0;
+}
+.empty {
+  font-size: 14px;
+  padding: 20px 0;
+}
+.season {
+  background: #e5eaf8;
+  padding: 35px 5%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 35px;
+  align-items: start;
+}
+.seasonIntro h2 {
+  font-size: 36px;
+  letter-spacing: -1px;
+  line-height: 1.05;
+  margin: 18px 0;
+}
+.seasonIntro > p:not(:global(.eyebrow)) {
+  font-size: 13px;
+  max-width: 230px;
+}
+.seasonIntro .action {
+  margin-top: 22px;
+  font-size: 11px;
+}
+.latest {
+  padding-top: 3px;
+}
+.latest .matchTeams strong {
+  font-size: 13px;
+}
+.latest > a {
+  font-size: 11px;
+}
+.latest > p {
+  font-size: 13px;
+}
+.standings {
+  background: var(--background);
+  padding: 20px;
+  border: 1px solid #afbee8;
+  min-width: 0;
+}
+.standings h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+.tableScroll {
+  overflow: auto;
+}
+.standings table {
+  font-size: 11px;
+}
+.standings caption {
+  font-size: 10px;
+  margin-bottom: 8px;
+  white-space: normal;
+}
+.standings th,
+.standings td {
+  border-color: #ccd5ed;
+  padding: 10px 7px;
+}
+.standings thead {
+  color: #4b61a1;
+  font-size: 10px;
+}
+.standings tbody th {
+  text-align: left;
+  font-weight: 400;
+  white-space: normal;
+  min-width: 90px;
+}
+.clubRow {
+  background: #dce4ff;
+}
+.standings .clubRow th,
+.standings .clubRow td {
+  font-weight: 800;
+}
+.standings .small {
+  margin: 12px 0 0;
+}
+.standings > a {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  font-size: 11px;
+}
+.standings > p {
+  font-size: 12px;
+}
+.club {
+  position: relative;
+  overflow: hidden;
+  padding: 40px 5% 55px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 7%;
+  align-items: center;
+  scroll-margin-top: 24px;
+}
+.club > div {
+  position: relative;
+  z-index: 1;
+}
+.club h2 {
+  font-size: clamp(32px, 4.5vw, 60px);
+  line-height: 1.08;
+  letter-spacing: -2px;
+  margin: 18px 0;
+}
+.club p:not(:global(.eyebrow)) {
+  max-width: 440px;
+  font-size: 14px;
+  white-space: pre-line;
+}
+.club a {
+  font-size: 13px;
+  font-weight: 700;
+}
+.clubWord {
+  font-size: clamp(120px, 23vw, 350px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -15px;
+  opacity: 0.08;
+}
+.contact {
+  margin: 0 5%;
+  padding: 35px 0 45px;
+  border-top: 1px solid;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 7%;
+  align-items: center;
+  scroll-margin-top: 24px;
+}
+.contact h2 {
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -1.8px;
+  margin: 18px 0;
+}
+.contact > div > p:not(:global(.eyebrow)) {
+  max-width: 450px;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+.contact address {
+  font-style: normal;
+  min-width: 0;
+  padding: 10px 0 10px 28px;
+  border-left: 1px solid #afbee8;
+}
+.contact address h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+.contact address a {
+  font-size: 16px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.contact address p {
+  margin-top: 20px;
+  font-size: 13px;
+  white-space: pre-line;
+}
+@media (max-width: 1000px) {
+  .season {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 30px;
+  }
+  .seasonIntro {
+    grid-column: 1 / -1;
+  }
+  .nextMatch .matchTeams {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .nextMatch .matchTeams strong:last-child {
+    text-align: left;
+  }
+  .newsRows h3 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 700px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 40px 6%;
+  }
+  .lead h1 {
+    font-size: clamp(40px, 12vw, 72px);
+    letter-spacing: -3px;
+  }
+  .court {
+    height: 210px;
+    margin-bottom: 22px;
+  }
+  .nextMatch {
+    padding: 24px;
+  }
+  .nextMatch .matchTeams {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+  .nextMatch .matchTeams strong {
+    font-size: 20px;
+  }
+  .nextMatch .matchTeams strong:last-child {
+    text-align: right;
+  }
+  .news {
+    margin: 0 6%;
+    padding: 28px 0 35px;
+  }
+  .sectionHeading {
+    align-items: start;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .sectionHeading h2 {
+    font-size: 34px;
+  }
+  .newsGrid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .featureArt {
+    height: 220px;
+  }
+  .featureArt > span {
+    font-size: 33px;
+  }
+  .feature h3 {
+    font-size: 29px;
+  }
+  .newsRows h3 {
+    font-size: 21px;
+  }
+  .season {
+    grid-template-columns: 1fr;
+    padding: 30px 6%;
+    gap: 28px;
+  }
+  .latest {
+    border-top: 1px solid #b8c5e9;
+    padding-top: 22px;
+  }
+  .latest .matchTeams {
+    margin: 15px 0;
+  }
+  .club {
+    padding: 30px 6% 45px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .club h2 {
+    font-size: 36px;
+    letter-spacing: -1.5px;
+  }
+  .clubWord {
+    display: none;
+  }
+  .contact {
+    margin: 0 6%;
+    padding: 28px 0 35px;
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .contact address {
+    border-left: 0;
+    padding: 20px 0 0;
+    border-top: 1px solid #afbee8;
+  }
+}
