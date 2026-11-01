@@ -15,6 +15,14 @@ for (const [path, title] of [
     const response = await page.goto(path);
     expect(response?.status()).toBe(200);
     await expect(page.getByRole("banner")).toHaveCount(1);
+    await expect(page.locator("body")).toHaveCSS(
+      "background-color",
+      "rgb(8, 15, 30)",
+    );
+    await expect(page.getByRole("banner")).toHaveCSS(
+      "background-color",
+      "rgba(0, 0, 0, 0)",
+    );
     const logo = page.getByRole("banner").locator("img");
     await expect(logo).toBeVisible();
     await expect(logo).toHaveJSProperty("naturalWidth", 320);
@@ -31,6 +39,13 @@ for (const [path, title] of [
       ),
     ).toBe(true);
     expect(errors).toEqual([]);
+    if (path !== "/") {
+      await page.screenshot({
+        path: testInfo.outputPath("dark-page.png"),
+        fullPage: true,
+        animations: "disabled",
+      });
+    }
     if (path === "/") {
       await page.screenshot({
         path: testInfo.outputPath("hero.png"),
@@ -200,7 +215,7 @@ test("header stays visible on scroll and leaves anchor headings unobstructed", a
     .getByRole("heading", { name: "Tæt på Aalborg.", exact: true })
     .scrollIntoViewIfNeeded();
   await expect.poll(async () => (await header.boundingBox())?.y).toBe(0);
-  await expect(header).toHaveCSS("background-color", "rgb(14, 27, 52)");
+  await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
   await expect(header.locator("img")).toBeInViewport();
   if (testInfo.project.name === "mobile") {
     await header.getByRole("button", { name: "Åbn menu" }).click();

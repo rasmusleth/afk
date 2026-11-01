@@ -66,7 +66,7 @@
   min-width: 0;
 }
 .court {
-  color: var(--brand);
+  color: var(--brand-accent);
   height: 240px;
   margin-bottom: 25px;
   position: relative;
@@ -161,7 +161,7 @@
 .featureArt {
   position: relative;
   overflow: hidden;
-  color: var(--surface);
+  color: var(--foreground);
   height: 245px;
   padding: 28px;
   margin-bottom: 22px;
@@ -204,7 +204,7 @@
   font-size: 11px;
   letter-spacing: 0.5px;
   margin: 0;
-  color: #59667f;
+  color: var(--muted);
 }
 .readMore {
   display: inline-flex;
@@ -214,12 +214,12 @@
   margin-top: 5px;
 }
 .newsRows article {
-  border-top: 1px solid #aebbe6;
+  border-top: 1px solid var(--border);
   padding: 20px 0;
-  border-color: #c7cfdf;
+  border-color: var(--border);
 }
 .newsRows article:last-child {
-  border-bottom: 1px solid #aebbe6;
+  border-bottom: 1px solid var(--border);
 }
 .newsRows h3 {
   font-size: 23px;
@@ -247,7 +247,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr);
   gap: 35px;
   align-items: start;
-  background: #e9edf6;
+  background: #0b1628;
 }
 .seasonIntro h2 {
   font-size: 36px;
@@ -277,10 +277,10 @@
 }
 .standings {
   padding: 20px;
-  border: 1px solid #afbee8;
+  border: 1px solid var(--border);
   min-width: 0;
-  border-color: #c5cfe3;
-  background: #f7f8fb;
+  border-color: var(--border);
+  background: var(--surface);
 }
 .standings h3 {
   font-size: 18px;
@@ -299,11 +299,11 @@
 }
 .standings th,
 .standings td {
-  border-color: #ccd5ed;
+  border-color: var(--border);
   padding: 10px 7px;
 }
 .standings thead {
-  color: #4b61a1;
+  color: var(--muted);
   font-size: 10px;
 }
 .standings tbody th {
@@ -313,7 +313,7 @@
   min-width: 90px;
 }
 .clubRow {
-  background: #dce4ff;
+  background: var(--surface-raised);
 }
 .standings .clubRow th,
 .standings .clubRow td {
@@ -366,7 +366,7 @@
   line-height: 1;
   letter-spacing: -15px;
   opacity: 0.08;
-  color: var(--brand);
+  color: var(--brand-accent);
 }
 .contact {
   margin: 0 5%;
@@ -394,7 +394,7 @@
   font-style: normal;
   min-width: 0;
   padding: 10px 0 10px 28px;
-  border-left: 1px solid #afbee8;
+  border-left: 1px solid var(--border);
 }
 .contact address h3 {
   font-size: 22px;
@@ -489,7 +489,7 @@
     gap: 28px;
   }
   .latest {
-    border-top: 1px solid #b8c5e9;
+    border-top: 1px solid var(--border);
     padding-top: 22px;
   }
   .latest .matchTeams {
@@ -516,7 +516,7 @@
   .contact address {
     border-left: 0;
     padding: 20px 0 0;
-    border-top: 1px solid #afbee8;
+    border-top: 1px solid var(--border);
   }
 }
 /* Immersive, restrained sections: AFK blue with a quieter ink foundation. */
@@ -578,16 +578,16 @@
 .sectionHeading > a,
 .readMore,
 .newsRows h3 a > span {
-  color: var(--brand);
+  color: var(--brand-accent);
 }
 .season .action,
 .latest > a,
 .standings > a {
-  color: var(--brand);
+  color: var(--brand-accent);
 }
 .club a,
 .contact address a {
-  color: var(--brand);
+  color: var(--brand-accent);
 }
 @keyframes heroEntrance {
   from {

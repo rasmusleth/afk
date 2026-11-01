@@ -4,15 +4,12 @@
   z-index: 5;
   height: 128px;
   padding: 26px 24px;
-  background: var(--brand-ink);
+  background: transparent;
   color: #fff;
 }
 .overlay {
   margin-bottom: -128px;
   background: transparent;
-}
-.scrolled {
-  background: var(--brand-ink);
 }
 .crest {
   position: absolute;
