@@ -257,7 +257,6 @@ dd {
 .article-body h2 { font-size:30px; margin:35px 0 18px; }
 .news-article picture { display:block; margin:25px 0; }
 
-.site-header :is(a, button):focus-visible,
 .site-footer a:focus-visible {
   outline-color: #fff;
 }

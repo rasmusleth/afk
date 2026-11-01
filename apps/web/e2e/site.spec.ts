@@ -137,3 +137,56 @@ test("homepage links to published news and the contact route", async ({
     ),
   ).toBe(true);
 });
+
+test("header centres the crest above the hero and opens a full mobile navigation", async ({
+  page,
+}, testInfo) => {
+  await page.goto("/");
+  const header = page.getByRole("banner");
+  const crest = await header.locator("img").boundingBox();
+  const hero = await page
+    .getByRole("region", { name: "Lille bane. Stort Aalborg." })
+    .boundingBox();
+  expect(crest).not.toBeNull();
+  expect(hero?.y).toBe(0);
+  expect(
+    Math.abs(crest!.x + crest!.width / 2 - page.viewportSize()!.width / 2),
+  ).toBeLessThan(1);
+  const navigation = page.getByRole("navigation", { name: "Hovednavigation" });
+  if (testInfo.project.name === "mobile") {
+    await page.getByRole("button", { name: "Åbn menu" }).click();
+    await expect(navigation).toBeVisible();
+    const menu = await header.boundingBox();
+    expect(menu!.height).toBeGreaterThanOrEqual(page.viewportSize()!.height);
+    await page.screenshot({
+      path: testInfo.outputPath("menu.png"),
+      animations: "disabled",
+    });
+    await navigation
+      .getByRole("link", { name: "Klubben", exact: true })
+      .click();
+    await expect(page).toHaveURL(/\/#klubben$/);
+    await expect(navigation).toBeHidden();
+    await expect(
+      page.getByRole("heading", {
+        name: "Et hold på banen. En klub omkring det.",
+      }),
+    ).toBeVisible();
+  } else {
+    const strip = await navigation.boundingBox();
+    expect(strip!.x + strip!.width).toBeLessThan(crest!.x);
+    for (const width of [768, 900]) {
+      await page.setViewportSize({ width, height: 800 });
+      const narrowStrip = await navigation.boundingBox();
+      const narrowCrest = await header.locator("img").boundingBox();
+      expect(narrowStrip!.x + narrowStrip!.width).toBeLessThan(narrowCrest!.x);
+    }
+  }
+  await header
+    .getByRole("link", { name: "Kontakt klubben", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/#kontakt$/);
+  await expect(
+    page.getByRole("heading", { name: "Vil du være en del af klubben?" }),
+  ).toBeVisible();
+});

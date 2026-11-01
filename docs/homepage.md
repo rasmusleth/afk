@@ -113,3 +113,11 @@ image CDN path with crop/hotspot, eager loading and a dark overlay; without a
 photo the hero retains the court illustration on the dark background. Hero
 entrance motion respects reduced-motion preferences. No background video,
 scroll interception or animation dependency is introduced.
+
+The shared header follows Astralis's layout: a compact white desktop link strip,
+a centred AFK crest and a contact shortcut. On the homepage it overlays the
+hero; other pages have a dark backing. Mobile uses a two-line menu button and
+a large centred navigation on a dark background. The menu is an in-flow
+disclosure, closes on navigation or Escape, and returns focus to its button
+on Escape. It does not trap focus or lock scrolling. The fictional-data notice
+follows the homepage hero so it does not split the header from its background.

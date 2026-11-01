@@ -22,7 +22,7 @@
   overflow: hidden;
   background: var(--brand-ink);
   color: #fff;
-  padding-top: 52px;
+  padding-top: 164px;
   padding-bottom: 52px;
 }
 .lead h1 {
@@ -607,7 +607,7 @@
 }
 @media (max-width: 700px) {
   .hero {
-    padding-top: 32px;
+    padding-top: 140px;
     padding-bottom: 32px;
     gap: 24px;
   }
