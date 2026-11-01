@@ -115,7 +115,9 @@ entrance motion respects reduced-motion preferences. No background video,
 scroll interception or animation dependency is introduced.
 
 The shared header follows Astralis's layout: a compact white desktop link strip,
-a centred AFK crest and a contact shortcut. On the homepage it overlays the
+a centred AFK crest and a contact shortcut. The header stays at the top while
+scrolling and gains a dark backing over page content. Anchor links leave room
+for the header. On the homepage it overlays the
 hero; other pages have a dark backing. Mobile uses a two-line menu button and
 a large centred navigation on a dark background. The menu is an in-flow
 disclosure, closes on navigation or Escape, and returns focus to its button

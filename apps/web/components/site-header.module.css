@@ -1,5 +1,6 @@
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 5;
   height: 128px;
   padding: 26px 24px;
@@ -7,9 +8,11 @@
   color: #fff;
 }
 .overlay {
-  position: absolute;
-  inset: 0 0 auto;
+  margin-bottom: -128px;
   background: transparent;
+}
+.scrolled {
+  background: var(--brand-ink);
 }
 .crest {
   position: absolute;
@@ -118,7 +121,7 @@
   }
   /* An in-flow disclosure: content stays reachable below the open menu. */
   .open {
-    position: relative;
+    margin-bottom: 0;
     height: auto;
     min-height: 100svh;
     background: var(--brand-ink);

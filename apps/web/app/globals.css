@@ -19,6 +19,9 @@
   --color-on-brand: var(--surface);
   --font-sans: var(--font-body);
 }
+html {
+  scroll-padding-top: 144px;
+}
 * {
   box-sizing: border-box;
 }

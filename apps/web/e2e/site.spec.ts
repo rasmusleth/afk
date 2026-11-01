@@ -190,3 +190,43 @@ test("header centres the crest above the hero and opens a full mobile navigation
     page.getByRole("heading", { name: "Vil du være en del af klubben?" }),
   ).toBeVisible();
 });
+
+test("header stays visible on scroll and leaves anchor headings unobstructed", async ({
+  page,
+}, testInfo) => {
+  await page.goto("/");
+  const header = page.getByRole("banner");
+  await page
+    .getByRole("heading", { name: "Tæt på Aalborg.", exact: true })
+    .scrollIntoViewIfNeeded();
+  await expect.poll(async () => (await header.boundingBox())?.y).toBe(0);
+  await expect(header).toHaveCSS("background-color", "rgb(14, 27, 52)");
+  await expect(header.locator("img")).toBeInViewport();
+  if (testInfo.project.name === "mobile") {
+    await header.getByRole("button", { name: "Åbn menu" }).click();
+    await expect(
+      page.getByRole("navigation", { name: "Hovednavigation" }),
+    ).toBeVisible();
+    await header.getByRole("button", { name: "Luk menu" }).click();
+  }
+  await header
+    .getByRole("link", { name: "Kontakt klubben", exact: true })
+    .click();
+  const heading = page.getByRole("heading", {
+    name: "Vil du være en del af klubben?",
+  });
+  await expect(heading).toBeInViewport();
+  const headingBox = await heading.boundingBox();
+  const headerBox = await header.boundingBox();
+  expect(headingBox!.y).toBeGreaterThanOrEqual(
+    headerBox!.y + headerBox!.height,
+  );
+  await page.screenshot({
+    path: testInfo.outputPath("sticky-header.png"),
+    animations: "disabled",
+  });
+  await header
+    .getByRole("link", { name: "Aalborg Futsal Klub – forside" })
+    .click();
+  await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+});

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./site-header.module.css";
 
 const links = [
@@ -24,9 +24,16 @@ function HeaderNavigation({ pathname }: { pathname: string }) {
   const currentPath = pathname.endsWith("/") ? pathname : `${pathname}/`;
   const [open, setOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 8);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
   return (
     <header
-      className={`site-header ${styles.header} ${pathname === "/" ? styles.overlay : ""} ${open ? styles.open : ""}`}
+      className={`site-header ${styles.header} ${pathname === "/" ? styles.overlay : ""} ${open ? styles.open : ""} ${scrolled ? styles.scrolled : ""}`}
       onKeyDown={(event) => {
         if (event.key === "Escape" && open) {
           setOpen(false);
