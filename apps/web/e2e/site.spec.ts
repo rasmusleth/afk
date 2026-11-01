@@ -15,6 +15,14 @@ for (const [path, title] of [
     const response = await page.goto(path);
     expect(response?.status()).toBe(200);
     await expect(page.getByRole("banner")).toHaveCount(1);
+    await expect(page.locator("body")).toHaveCSS(
+      "background-color",
+      "rgb(8, 15, 30)",
+    );
+    await expect(page.getByRole("banner")).toHaveCSS(
+      "background-color",
+      "rgba(0, 0, 0, 0)",
+    );
     const logo = page.getByRole("banner").locator("img");
     await expect(logo).toBeVisible();
     await expect(logo).toHaveJSProperty("naturalWidth", 320);
@@ -31,36 +39,59 @@ for (const [path, title] of [
       ),
     ).toBe(true);
     expect(errors).toEqual([]);
-    if (path === "/")
+    if (path !== "/") {
+      await page.screenshot({
+        path: testInfo.outputPath("dark-page.png"),
+        fullPage: true,
+        animations: "disabled",
+      });
+    }
+    if (path === "/") {
+      await page.screenshot({
+        path: testInfo.outputPath("hero.png"),
+        animations: "disabled",
+      });
       await page.screenshot({
         path: testInfo.outputPath("page.png"),
         fullPage: true,
+        animations: "disabled",
       });
+    }
   });
 }
 
-test("navigation marks the active route and closes the mobile disclosure", async ({
+test("primary and sports navigation expose the active section and close the mobile menu", async ({
   page,
 }, testInfo) => {
-  await page.goto("/kampe/");
+  await page.goto("/nyheder/");
   const navigation = page.getByRole("navigation", { name: "Hovednavigation" });
   if (testInfo.project.name === "mobile") {
     await expect(navigation).toBeHidden();
     await page.getByRole("button", { name: "Åbn menu" }).click();
     await expect(navigation).toBeVisible();
   }
-  await navigation.getByRole("link", { name: "Stilling", exact: true }).click();
+  await navigation.getByRole("link", { name: "På banen", exact: true }).click();
+  await expect(page).toHaveURL(/\/kampe\/$/);
+  if (testInfo.project.name === "mobile") await expect(navigation).toBeHidden();
+  const sportsNavigation = page.getByRole("navigation", {
+    name: "På banen",
+    exact: true,
+  });
+  await sportsNavigation
+    .getByRole("link", { name: "Stilling", exact: true })
+    .click();
   await expect(page).toHaveURL(/\/stilling\/$/);
   await expect(
     page.getByRole("heading", { name: "Stillingen", exact: true }),
   ).toBeVisible();
-  if (testInfo.project.name === "mobile") {
-    await expect(navigation).toBeHidden();
-    await page.getByRole("button", { name: "Åbn menu" }).click();
-  }
   await expect(
-    navigation.getByRole("link", { name: "Stilling", exact: true }),
+    sportsNavigation.getByRole("link", { name: "Stilling", exact: true }),
   ).toHaveAttribute("aria-current", "page");
+  if (testInfo.project.name === "mobile")
+    await page.getByRole("button", { name: "Åbn menu" }).click();
+  await expect(
+    navigation.getByRole("link", { name: "På banen", exact: true }),
+  ).toHaveAttribute("aria-current", "true");
 });
 
 test("skip link and mobile disclosure work with the keyboard", async ({
@@ -82,7 +113,7 @@ test("skip link and mobile disclosure work with the keyboard", async ({
     await expect(
       page
         .getByRole("navigation", { name: "Hovednavigation" })
-        .getByRole("link", { name: "Forside", exact: true }),
+        .getByRole("link", { name: "På banen", exact: true }),
     ).toBeFocused();
     await page.keyboard.press("Escape");
     await expect(toggle).toBeFocused();
@@ -120,4 +151,97 @@ test("homepage links to published news and the contact route", async ({
       () => document.documentElement.scrollWidth <= window.innerWidth,
     ),
   ).toBe(true);
+});
+
+test("header centres the crest above the hero and opens a full mobile navigation", async ({
+  page,
+}, testInfo) => {
+  await page.goto("/");
+  const header = page.getByRole("banner");
+  const crest = await header.locator("img").boundingBox();
+  const hero = await page
+    .getByRole("region", { name: "Lille bane. Stort Aalborg." })
+    .boundingBox();
+  expect(crest).not.toBeNull();
+  expect(hero?.y).toBe(0);
+  expect(
+    Math.abs(crest!.x + crest!.width / 2 - page.viewportSize()!.width / 2),
+  ).toBeLessThan(1);
+  const navigation = page.getByRole("navigation", { name: "Hovednavigation" });
+  if (testInfo.project.name === "mobile") {
+    await page.getByRole("button", { name: "Åbn menu" }).click();
+    await expect(navigation).toBeVisible();
+    const menu = await header.boundingBox();
+    expect(menu!.height).toBeGreaterThanOrEqual(page.viewportSize()!.height);
+    await page.screenshot({
+      path: testInfo.outputPath("menu.png"),
+      animations: "disabled",
+    });
+    await navigation
+      .getByRole("link", { name: "Klubben", exact: true })
+      .click();
+    await expect(page).toHaveURL(/\/#klubben$/);
+    await expect(navigation).toBeHidden();
+    await expect(
+      page.getByRole("heading", {
+        name: "Et hold på banen. En klub omkring det.",
+      }),
+    ).toBeVisible();
+  } else {
+    const strip = await navigation.boundingBox();
+    expect(strip!.x + strip!.width).toBeLessThan(crest!.x);
+    for (const width of [768, 900]) {
+      await page.setViewportSize({ width, height: 800 });
+      const narrowStrip = await navigation.boundingBox();
+      const narrowCrest = await header.locator("img").boundingBox();
+      expect(narrowStrip!.x + narrowStrip!.width).toBeLessThan(narrowCrest!.x);
+    }
+  }
+  await header
+    .getByRole("link", { name: "Kontakt klubben", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/#kontakt$/);
+  await expect(
+    page.getByRole("heading", { name: "Vil du være en del af klubben?" }),
+  ).toBeVisible();
+});
+
+test("header stays visible on scroll and leaves anchor headings unobstructed", async ({
+  page,
+}, testInfo) => {
+  await page.goto("/");
+  const header = page.getByRole("banner");
+  await page
+    .getByRole("heading", { name: "Tæt på Aalborg.", exact: true })
+    .scrollIntoViewIfNeeded();
+  await expect.poll(async () => (await header.boundingBox())?.y).toBe(0);
+  await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+  await expect(header.locator("img")).toBeInViewport();
+  if (testInfo.project.name === "mobile") {
+    await header.getByRole("button", { name: "Åbn menu" }).click();
+    await expect(
+      page.getByRole("navigation", { name: "Hovednavigation" }),
+    ).toBeVisible();
+    await header.getByRole("button", { name: "Luk menu" }).click();
+  }
+  await header
+    .getByRole("link", { name: "Kontakt klubben", exact: true })
+    .click();
+  const heading = page.getByRole("heading", {
+    name: "Vil du være en del af klubben?",
+  });
+  await expect(heading).toBeInViewport();
+  const headingBox = await heading.boundingBox();
+  const headerBox = await header.boundingBox();
+  expect(headingBox!.y).toBeGreaterThanOrEqual(
+    headerBox!.y + headerBox!.height,
+  );
+  await page.screenshot({
+    path: testInfo.outputPath("sticky-header.png"),
+    animations: "disabled",
+  });
+  await header
+    .getByRole("link", { name: "Aalborg Futsal Klub – forside" })
+    .click();
+  await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
 });

@@ -1,11 +1,16 @@
 @import "tailwindcss";
 :root {
-  --background: #f1f3f8;
-  --foreground: #163cca;
+  --background: #080f1e;
+  color-scheme: dark;
+  --foreground: #e8edf7;
   --brand: #163cca;
+  --brand-ink: #0e1b34;
   --brand-accent: #afc1ff;
-  --surface: #fff;
-  --focus: #a5481d;
+  --surface: #101c30;
+  --surface-raised: #14243d;
+  --border: #2a3a53;
+  --muted: #aab8ce;
+  --focus: #afc1ff;
   --content-width: 1160px;
   --font-body: Arial, Helvetica, sans-serif;
 }
@@ -13,9 +18,13 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
   --color-brand-accent: var(--brand-accent);
-  --color-on-brand: var(--surface);
+  --color-on-brand: #fff;
   --font-sans: var(--font-body);
+}
+html {
+  scroll-padding-top: 144px;
 }
 * {
   box-sizing: border-box;
@@ -51,7 +60,7 @@ main {
   letter-spacing: 2px;
   font-size: 12px;
   font-weight: 700;
-  color: #445b9b;
+  color: var(--brand-accent);
 }
 h1 {
   font-size: clamp(36px, 6vw, 68px);
@@ -80,8 +89,8 @@ p {
   margin: 0 0 16px;
 }
 .notice {
-  background: #e8eddf;
-  border-left: 3px solid #5c7749;
+  background: var(--surface-raised);
+  border-left: 3px solid var(--brand-accent);
   padding: 16px 20px;
   margin-bottom: 28px;
   font-size: 14px;
@@ -101,14 +110,14 @@ p {
   margin-bottom: 4px;
 }
 .panel {
-  background: #fff;
-  border: 1px solid #dce1d8;
+  background: var(--surface);
+  border: 1px solid var(--border);
   padding: 28px;
   margin-bottom: 24px;
 }
 .empty {
   padding: 24px 0;
-  color: #53665e;
+  color: var(--muted);
 }
 .matches {
   list-style: none;
@@ -116,12 +125,12 @@ p {
   padding: 0;
 }
 .matches li {
-  border-top: 1px solid #dce1d8;
+  border-top: 1px solid var(--border);
   padding: 24px 0 8px;
 }
 .match-meta {
   font-size: 13px;
-  color: #53665e;
+  color: var(--muted);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -140,14 +149,14 @@ p {
 .score {
   font-size: 24px;
   font-weight: 800;
-  background: #f1f3ec;
+  background: var(--surface-raised);
   padding: 6px 16px;
   white-space: nowrap;
 }
 .match-status,
 .small {
   font-size: 13px;
-  color: #53665e;
+  color: var(--muted);
 }
 .table-scroll {
   overflow-x: auto;
@@ -165,7 +174,7 @@ caption {
 }
 td,
 th {
-  border-bottom: 1px solid #dce1d8;
+  border-bottom: 1px solid var(--border);
   padding: 14px 10px;
   text-align: right;
 }
@@ -173,10 +182,10 @@ th:nth-child(2) {
   text-align: left;
 }
 thead {
-  color: #53665e;
+  color: var(--muted);
 }
 .club-row {
-  background: #e8eddf;
+  background: var(--surface-raised);
 }
 .small {
   margin-top: 12px;
@@ -190,13 +199,13 @@ thead {
   gap: 20px;
 }
 .player {
-  border: 1px solid #dce1d8;
+  border: 1px solid var(--border);
   padding: 24px;
 }
 .player p {
   white-space: pre-line;
   font-size: 14px;
-  color: #53665e;
+  color: var(--muted);
 }
 dl {
   margin: 24px 0 0;
@@ -205,7 +214,7 @@ dl div {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  border-top: 1px solid #e6e9e2;
+  border-top: 1px solid var(--border);
   padding: 8px 0;
   font-size: 13px;
 }
@@ -217,7 +226,7 @@ dd {
   position: absolute;
   z-index: 10;
   top: -100px;
-  background: #fff;
+  background: var(--surface);
   padding: 10px;
 }
 .skip-link:focus {
@@ -240,9 +249,9 @@ dd {
   }
 }
 
-.site-data-notice { padding:10px 5%; background:#e5eaf5; font-size:11px; color:#324d8c; }
+.site-data-notice { padding:10px 5%; background:var(--surface); font-size:11px; color:var(--muted); }
 .news-index { padding:20px 0; max-width:800px; }
-.news-index article { padding:28px 0; border-top:1px solid #afbee8; }
+.news-index article { padding:28px 0; border-top:1px solid var(--border); }
 .news-index time { font-size:12px; }
 .news-index h2 { margin:12px 0; }
 .news-index p { font-size:15px; }
@@ -250,7 +259,11 @@ dd {
 .news-article>header { margin:35px 0; }
 .news-article h1 { font-size:clamp(36px,5vw,64px); overflow-wrap:anywhere; }
 .article-intro { font-size:20px; line-height:1.6; }
-.article-body { max-width:680px; margin:35px 0; line-height:1.8; color:#263760; }
+.article-body { max-width:680px; margin:35px 0; line-height:1.8; color:var(--foreground); }
 .article-body p { margin-bottom:22px; }
 .article-body h2 { font-size:30px; margin:35px 0 18px; }
 .news-article picture { display:block; margin:25px 0; }
+
+.site-footer a:focus-visible {
+  outline-color: #fff;
+}

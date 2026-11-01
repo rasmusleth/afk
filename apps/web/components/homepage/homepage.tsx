@@ -55,8 +55,17 @@ export function Homepage({ content, sports }: Props) {
   const table = view.competition?.standings;
   return (
     <main id="indhold" tabIndex={-1} className={styles.home}>
-      <DataNotice editorialMode={content.mode} sportsMode={sports.mode} />
       <section className={styles.hero} aria-labelledby="homepage-title">
+        {home?.heroImage && content.imageContext && (
+          <div className={styles.heroMedia} aria-hidden="true">
+            <EditorialImage
+              image={home.heroImage}
+              context={content.imageContext}
+              sizes="100vw"
+              eager
+            />
+          </div>
+        )}
         <div className={styles.lead}>
           <p className="eyebrow">Aalborg Futsal Klub · På banen</p>
           <h1 id="homepage-title">
@@ -90,6 +99,7 @@ export function Homepage({ content, sports }: Props) {
           </section>
         </div>
       </section>
+      <DataNotice editorialMode={content.mode} sportsMode={sports.mode} />
       <section className={styles.news} aria-labelledby="homepage-news">
         <div className={styles.sectionHeading}>
           <div>

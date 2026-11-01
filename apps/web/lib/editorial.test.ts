@@ -65,6 +65,8 @@ test("optional media requires descriptions and meaningful crop geometry", () => 
     hotspot: { x: 0.5, y: 0.5, width: 0.2, height: 0.2 },
   };
   assert.equal(parseEditorial(raw, now).homepage.clubImage?.alt, "Klubbillede");
+  raw.homepage.heroImage = structuredClone(raw.homepage.clubImage);
+  assert.equal(parseEditorial(raw, now).homepage.heroImage?.alt, "Klubbillede");
   raw.homepage.clubImage.crop.left = 0.95;
   assert.throws(() => parseEditorial(raw, now), /crop/);
 });
