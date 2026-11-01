@@ -23,7 +23,8 @@ Homepage and news use drafts and publication. Existing sports saves and review
 behaviour are unchanged. Published content becomes visible after rebuilding;
 publication-triggered builds and unpublished website previews are launch work.
 
-News images and the optional club image support crop/hotspot and require an
+News images, the optional hero background and the optional club image support
+crop/hotspot and require an
 image description. Photos are optional; the code-drawn court is the fallback.
 The official image URL helper supplies responsive Sanity CDN crops without a
 Next.js image server. The supplied white AFK crest is served locally from
@@ -93,3 +94,22 @@ The website continues to read published contact fields from Sanity.
 confirmed contact. Review it in Studio before publishing. No training schedule
 has been confirmed, so leave that optional field empty. The local test fixture
 intentionally retains its fictional `example.com` contact.
+
+## Visual reference and navigation
+
+The Astralis homepage (https://astralis.gg/) informs the more immersive visual
+composition: a full-width dark hero, clear type hierarchy, compact navigation
+and open editorial sections. AFK retains its own crest, cobalt palette, court
+motif and content structure, with restrained movement. No Astralis media or
+brand assets are reused.
+
+Primary navigation is **På banen**, **Nyheder**, **Klubben**, **Kontakt**; the
+crest returns home. Sports pages expose **Kampe & resultater**, **Stilling** and
+**Spillere** in a shared secondary navigation. Exact pages and active parent
+sections are distinguished with `aria-current`.
+
+In Studio, **Baggrundsbillede i toppen** is optional. It uses the existing
+image CDN path with crop/hotspot, eager loading and a dark overlay; without a
+photo the hero retains the court illustration on the dark background. Hero
+entrance motion respects reduced-motion preferences. No background video,
+scroll interception or animation dependency is introduced.

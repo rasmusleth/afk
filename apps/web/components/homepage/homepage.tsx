@@ -57,6 +57,16 @@ export function Homepage({ content, sports }: Props) {
     <main id="indhold" tabIndex={-1} className={styles.home}>
       <DataNotice editorialMode={content.mode} sportsMode={sports.mode} />
       <section className={styles.hero} aria-labelledby="homepage-title">
+        {home?.heroImage && content.imageContext && (
+          <div className={styles.heroMedia} aria-hidden="true">
+            <EditorialImage
+              image={home.heroImage}
+              context={content.imageContext}
+              sizes="100vw"
+              eager
+            />
+          </div>
+        )}
         <div className={styles.lead}>
           <p className="eyebrow">Aalborg Futsal Klub · På banen</p>
           <h1 id="homepage-title">

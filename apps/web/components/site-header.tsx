@@ -4,7 +4,7 @@ import { SiteNavigation } from "./site-navigation";
 
 export function SiteHeader() {
   return (
-    <header className="flex flex-wrap items-center justify-between gap-6 bg-brand px-[max(5vw,calc((100vw-1160px)/2))] py-6 text-on-brand max-sm:px-6">
+    <header className="site-header flex flex-wrap items-center justify-between gap-6 bg-brand-ink px-[max(5vw,calc((100vw-1160px)/2))] py-5 text-on-brand max-sm:px-6">
       <Link
         className="flex items-center gap-3 no-underline"
         href="/"
