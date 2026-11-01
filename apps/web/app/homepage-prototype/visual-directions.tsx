@@ -12,8 +12,8 @@ const names = { A: "Matchday", B: "Klubjournal", C: "På banen", D: "Åben klubs
 function Brand() {
   return <Link className={styles.brand} href="/">AFK<span>Aalborg<br />Futsal Klub</span></Link>;
 }
-function Navigation() {
-  return <nav aria-label="Hovednavigation"><Link href="/kampe/">Kampe & resultater</Link><Link href="/stilling/">Stilling</Link><Link href="/spillere/">Spillere</Link><Link href="#klubben">Klubben ↗</Link></nav>;
+function Navigation({ showContact = false }: { showContact?: boolean }) {
+  return <nav aria-label="Hovednavigation"><Link href="/kampe/">Kampe & resultater</Link><Link href="/stilling/">Stilling</Link><Link href="/spillere/">Spillere</Link><Link href="#klubben">Klubben ↗</Link>{showContact && <Link href="#kontakt">Kontakt ↗</Link>}</nav>;
 }
 function Court() {
   return <svg viewBox="0 0 600 420" fill="none" aria-hidden="true"><rect x="35" y="35" width="530" height="350" rx="4" /><path d="M300 35v350M35 110c130 0 130 200 0 200M565 110c-130 0-130 200 0 200" /><circle cx="300" cy="210" r="65" /><circle cx="300" cy="210" r="4" fill="currentColor" /><path d="m195 302 100-95 94 48 72-126" strokeDasharray="8 8" /><circle cx="195" cy="302" r="12" fill="currentColor" /><circle cx="389" cy="255" r="12" fill="currentColor" /><path d="m435 138 26-9 4 27" /></svg>;
@@ -40,7 +40,7 @@ export function VariantC() {
 export function VariantD() {
   return (
     <div className={`${styles.scoreboard} ${styles.hybrid}`}>
-      <header><Brand /><Navigation /></header>
+      <header><Brand /><Navigation showContact /></header>
       <main id="indhold" tabIndex={-1}>
         <section className={styles.dHero}>
           <div className={styles.dLead}>
@@ -73,8 +73,12 @@ export function VariantD() {
           <section className={styles.dStandings}><h3>Stillingen</h3><table><caption>Eksempeltabel · Ikke aktuelle klubdata</caption><thead><tr><th scope="col">Pl.</th><th scope="col">Hold</th><th scope="col">K</th><th scope="col">Pt.</th></tr></thead><tbody>{[["1", "Eksempelhold A", "6", "15"], ["2", "Aalborg FK", "6", "12"], ["3", "Eksempelhold B", "6", "10"], ["4", "Eksempelhold C", "6", "9"]].map(([rank, name, played, points]) => <tr key={rank} className={rank === "2" ? styles.dClubRow : undefined}><td>{rank}</td><th scope="row">{name}</th><td>{played}</td><td>{points}</td></tr>)}</tbody></table><Link href="/stilling/">Se hele stillingen <span>↗</span></Link></section>
         </section>
         <div className={styles.dClub}><p className={styles.number}>03 / VORES KLUB</p><ClubStory /><span className={styles.dClubWord} aria-hidden="true">AFK.</span></div>
+        <section id="kontakt" className={styles.dContact} aria-labelledby="d-contact-title">
+          <div><p className={styles.kicker}>04 / Kontakt & fællesskab</p><h2 id="d-contact-title">Vil du være<br />en del af klubben?</h2><p>Nysgerrig på at spille futsal, hjælpe til eller høre mere om Aalborg Futsal Klub? Start med en snak med klubben.</p></div>
+          <div className={styles.dContactInfo}><h3>Kontakt klubben</h3><p>Her kommer klubbens kontaktperson og e-mail samt oplysninger om, hvordan du hører mere om træning.</p><p className={styles.detail}>Indholdsforslag · Kontaktoplysninger er endnu ikke tilføjet.</p></div>
+        </section>
       </main>
-      <footer>AALBORG FUTSAL KLUB<span>Fra første fløjt. Til sidste sekund.</span></footer>
+      <footer>AALBORG FUTSAL KLUB<span>Fra første fløjt. Til sidste sekund.</span><Link href="#kontakt">Kontakt klubben ↗</Link></footer>
     </div>
   );
 }

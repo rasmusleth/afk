@@ -23,7 +23,7 @@ This branch is a design source, not an implementation PR to merge. After choosin
 a direction, implement that decision on a fresh branch and leave this study here.
 Current feedback: C’s colours and distinctive styling are preferred; A’s hero
 spacing, split composition and side graphic are preferred. D explores that
-combination. Original A–C remain available for comparison. Final verdict pending.
+combination. Original A–C remain available for comparison. The direction and five-section homepage structure are agreed; visual details remain iterative.
 
 ## E / Klubhub — revised after feedback
 
@@ -56,3 +56,21 @@ explicitly illustrative. No CMS, real data access or production route changes.
 Original D before this refinement is preserved in commit aec6bae. Continue this
 exploration in draft PR #25; implement the final selection on a fresh main-based
 branch rather than merging the throwaway prototype.
+
+## Agreed homepage structure
+
+1. Hero with next match.
+2. Latest news.
+3. Season overview (result and standings).
+4. Club introduction.
+5. Contact/joining route.
+
+The maintainer approved these sections on 1 November 2026. D now includes the
+contact section, linked from its navigation and footer. Actual contact details,
+training information and final copy are still required; the prototype shows
+an explicit content placeholder rather than inventing an email or schedule.
+
+The structure is settled for production implementation. Editorial content and
+sports reads will be connected in a fresh implementation PR from main. Keep
+this draft prototype out of production; no contact form or membership system
+is implied by the contact/joining section.
