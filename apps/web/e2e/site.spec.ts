@@ -245,3 +245,33 @@ test("header stays visible on scroll and leaves anchor headings unobstructed", a
     .click();
   await expect(header).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
 });
+
+test("homepage guides visitors from the hero to one match overview", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("link", { name: "Følg holdet", exact: true }).click();
+  await expect(page).toHaveURL(/#kampe$/);
+  const matches = page.getByRole("region", { name: "På banen.", exact: true });
+  await expect(
+    matches.getByRole("heading", { name: "Næste kamp", exact: true }),
+  ).toBeVisible();
+  await expect(
+    matches.getByRole("heading", {
+      name: "Seneste afsluttede kamp",
+      exact: true,
+    }),
+  ).toBeVisible();
+  const heading = await matches
+    .getByRole("heading", { name: "På banen.", exact: true })
+    .boundingBox();
+  const header = await page.getByRole("banner").boundingBox();
+  expect(heading!.y).toBeGreaterThanOrEqual(header!.height);
+  await matches
+    .getByRole("link", { name: "Se stillingen", exact: false })
+    .click();
+  await expect(page).toHaveURL(/\/stilling\/$/);
+  await expect(
+    page.getByRole("heading", { name: "Stillingen", exact: true }),
+  ).toBeVisible();
+});
