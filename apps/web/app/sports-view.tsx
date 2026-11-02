@@ -1,3 +1,4 @@
+import { SportsNavigation } from "../components/sports-navigation";
 import { PageIntro } from "../components/page-intro";
 import type { MatchRecord } from "@afk/sports/derivation";
 import { referenceId } from "@afk/sports/derivation";
@@ -103,6 +104,7 @@ export async function SportsView({
               ? "Ligaen, beregnet fra bekræftede kampresultater og registrerede pointjusteringer."
               : "Bekræftede spillerprofiler og de præstationer, vi kender fra kampene."}
         />
+        <SportsNavigation current={view} />
         <aside className="notice">
           {mode === "example"
             ? "Eksempelvisning med lokale testdata. Ikke aktuelle klubdata. "

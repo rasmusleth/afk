@@ -37,6 +37,7 @@ export const homepage = defineType({
     text('heroTitle', 'Overskrift', 40),
     text('heroAccent', 'Fremhævet linje', 30),
     text('heroIntro', 'Introduktion', 250, true),
+    photo('heroImage', 'Baggrundsbillede i toppen'),
     defineField({
       name: 'featuredCompetition',
       title: 'Turnering på forsiden',
