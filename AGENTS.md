@@ -142,15 +142,38 @@ understood.
 
 ## Dependencies
 
+### General principles
+
 - Use the project's existing package manager.
 - Prefer existing dependencies and platform capabilities where practical.
-- Do not add a dependency when the task can reasonably be solved with the
-  existing stack.
-- Before adding a significant dependency, consider maintenance burden,
-  security, bundle/runtime impact, and whether an existing dependency already
-  solves the problem.
-- Do not perform broad or unrelated dependency upgrades as part of another
-  task.
+- Do not add a dependency when the task can reasonably be solved with the existing stack.
+- Do not perform broad or unrelated dependency upgrades as part of another task.
+- Keep dependency manifests and lockfiles synchronized.
+
+### Security verification
+
+Before introducing a new third-party dependency:
+
+1. **Verify legitimacy:** Confirm the exact package name on its official registry (npm, PyPI, etc.). Check its publisher, repository, and maintenance status.
+2. **Check vulnerabilities:** Check for known security advisories affecting the selected version using appropriate tools (e.g., `npm audit`, `pip-audit`).
+3. **Evaluate necessity:** Consider whether an existing dependency could provide the same functionality, along with maintenance burden, security, and bundle/runtime impact.
+4. **Verify the source:** Prefer official package registries. Do not install packages from unverified registries, Git repositories, or arbitrary URLs.
+
+If verification cannot be completed, explain the limitation and request user approval before installing the dependency.
+
+### Installation and execution
+
+- Do not bypass sandbox restrictions to install dependencies without explicit user approval.
+- Do not execute remote installation scripts (e.g., `curl ... | sh`) without explicit user approval.
+- Do not disable security checks or weaken sandbox restrictions to complete an installation.
+- Never inspect, expose, or transmit credentials, private keys, or API tokens during dependency installation.
+- Keep dependency installation and execution within the permitted development environment.
+
+### Validation and reporting
+
+- Run the appropriate dependency vulnerability audit when dependencies change.
+- Report any vulnerabilities or unresolved security concerns.
+- Summarize newly introduced direct dependencies and their purpose when completing the task.
 
 ## Sports data
 
