@@ -15,6 +15,7 @@ export interface HomepageContent {
   heroTitle: string;
   heroAccent: string;
   heroIntro: string;
+  heroImage?: EditorialImage;
   newsHeading: string;
   competitionId?: string;
   clubTitle: string;
@@ -184,6 +185,7 @@ export function parseEditorial(
     heroTitle: string(home.heroTitle, "heroTitle", 40),
     heroAccent: string(home.heroAccent, "heroAccent", 30),
     heroIntro: string(home.heroIntro, "heroIntro", 250),
+    heroImage: image(home.heroImage),
     newsHeading: string(home.newsHeading, "newsHeading", 80),
     clubTitle: string(home.clubTitle, "clubTitle", 100),
     clubText: string(home.clubText, "clubText", 1500),

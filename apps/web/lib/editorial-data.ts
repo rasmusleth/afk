@@ -4,7 +4,7 @@ import { parseEditorial } from "./editorial.ts";
 
 // Explicit published projections keep drafts, import metadata and unrelated fields off the site.
 export const editorialQuery = `{
- "homepage": *[_type == "homepage" && _id == "homepage"][0]{_id,heroTitle,heroAccent,heroIntro,newsHeading,featuredCompetition,clubTitle,clubText,clubImage{asset,alt,crop,hotspot},contactTitle,contactText,contactName,contactEmail,trainingInfo,seoDescription},
+ "homepage": *[_type == "homepage" && _id == "homepage"][0]{_id,heroTitle,heroAccent,heroIntro,heroImage{asset,alt,crop,hotspot},newsHeading,featuredCompetition,clubTitle,clubText,clubImage{asset,alt,crop,hotspot},contactTitle,contactText,contactName,contactEmail,trainingInfo,seoDescription},
  "news": *[_type == "newsArticle" && !(_id in path("drafts.**")) && !(_id in path("versions.**"))]{_id,title,slug,excerpt,publishedAt,image{asset,alt,crop,hotspot},body[]{_key,_type,style,listItem,children[]{_key,_type,text,marks},markDefs[]{_key,_type,href}}}
 }`;
 export async function readEditorial(

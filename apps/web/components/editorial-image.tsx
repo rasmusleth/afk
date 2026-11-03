@@ -23,10 +23,14 @@ export function EditorialImage({
   image,
   context,
   className = "",
+  sizes = "(max-width: 700px) 90vw, 50vw",
+  eager = false,
 }: {
   image: Photo;
   context: ImageContext;
   className?: string;
+  sizes?: string;
+  eager?: boolean;
 }) {
   // Native responsive CDN URLs preserve crop/hotspot without an image-optimization server.
   const builder = createImageUrlBuilder(context)
@@ -38,9 +42,10 @@ export function EditorialImage({
     .join(", ");
   return (
     <picture>
-      <source srcSet={sources} sizes="(max-width: 700px) 90vw, 50vw" />
+      <source srcSet={sources} sizes={sizes} />
       <Image
         unoptimized
+        loading={eager ? "eager" : "lazy"}
         src={builder.width(1200).height(800).url()}
         width={1200}
         height={800}

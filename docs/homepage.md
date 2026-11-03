@@ -1,15 +1,15 @@
 # Homepage and news
 
-The homepage implements the selected D direction from prototype PR #25:
-open sections, a split hero, a court graphic, news, a season overview, club
-introduction and contact/joining information. The prototype is a design
-reference; it is not merged into this implementation.
+The homepage keeps the dark AFK palette and shared header, with a media-led
+composition: a full-width hero, one next-match/result section, editorial news,
+a club story and a contact invitation. The earlier D prototype supplied the
+visual foundation; it is not merged into this implementation.
 
 ## Editors
 
 In Studio, open **Forside**. Fill the required text and contact fields, choose
 **Turnering på forsiden**, and publish. This fixed document has ID `homepage`.
-Selecting a competition controls the summary; teams still need the existing
+Selecting a competition controls the match summary; teams still need the existing
 **Aalborg team** flag. Leaving the competition empty produces an honest empty
 sports summary, not an inferred selection by club name.
 
@@ -23,8 +23,10 @@ Homepage and news use drafts and publication. Existing sports saves and review
 behaviour are unchanged. Published content becomes visible after rebuilding;
 publication-triggered builds and unpublished website previews are launch work.
 
-News images and the optional club image support crop/hotspot and require an
-image description. Photos are optional; the code-drawn court is the fallback.
+News images, the optional hero background and the optional club image support
+crop/hotspot and require an
+image description. Photos are optional; labelled, code-drawn media placeholders
+show their intended placement when no photo is supplied.
 The official image URL helper supplies responsive Sanity CDN crops without a
 Next.js image server. The supplied white AFK crest is served locally from
 `apps/web/public/afk-logo-white-small.png`. The system font remains temporary
@@ -70,8 +72,9 @@ sports derivation. It does not store or edit totals. Only scheduled, dated
 fixtures that have not passed can be the next match. A date-only fixture today
 retains its unknown time. Postponed, cancelled, abandoned and unresolved matches
 remain accessible on the sports page. Undated completed matches cannot establish
-which result is latest. Official scores, standings issues and shared ranks
-retain their existing unknown/confirmed distinctions. Everything is a build-time
+which result is latest. Official scores retain their unknown/confirmed
+distinctions. The homepage links to the full standings and player pages instead
+of repeating their tables. Everything is a build-time
 snapshot; this is not a live ticker.
 
 ## Before launch
@@ -93,3 +96,49 @@ The website continues to read published contact fields from Sanity.
 confirmed contact. Review it in Studio before publishing. No training schedule
 has been confirmed, so leave that optional field empty. The local test fixture
 intentionally retains its fictional `example.com` contact.
+
+## Visual reference and navigation
+
+The Astralis homepage (https://astralis.gg/) informs the more immersive visual
+composition: a full-width dark hero, clear type hierarchy, compact navigation
+and open editorial sections. AFK retains its own crest, cobalt palette, court
+motif and content structure, with restrained movement. No Astralis media or
+brand assets are reused.
+
+Primary navigation is **På banen**, **Nyheder**, **Klubben**, **Kontakt**; the
+crest returns home. Sports pages expose **Kampe & resultater**, **Stilling** and
+**Spillere** in a shared secondary navigation. Exact pages and active parent
+sections are distinguished with `aria-current`.
+
+In Studio, **Baggrundsbillede i toppen** is optional. It uses the existing
+image CDN path with crop/hotspot, eager loading and a dark overlay; without a
+photo the hero shows a clearly labelled club-film placeholder. Photo hover
+motion respects reduced-motion preferences. No background video,
+scroll interception or animation dependency is introduced.
+
+The shared header follows Astralis's layout: a compact white desktop link strip,
+a centred AFK crest and a contact shortcut. The header stays transparent at the
+top while scrolling. All public pages use dark navy surfaces, light text and
+muted borders; the white desktop navigation strip remains a deliberate contrast.
+Anchor links leave room for the header. On the homepage it overlays the hero;
+other pages use the same transparent header over the dark page. Mobile uses a
+two-line menu button and a large centred navigation on a dark background. The
+menu is an in-flow disclosure, closes on navigation or Escape, and returns focus
+to its button on Escape. It does not trap focus or lock scrolling. The
+fictional-data notice follows the homepage hero so it does not split the header
+from its background.
+
+## Homepage media plan
+
+- **Hero:** an existing Sanity hero photo replaces the cinematic placeholder.
+  The proposed club film is a visual placeholder only: there is no video player,
+  autoplay, download or non-functional play button. A real video needs an asset,
+  poster and an accessible playback decision before implementation.
+- **News:** one lead story and up to two supporting stories use each article's
+  existing image. All published stories remain accessible on the news page.
+  Missing images have labelled photo spaces, not invented club imagery.
+- **Club:** the existing club image occupies the large story panel. A candid
+  team or hall photo is the intended replacement for the placeholder.
+
+The layout reads the existing published text and image fields. No new CMS
+schema, content writes, media service or runtime dependency is required.
